@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "last_updated": "2026-07-13",
+  "decoded_books": {
+    "7628454764392500249": {
+      "title": "极寒末世，我跟着重生者买买买",
+      "author": "雪大",
+      "first_decoded_date": "2026-07-13",
+      "last_mentioned_date": "2026-07-13",
+      "decode_count": 1,
+      "categories": ["0_1_8"],
+      "last_read_count": 151723,
+      "last_word_number": 243689
+    },
+    "7650045105436363838": {
+      "title": "游戏入侵：全服笑我捡垃圾",
+      "author": "东仙山小兔子",
+      "first_decoded_date": "2026-07-13",
+      "last_mentioned_date": "2026-07-13",
+      "decode_count": 1,
+      "categories": ["0_1_746"],
+      "last_read_count": 40035,
+      "last_word_number": 188053
+    }
+  }
+}
