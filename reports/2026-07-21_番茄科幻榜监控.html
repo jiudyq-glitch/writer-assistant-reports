@@ -8,54 +8,76 @@
 <link rel="stylesheet" href="assets/doc.css">
 <style>
 :root {
-    --color-blue: #2C2CDC;
-    --color-orange: #F2A03A;
-    --color-red: #E83A2A;
-    --color-cream: #F4E9D6;
-    --color-ink: #0E0E14;
+    --c-ink: #1a1a1f;
+    --c-text: #2d2d35;
+    --c-muted: #6b6b75;
+    --c-line: #e8e6e1;
+    --c-bg: #faf9f7;
+    --c-card: #ffffff;
+    --c-accent: #4a6b5e;
+    --c-accent-soft: #eef2f0;
+    --c-warm: #8a7968;
+    --c-warm-soft: #f3efe9;
+    --c-cool: #5a6b7a;
+    --c-cool-soft: #eef1f4;
 }
-body { font-family: 'Noto Sans CJK SC', 'WenQuanYi Micro Hei', sans-serif; }
+* { box-sizing: border-box; }
+body { font-family: 'Noto Sans CJK SC', 'PingFang SC', 'WenQuanYi Micro Hei', sans-serif; background: var(--c-bg); color: var(--c-text); margin: 0; line-height: 1.7; }
+.doc-main { max-width: 960px; margin: 0 auto; padding: 40px 32px 80px; }
+.doc-block { margin: 32px 0; }
+h1 { font-size: 28px; font-weight: 700; color: var(--c-ink); margin: 0 0 8px; letter-spacing: -0.5px; }
+.doc-subtitle { font-size: 13px; color: var(--c-muted); margin: 0 0 4px; }
+.doc-note { padding: 14px 18px; background: var(--c-cool-soft); border-radius: 8px; font-size: 13px; line-height: 1.8; margin: 16px 0; color: var(--c-text); }
 .cover-cards { display: flex; gap: 16px; margin: 20px 0; flex-wrap: wrap; }
-.cover-card { width: 180px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); background: #fff; }
-.cover-img-wrap { position: relative; width: 100%; height: 240px; overflow: hidden; background: #f0f0f0; }
+.cover-card { width: 180px; border-radius: 10px; overflow: hidden; background: var(--c-card); box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.06); transition: transform 0.2s, box-shadow 0.2s; }
+.cover-card:hover { transform: translateY(-2px); box-shadow: 0 4px 24px rgba(0,0,0,0.1); }
+.cover-img-wrap { position: relative; width: 100%; height: 240px; overflow: hidden; background: var(--c-line); }
 .cover-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
-.cover-fallback { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #999; font-size: 13px; background: #f5f5f5; }
-.cover-rank { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.7); color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 14px; font-weight: bold; }
-.cover-badge { position: absolute; top: 8px; right: 8px; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: bold; }
-.cover-badge.new { background: var(--color-red); color: #fff; }
-.cover-badge.hot { background: var(--color-orange); color: #fff; }
-.cover-info { padding: 10px; }
-.cover-title { font-size: 13px; font-weight: 600; line-height: 1.4; margin-bottom: 6px; color: var(--color-ink); height: 36px; overflow: hidden; }
+.cover-fallback { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: var(--c-muted); font-size: 13px; background: var(--c-bg); }
+.cover-rank { position: absolute; top: 10px; left: 10px; background: rgba(26,26,31,0.75); backdrop-filter: blur(4px); color: #fff; padding: 3px 10px; border-radius: 6px; font-size: 13px; font-weight: 600; }
+.cover-badge { position: absolute; top: 10px; right: 10px; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; }
+.cover-badge.new { background: var(--c-warm); color: #fff; }
+.cover-badge.hot { background: var(--c-accent); color: #fff; }
+.cover-info { padding: 12px; }
+.cover-title { font-size: 13px; font-weight: 600; line-height: 1.4; margin-bottom: 8px; color: var(--c-ink); height: 36px; overflow: hidden; }
 .cover-stats { display: flex; justify-content: space-between; font-size: 12px; }
-.stat-read { color: var(--color-red); font-weight: 600; }
-.stat-eff { color: var(--color-blue); }
-.rank-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13px; }
-.rank-table th { background: var(--color-ink); color: #fff; padding: 8px 10px; text-align: left; font-weight: 600; }
-.rank-table td { padding: 7px 10px; border-bottom: 1px solid #e0e0e0; }
-.rank-table tr:hover { background: #f8f8f8; }
+.stat-read { color: var(--c-ink); font-weight: 600; }
+.stat-eff { color: var(--c-accent); font-weight: 500; }
+.rank-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13px; background: var(--c-card); border-radius: 8px; overflow: hidden; }
+.rank-table th { background: var(--c-ink); color: #fff; padding: 10px 12px; text-align: left; font-weight: 600; font-size: 12px; letter-spacing: 0.3px; }
+.rank-table td { padding: 9px 12px; border-bottom: 1px solid var(--c-line); }
+.rank-table tr:hover { background: var(--c-bg); }
+.rank-table tr:last-child td { border-bottom: none; }
 .rank-table.compact { font-size: 12px; }
-.rank-table.compact th, .rank-table.compact td { padding: 5px 8px; }
-.col-rank { width: 50px; text-align: center; }
+.rank-table.compact th, .rank-table.compact td { padding: 7px 10px; }
+.col-rank { width: 50px; text-align: center; color: var(--c-muted); }
 .col-title { min-width: 200px; }
 .col-read, .col-eff { text-align: right; }
-.tag-new { background: var(--color-red); color: #fff; padding: 1px 5px; border-radius: 3px; font-size: 10px; }
-.tag-hot { background: var(--color-orange); color: #fff; padding: 1px 5px; border-radius: 3px; font-size: 10px; }
-.insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
-.insight-card { padding: 16px; border-radius: 8px; border-left: 4px solid var(--color-blue); background: #f8f9fa; }
-.insight-card.red { border-left-color: var(--color-red); }
-.insight-card.orange { border-left-color: var(--color-orange); }
-.insight-card.ink { border-left-color: var(--color-ink); }
-.insight-title { font-size: 13px; font-weight: 700; color: var(--color-ink); margin-bottom: 6px; }
-.insight-body { font-size: 13px; line-height: 1.6; color: #444; }
-.graduation-warning { margin: 12px 0; padding: 10px 14px; background: #FFF3E0; border-left: 3px solid var(--color-orange); border-radius: 4px; font-size: 13px; }
-.grad-item { display: inline-block; margin: 2px 8px 2px 0; padding: 2px 8px; background: #fff; border-radius: 3px; font-size: 12px; }
-.section-title { font-size: 20px; font-weight: 700; color: var(--color-ink); margin: 32px 0 16px; padding-bottom: 8px; border-bottom: 2px solid var(--color-ink); }
-.subsection-title { font-size: 16px; font-weight: 600; color: var(--color-ink); margin: 24px 0 12px; }
+.tag-new { background: var(--c-warm); color: #fff; padding: 1px 6px; border-radius: 4px; font-size: 10px; margin-left: 4px; }
+.tag-hot { background: var(--c-accent); color: #fff; padding: 1px 6px; border-radius: 4px; font-size: 10px; margin-left: 4px; }
+.insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 20px 0; }
+.insight-card { padding: 18px; border-radius: 10px; background: var(--c-card); border: 1px solid var(--c-line); position: relative; overflow: hidden; }
+.insight-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; }
+.insight-card.warm::before { background: var(--c-warm); }
+.insight-card.accent::before { background: var(--c-accent); }
+.insight-card.cool::before { background: var(--c-cool); }
+.insight-card.ink::before { background: var(--c-ink); }
+.insight-title { font-size: 12px; font-weight: 600; color: var(--c-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+.insight-body { font-size: 13px; line-height: 1.65; color: var(--c-text); }
+.graduation-warning { margin: 14px 0; padding: 14px 18px; background: var(--c-warm-soft); border-radius: 8px; font-size: 13px; line-height: 1.8; }
+.grad-item { display: inline-block; margin: 3px 8px 3px 0; padding: 3px 10px; background: var(--c-card); border-radius: 6px; font-size: 12px; border: 1px solid var(--c-line); }
+.section-title { font-size: 20px; font-weight: 700; color: var(--c-ink); margin: 36px 0 16px; padding-bottom: 10px; border-bottom: 1px solid var(--c-line); letter-spacing: -0.3px; }
+.subsection-title { font-size: 15px; font-weight: 600; color: var(--c-ink); margin: 24px 0 12px; }
 .chart-container { margin: 24px 0; }
-.note-box { padding: 12px 16px; background: #f0f4ff; border-radius: 6px; font-size: 13px; line-height: 1.7; margin: 16px 0; }
-.tag-trend-box { padding: 12px 16px; background: #fff8f0; border-radius: 6px; font-size: 13px; line-height: 1.8; margin: 12px 0; }
-.cp-analysis-box { padding: 14px 18px; background: #f8f0ff; border-radius: 6px; font-size: 13px; line-height: 1.8; margin: 12px 0; }
+.note-box { padding: 14px 18px; background: var(--c-cool-soft); border-radius: 8px; font-size: 13px; line-height: 1.8; margin: 16px 0; color: var(--c-text); }
+.tag-trend-box { padding: 14px 18px; background: var(--c-warm-soft); border-radius: 8px; font-size: 13px; line-height: 1.9; margin: 12px 0; color: var(--c-text); }
+.cp-analysis-box { padding: 16px 20px; background: var(--c-accent-soft); border-radius: 8px; font-size: 13px; line-height: 1.9; margin: 12px 0; color: var(--c-text); }
 .hidden-json { display: none; }
+.chart-canvas { width: 100%; }
+.chart-caption { font-size: 12px; color: var(--c-muted); margin-top: 8px; }
+.toc { position: fixed; top: 40px; right: 32px; width: 200px; font-size: 12px; color: var(--c-muted); }
+.toc a { color: var(--c-muted); text-decoration: none; display: block; padding: 3px 0; }
+.toc a:hover { color: var(--c-accent); }
 </style>
 </head>
 <body>
@@ -64,16 +86,16 @@ body { font-family: 'Noto Sans CJK SC', 'WenQuanYi Micro Hei', sans-serif; }
 <div class="doc-block" id="cover">
 <h1>番茄科幻榜监控 2026-07-21 日报</h1>
 <p class="doc-subtitle">数据来源：番茄小说网（fanqienovel.com）四榜各30条，rankVersion=1784601000</p>
-<p>对比基准：2026-07-20 报告 | 运行模式：日报（周二） | 效率 = 在读人数 ÷ (字数 ÷ 10000)</p>
+<p class="doc-subtitle">对比基准：2026-07-20 报告 | 运行模式：日报（周二） | 效率 = 在读人数 ÷ (字数 ÷ 10000)</p>
 </div>
 <div class="doc-block" id="insights">
 <h2 class="section-title">今日洞察速览</h2>
 <div class="insight-grid">
-<div class="insight-card red"><div class="insight-title">变化最显著的书</div>
+<div class="insight-card warm"><div class="insight-title">变化最显著的书</div>
 <div class="insight-body"><strong>宿舍求生：我刷广告开始变强</strong>在读18.7万（效率7434，新书榜最高），连续3天稳居科幻新书榜前列。以恶毒女配+诡异求生+纯龙傲天男主的强反差组合，精准命中暑假学生群体的代入感与猎奇需求。</div></div>
-<div class="insight-card blue"><div class="insight-title">最火人设组合</div>
+<div class="insight-card accent"><div class="insight-title">最火人设组合</div>
 <div class="insight-body"><strong>生存型女主 × 隐藏实力男主 × 平等博弈CP</strong>。生存型女主占96%（建立安全边界），与7月全球极端寒冷事件驱动的囤货焦虑共振。隐藏实力男主56%，平等博弈CP为主流但动态反转（破镜重圆+强制爱）效率更高。</div></div>
-<div class="insight-card orange"><div class="insight-title">新上榜 3 本</div>
+<div class="insight-card cool"><div class="insight-title">新上榜 3 本</div>
 <div class="insight-body">集中在游戏体育新书榜尾段（#29木筏求生、#30游戏降临脆皮巫）+ 科幻末世阅读榜#30（撒糯米冒黑烟），均为腰部入榜。头部格局稳定，科幻新书榜Top9连续3天零换血。</div></div>
 <div class="insight-card ink"><div class="insight-title">编辑核心判断</div>
 <div class="insight-body">极寒/囤货题材继续霸榜但增量放缓，<strong>推流方向正从单一囤货向"囤货+系统机制创新"分化</strong>。萌宠+种田+美食（29本）与游戏入侵（21本）构成第二梯队。建议关注系统机制微创新（捡垃圾/炖怪/数据流），避免同质化限流。</div></div>
@@ -423,7 +445,7 @@ body { font-family: 'Noto Sans CJK SC', 'WenQuanYi Micro Hei', sans-serif; }
 <h3 class="subsection-title">新书榜在读人数对比（科幻末世 + 游戏体育 Top10）</h3>
 <div class="doc-chart" id="chart-newbook-comparison" data-chart="bar" data-data="chart-newbook-data" data-type="bar">
 <div class="chart-canvas" style="height:420px"></div>
-<p class="chart-caption">数据来源：番茄小说API，2026-07-21 rankVersion=1784601000。效率=在读÷(字数÷10000)。配色：蓝#2C2CDC科幻末世、橙#F2A03A游戏体育。</p>
+<p class="chart-caption">数据来源：番茄小说API，2026-07-21 rankVersion=1784601000。效率=在读÷(字数÷10000)。</p>
 </div>
 <script type="application/json" id="chart-newbook-data">
 {"scifi": [{"name": "极寒末世，我跟着重生", "value": 157502}, {"name": "宿舍求生：我刷广告开", "value": 186763}, {"name": "末日来临：囤货癖的她", "value": 93706}, {"name": "末世？宅女舒适区", "value": 75052}, {"name": "反派理性喜欢的妻子", "value": 55513}, {"name": "零能80度，我在游能", "value": 65015}, {"name": "末日来临，小漂亮被前", "value": 60973}, {"name": "末世修仙养女儿，清冷", "value": 56201}, {"name": "别惹小祖宗！末世大佬", "value": 62428}, {"name": "末世作精女配勾引疯批", "value": 48973}], "game": [{"name": "游戏入侵：全服第一捡", "value": 42406}, {"name": "万人嫌反派炮灰成了早", "value": 22308}, {"name": "S级陪玩：电竞少女制", "value": 17660}, {"name": "海上求生：我提前氪金", "value": 18920}, {"name": "全民求生：别人吓哭，", "value": 16346}, {"name": "求生游戏，我真不是美", "value": 12837}, {"name": "公路求生，开局和前任", "value": 11757}, {"name": "虚拟游戏：P+P竟是", "value": 14430}, {"name": "游戏入侵：开局SSS", "value": 13061}, {"name": "求生游戏：我在童梦森", "value": 13030}]}
@@ -446,7 +468,7 @@ body { font-family: 'Noto Sans CJK SC', 'WenQuanYi Micro Hei', sans-serif; }
 <tr><td>种田</td><td>18</td><td>题材</td></tr>
 <tr><td>丧尸</td><td>17</td><td>题材</td></tr>
 <tr><td>女强</td><td>17</td><td>人设</td></tr>
-<tr><td>CP＋</td><td>14</td><td>其他</td></tr>
+<tr><td>甜宠</td><td>14</td><td>关系</td></tr>
 </tbody></table>
 <div class="tag-trend-box">
 <strong>增长Top3：</strong>空间（囤货+空间共现14次，空间金手指成标配）、基建（求生+基建组合稳定上升，种田基建长线需求）、萌宠/种田/美食（29本含此梗，治愈系第二梯队成型）。<br>
@@ -490,7 +512,7 @@ body { font-family: 'Noto Sans CJK SC', 'WenQuanYi Micro Hei', sans-serif; }
 </div>
 <div class="doc-block" id="changes">
 <h2 class="section-title">三、今日变化备注</h2>
-<p>与 2026-07-20 报告对比（昨日可见表格为"万"单位精度，小幅波动被精度掩盖，仅显示显著变化）。</p>
+<p style="color:var(--c-muted);font-size:13px">与 2026-07-20 报告对比（昨日可见表格为"万"单位精度，小幅波动被精度掩盖，仅显示显著变化）。</p>
 <h3 class="subsection-title">新上榜（3本）</h3>
 <table class="rank-table compact"><thead><tr><th>榜单</th><th>排名</th><th>书名</th><th>在读</th></tr></thead><tbody>
 <tr><td>游戏体育新书榜</td><td>#29</td><td>木筏求：闺蜜躺赢</td><td>4778</td></tr>
@@ -511,11 +533,11 @@ body { font-family: 'Noto Sans CJK SC', 'WenQuanYi Micro Hei', sans-serif; }
 </div>
 <div class="doc-block" id="signals">
 <h2 class="section-title">四、值得关注的信号</h2>
-<div class="insight-card red"><div class="insight-title">信号1：AI/太空算力新闻密集 — 星际机甲题材外部背书强化</div>
+<div class="insight-card warm"><div class="insight-title">信号1：AI/太空算力新闻密集 — 星际机甲题材外部背书强化</div>
 <div class="insight-body">2026年7月WAIC发布"星枢计划"首发星座、商汤算力星座千星规划、国星宇航全球首创"星载大模型远程操控地面机器人"验证。AI+太空算力题材获强外部背书，与阅读榜#1《精妹修机甲吗》（在读167.5万，+14.6%）共振。星际机甲题材头部效应强化，但新书榜暂无对应爆款，存在"头部已验证+新书未跟进"的机会窗口。</div></div>
-<div class="insight-card orange"><div class="insight-title">信号2：极寒末世题材增量放缓 — 系统机制创新成分化点</div>
+<div class="insight-card accent"><div class="insight-title">信号2：极寒末世题材增量放缓 — 系统机制创新成分化点</div>
 <div class="insight-body">极寒/囤货题材继续霸榜（32本）但头部格局稳定、增量放缓，推流方向正从"单一囤货"向"囤货+系统机制创新"分化。《全民求生：别人吓哭，我在炖怪》《游戏入侵：全服第一捡垃圾》验证具体系统机制比抽象"升级流"更吸睛。建议Qiao在空间囤货基础上嫁接具体系统机制（如数据流/烹饪/拾荒），避免同质化限流。</div></div>
-<div class="insight-card blue"><div class="insight-title">信号3：暑假档短篇效率突出 — 碎片化阅读场景利好</div>
+<div class="insight-card cool"><div class="insight-title">信号3：暑假档短篇效率突出 — 碎片化阅读场景利好</div>
 <div class="insight-body">短篇（&lt;15万字）在新书榜效率突出：《反派理性喜欢的妻子》10.9万字效率5071。短篇合集模式（多单元剧+独立CP）成为效率之王，适合暑假学生碎片化阅读场景。预计7-8月短篇快节奏+系统机制创新题材持续利好。</div></div>
 </div>
 <div class="doc-block" id="sources">
