@@ -20,6 +20,10 @@
     --c-warm-soft: #f3efe9;
     --c-cool: #5a6b7a;
     --c-cool-soft: #eef1f4;
+    --c-highlight: #2d4a3e;
+    --c-highlight-soft: #d9e5df;
+    --c-alert: #9c5a3f;
+    --c-alert-soft: #f4e8e0;
 }
 * { box-sizing: border-box; }
 body { font-family: 'Noto Sans CJK SC', 'PingFang SC', 'WenQuanYi Micro Hei', sans-serif; background: var(--c-bg); color: var(--c-text); margin: 0; line-height: 1.7; }
@@ -28,6 +32,16 @@ body { font-family: 'Noto Sans CJK SC', 'PingFang SC', 'WenQuanYi Micro Hei', sa
 h1 { font-size: 28px; font-weight: 700; color: var(--c-ink); margin: 0 0 8px; letter-spacing: -0.5px; }
 .doc-subtitle { font-size: 13px; color: var(--c-muted); margin: 0 0 4px; }
 .doc-note { padding: 14px 18px; background: var(--c-cool-soft); border-radius: 8px; font-size: 13px; line-height: 1.8; margin: 16px 0; color: var(--c-text); }
+/* 重点突出组件 */
+.key-callout { padding: 16px 20px; background: var(--c-highlight-soft); border-radius: 8px; border-left: 3px solid var(--c-highlight); margin: 16px 0; font-size: 14px; line-height: 1.8; }
+.key-callout strong { color: var(--c-highlight); }
+.highlight-num { background: var(--c-highlight-soft); padding: 1px 6px; border-radius: 4px; font-weight: 700; color: var(--c-highlight); }
+.trend-up { color: var(--c-accent); font-weight: 600; }
+.trend-down { color: var(--c-alert); font-weight: 600; }
+.tag-pill { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; margin: 2px; }
+.tag-pill.up { background: var(--c-accent-soft); color: var(--c-accent); }
+.tag-pill.down { background: var(--c-alert-soft); color: var(--c-alert); }
+.tag-pill.new { background: var(--c-warm-soft); color: var(--c-warm); }
 .cover-cards { display: flex; gap: 16px; margin: 20px 0; flex-wrap: wrap; }
 .cover-card { width: 180px; border-radius: 10px; overflow: hidden; background: var(--c-card); box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.06); transition: transform 0.2s, box-shadow 0.2s; }
 .cover-card:hover { transform: translateY(-2px); box-shadow: 0 4px 24px rgba(0,0,0,0.1); }
@@ -54,7 +68,6 @@ h1 { font-size: 28px; font-weight: 700; color: var(--c-ink); margin: 0 0 8px; le
 .col-title { min-width: 200px; }
 .col-read, .col-eff { text-align: right; }
 .tag-new { background: var(--c-warm); color: #fff; padding: 1px 6px; border-radius: 4px; font-size: 10px; margin-left: 4px; }
-.tag-hot { background: var(--c-accent); color: #fff; padding: 1px 6px; border-radius: 4px; font-size: 10px; margin-left: 4px; }
 .insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 20px 0; }
 .insight-card { padding: 18px; border-radius: 10px; background: var(--c-card); border: 1px solid var(--c-line); position: relative; overflow: hidden; }
 .insight-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; }
@@ -72,6 +85,13 @@ h1 { font-size: 28px; font-weight: 700; color: var(--c-ink); margin: 0 0 8px; le
 .note-box { padding: 14px 18px; background: var(--c-cool-soft); border-radius: 8px; font-size: 13px; line-height: 1.8; margin: 16px 0; color: var(--c-text); }
 .tag-trend-box { padding: 14px 18px; background: var(--c-warm-soft); border-radius: 8px; font-size: 13px; line-height: 1.9; margin: 12px 0; color: var(--c-text); }
 .cp-analysis-box { padding: 16px 20px; background: var(--c-accent-soft); border-radius: 8px; font-size: 13px; line-height: 1.9; margin: 12px 0; color: var(--c-text); }
+.signal-card { padding: 18px 22px; border-radius: 10px; background: var(--c-card); border: 1px solid var(--c-line); margin: 14px 0; position: relative; }
+.signal-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; }
+.signal-card.warm::before { background: var(--c-warm); }
+.signal-card.accent::before { background: var(--c-accent); }
+.signal-card.cool::before { background: var(--c-cool); }
+.signal-title { font-size: 14px; font-weight: 700; color: var(--c-ink); margin-bottom: 8px; }
+.signal-body { font-size: 13px; line-height: 1.7; color: var(--c-text); }
 .hidden-json { display: none; }
 .chart-canvas { width: 100%; }
 .chart-caption { font-size: 12px; color: var(--c-muted); margin-top: 8px; }
@@ -92,9 +112,9 @@ h1 { font-size: 28px; font-weight: 700; color: var(--c-ink); margin: 0 0 8px; le
 <h2 class="section-title">今日洞察速览</h2>
 <div class="insight-grid">
 <div class="insight-card warm"><div class="insight-title">变化最显著的书</div>
-<div class="insight-body"><strong>宿舍求生：我刷广告开始变强</strong>在读18.7万（效率7434，新书榜最高），连续3天稳居科幻新书榜前列。以恶毒女配+诡异求生+纯龙傲天男主的强反差组合，精准命中暑假学生群体的代入感与猎奇需求。</div></div>
+<div class="insight-body"><strong>宿舍求生：我刷广告开始变强</strong>在读<span class="highlight-num">18.7万</span>（效率<span class="highlight-num">7434</span>，新书榜最高），连续3天稳居科幻新书榜前列。恶毒女配+诡异求生+纯龙傲天男主的强反差组合，精准命中暑假学生群体的代入感与猎奇需求。</div></div>
 <div class="insight-card accent"><div class="insight-title">最火人设组合</div>
-<div class="insight-body"><strong>生存型女主 × 隐藏实力男主 × 平等博弈CP</strong>。生存型女主占96%（建立安全边界），与7月全球极端寒冷事件驱动的囤货焦虑共振。隐藏实力男主56%，平等博弈CP为主流但动态反转（破镜重圆+强制爱）效率更高。</div></div>
+<div class="insight-body"><strong>生存型女主 × 隐藏实力男主 × 平等博弈CP</strong>。生存型女主占<span class="highlight-num">96%</span>，与7月中国极端天气（广西汛情、北方四轮热浪）驱动的灾害焦虑共振。隐藏实力男主56%，平等博弈CP为主流但动态反转（破镜重圆+强制爱）效率更高。</div></div>
 <div class="insight-card cool"><div class="insight-title">新上榜 3 本</div>
 <div class="insight-body">集中在游戏体育新书榜尾段（#29木筏求生、#30游戏降临脆皮巫）+ 科幻末世阅读榜#30（撒糯米冒黑烟），均为腰部入榜。头部格局稳定，科幻新书榜Top9连续3天零换血。</div></div>
 <div class="insight-card ink"><div class="insight-title">编辑核心判断</div>
@@ -437,9 +457,15 @@ h1 { font-size: 28px; font-weight: 700; color: var(--c-ink); margin: 0 0 8px; le
 <tr><td class="col-rank">#8</td><td class="col-title">末世修仙养女儿，清冷佛子杀疯了</td><td class="col-read">5.6万</td><td>22.2万</td><td class="col-eff">2531</td><td>3天</td></tr>
 <tr><td class="col-rank">#10</td><td class="col-title">末世作精女配勾引疯批哥哥</td><td class="col-read">4.9万</td><td>21.4万</td><td class="col-eff">2287</td><td>3天</td></tr>
 </tbody></table>
+<div class="key-callout">
+<strong>爆发力Top3（效率=在读÷(字数÷10000)）：</strong><br>
+<strong>① 宿舍求生：我刷广告开始变强</strong> — 效率<span class="highlight-num">7434</span>，25.1万字。恶毒女配+诡异求生+纯龙傲天男主，强反差+系统金手指。<br>
+<strong>② 极寒末世，我跟着重生者买买买</strong> — 效率<span class="highlight-num">5731</span>，27.5万字（即将毕业）。极寒+重生+独狼+囤货。<br>
+<strong>③ 反派理性喜欢的妻子</strong> — 效率<span class="highlight-num">5071</span>，10.9万字。末世暴徒+双洁+短篇合集，以低字数博高在读。
+</div>
 <div class="graduation-warning"><strong>即将毕业预警（25万字+）：</strong><span class='grad-item'>宿舍求生：我刷广告开始变强 (25.1万, 效率7434)</span><span class='grad-item'>极寒末世，我跟着重生者买买买 (27.5万, 效率5731)</span><span class='grad-item'>零能80度，我在游能室热奇冒汗 (25.4万, 效率2561)</span><span class='grad-item'>末世！她都修仙了你惹她干嘛 (26.8万, 效率1932)</span><span class='grad-item'>末世收娃躲深山，前机友追海了 (26.4万, 效率1437)</span><span class='grad-item'>电梯求生：我与天赋是长特殊蘑菇 (25.6万, 效率1239)</span><span class='grad-item'>星际狩猎采集开农场，大佬馋哭了 (29.1万, 效率1082)</span><span class='grad-item'>亲姐是末世女主？我才是苟王！ (25.4万, 效率957)</span><span class='grad-item'>天灾末世我空间捡漏 (27.1万, 效率760)</span></div>
 <div class="note-box">
-从当日高排名书名中可提炼以下取名规律：<strong>①场景具象化+反差动作</strong>——"宿舍求生：我刷广告开始变强"用日常场景+反常规动作；"零下80度，我地下室热得冒汗"用极端温度对比制造悬念。<strong>②主角身份+爽点前置</strong>——"末日来临：囤货癖的她又又赢麻了"把标签化人设直接放书名+口语化爽点。<strong>③题材+系统机制</strong>——"游戏入侵：全服第一捡垃圾""全民求生：别人吓哭，我在炖怪"用具体动作比抽象"升级流"更吸睛。建议Qiao取名时采用"极端场景词+具体反差动作+口语化爽点词"三段式。
+<strong>书名取名技巧：</strong>①场景具象化+反差动作——"宿舍求生：我刷广告开始变强"用日常场景+反常规动作；"零下80度，我地下室热得冒汗"用极端温度对比。②主角身份+爽点前置——"末日来临：囤货癖的她又又赢麻了"把标签化人设直接放书名+口语化爽点。③题材+系统机制——"游戏入侵：全服第一捡垃圾""全民求生：别人吓哭，我在炖怪"用具体动作比抽象"升级流"更吸睛。<strong>建议Qiao取名采用"极端场景词+具体反差动作+口语化爽点词"三段式。</strong>
 </div></div>
 <div class="doc-block" id="chart-newbooks">
 <h3 class="subsection-title">新书榜在读人数对比（科幻末世 + 游戏体育 Top10）</h3>
@@ -471,21 +497,37 @@ h1 { font-size: 28px; font-weight: 700; color: var(--c-ink); margin: 0 0 8px; le
 <tr><td>甜宠</td><td>14</td><td>关系</td></tr>
 </tbody></table>
 <div class="tag-trend-box">
-<strong>增长Top3：</strong>空间（囤货+空间共现14次，空间金手指成标配）、基建（求生+基建组合稳定上升，种田基建长线需求）、萌宠/种田/美食（29本含此梗，治愈系第二梯队成型）。<br>
-<strong>衰退Top2：</strong>纯游戏入侵（游戏体育新书榜以求生/基建为主流，纯游戏入侵退居其次）、恶毒女配（新书榜仅6本，从昨日高频回落）。<br>
-<strong>一句话结论：</strong>CP+末世+求生+囤货四标签构成流量基本盘，空间+基建+萌宠/种田为当前上升信号。
+<strong>增长Top3：</strong>
+<span class="tag-pill up">空间 ↑14次共现</span>
+<span class="tag-pill up">基建 ↑求生基建组合稳定</span>
+<span class="tag-pill up">萌宠/种田/美食 ↑29本含此梗</span><br>
+<strong>衰退Top2：</strong>
+<span class="tag-pill down">纯游戏入侵 ↓退居其次</span>
+<span class="tag-pill down">恶毒女配 ↓新书榜仅6本</span><br>
+<strong>一句话结论：</strong>CP+末世+求生+囤货四标签构成流量基本盘，<strong>空间+基建+萌宠/种田为当前上升信号</strong>。
 </div>
-<h3 class="subsection-title">b) 具体梗深挖（社会心理链接）</h3>
+<h3 class="subsection-title">b) 具体梗深挖（中国社会心理链接）</h3>
 <div class="tag-trend-box">
-<strong>极寒/囤货（32本）：</strong>2026年7月全球多地极端寒冷事件（欧美"北极围攻"、玻利维亚冻灾92市灾难状态、美国"冰穹"破纪录低温）驱动现实焦虑→资源焦虑时代的生存幻想，囤货为读者提供"有退路、有资源、有底牌"的确定性安全感→极寒+空间+囤货+重生信息差组合持续有效。<br>
-<strong>萌宠/种田/美食（29本）：</strong>压力社会的治愈需求，末世高压叙事下需要情感缓冲带→"废土里种田养猫"的反差萌，投射读者对"可控小确幸"的渴望→末世+萌宠+种田慢热节奏适合长篇留存。<br>
-<strong>电梯/密室/安全屋（8本）：</strong>空间焦虑与安全感渴望，封闭空间=确定边界→都市读者对"属于自己的安全空间"的投射→安全屋+系统机制创新（囤怪物/炖怪）是新兴方向。<br>
-<strong>前任/破镜重圆（7本）：</strong>情感代偿与"被追回"的价值确认→末世高压下情感关系重构，"末日让前任重新选择我"满足被重视心理→破镜重圆+末世强制爱组合有张力但需控制节奏。<br>
-<strong>拾荒/捡垃圾/废土（7本）：</strong>资源焦虑时代的生存幻想，从废墟中淘金→"废土拾荒"投射读者对"变废为宝"的价值再造渴望→拾荒+异能+数据流系统机制创新值得关注。
+<strong>天灾/汛情/暴雨（20本含天灾标签）：</strong>2026年7月中国极端天气集中爆发——广西台风"美莎克"引发严重汛情（55条河流超警、漓江流域水位暴涨7.46米）、"七下八上"防汛关键期609条河流超警（较常年偏多35%）、北方四轮热浪（新疆华北首轮高温核心，月末江南华南反扑）。<strong>国内真实灾害驱动末世求生/囤货焦虑</strong>→天灾+空间+囤货组合持续有效，但读者焦虑核心是"洪水/暴雨/高温"而非"极寒"。
+</div>
+<div class="tag-trend-box">
+<strong>高温/热浪（北方干旱极端高温刷新历史纪录）：</strong>2026年7月西北新疆、华北黄淮成为高温核心，月末江南华南反扑，四轮热浪无缝衔接。高温焦虑→"极热末世/旱灾/水源危机"题材潜在机会，但当前榜单仍以极寒为主（滞后于现实）。<strong>建议Qiao关注"高温末世+水源危机+空间囤货"组合，可能成为下一波推流方向。</strong>
+</div>
+<div class="tag-trend-box">
+<strong>萌宠/种田/美食（29本）：</strong>压力社会的治愈需求，末世高压叙事下需要情感缓冲带→"废土里种田养猫"的反差萌，投射读者对"可控小确幸"的渴望→末世+萌宠+种田慢热节奏适合长篇留存。与中国当下"躺平/松弛感"网络文化共振。
+</div>
+<div class="tag-trend-box">
+<strong>电梯/密室/安全屋（8本）：</strong>空间焦虑与安全感渴望，封闭空间=确定边界→都市读者对"属于自己的安全空间"的投射（与高房价/合租焦虑相关）→安全屋+系统机制创新（囤怪物/炖怪）是新兴方向。
+</div>
+<div class="tag-trend-box">
+<strong>前任/破镜重圆（7本）：</strong>情感代偿与"被追回"的价值确认→末世高压下情感关系重构，"末日让前任重新选择我"满足被重视心理→破镜重圆+末世强制爱组合有张力但需控制节奏。
+</div>
+<div class="tag-trend-box">
+<strong>拾荒/捡垃圾/废土（7本）：</strong>资源焦虑时代的生存幻想，从废墟中淘金→"废土拾荒"投射读者对"变废为宝"的价值再造渴望→拾荒+异能+数据流系统机制创新值得关注。与当下"二手经济/循环利用"社会趋势共振。
 </div>
 <h3 class="subsection-title">c) 人设/CP速览（Craft深层维度）</h3>
 <div class="cp-analysis-box">
-<strong>女主核心动机Top3：</strong>生存型(建立安全边界，约96%) > 自我实现型(突破限制) > 保护欲型(守护付出)。末世题材将女主动机高度集中于"生存安全感"，与外部寒冷事件驱动的焦虑共振。<br>
+<strong>女主核心动机Top3：</strong>生存型(建立安全边界，约96%) > 自我实现型(突破限制) > 保护欲型(守护付出)。末世题材将女主动机高度集中于"生存安全感"，与国内极端天气驱动的灾害焦虑共振。<br>
 <strong>角色弧光分布：</strong>成长型(认知升级)为主流(61%)，重生型/信息差次之(19%)，平弧型/信念坚定(18%)。成长型主导说明读者偏好"认知升级"而非"金手指碾压"。<br>
 <strong>读者投射类型：</strong>共情型("我懂她的痛"，43%) > 代入型("我就是她"，29%) > 仰望型("我想成为她"，22%)。共情型主导，说明"脆弱+坚韧"组合比纯爽文大佬更易引发情感共鸣。<br>
 <strong>男主权力地位Top3：</strong>隐藏实力/绝对上位(暴徒/疯批/大佬，约56%) > 平等博弈/奉献型(全洁/双洁，约37%) > 未明确。隐藏实力男主与不圣母女主形成"双强+信息差"张力。<br>
@@ -508,7 +550,11 @@ h1 { font-size: 28px; font-weight: 700; color: var(--c-ink); margin: 0 0 8px; le
 </tbody></table>
 <div class="note-box" style="font-size:12px"><strong>解读：</strong>末世+空间(16次)为绝对头部组合，提供"题材+存储空间"双重确定性；囤货+空间(14次)和囤货+末世(14次)为标准配置；空间+重生(12次)是空间金手指与信息差结合的高效组合。</div>
 <h3 class="subsection-title">当日有效组合 & 风险组合</h3>
-<div class="tag-trend-box"><strong>有效组合：</strong>空间+囤货+极寒末世（宿舍求生/极寒末世双头部验证）、穿书+恶毒女配+末世甜宠（阅读榜#7效率3728）、重生+极寒+独狼（《极寒末世》效率5731）<br><strong>风险组合：</strong>电竞+末世（受众冲突，游戏体育新书榜电竞标签效率偏低）、纯甜宠+无限流（节奏冲突，甜宠读者难以适应副本节奏）</div>
+<div class="key-callout">
+<strong>有效组合：</strong>空间+囤货+极寒末世（宿舍求生/极寒末世双头部验证）、穿书+恶毒女配+末世甜宠（阅读榜#7效率3728）、重生+极寒+独狼（《极寒末世》效率5731）<br>
+<strong>风险组合：</strong>电竞+末世（受众冲突，游戏体育新书榜电竞标签效率偏低）、纯甜宠+无限流（节奏冲突，甜宠读者难以适应副本节奏）<br>
+<strong>潜在机会：</strong>高温末世+水源危机+空间囤货（滞后于现实，待爆发）
+</div>
 </div>
 <div class="doc-block" id="changes">
 <h2 class="section-title">三、今日变化备注</h2>
@@ -527,18 +573,24 @@ h1 { font-size: 28px; font-weight: 700; color: var(--c-ink); margin: 0 0 8px; le
 </tbody></table>
 <h3 class="subsection-title">在读显著变化（>15%变动）</h3>
 <table class="rank-table compact"><thead><tr><th>榜单</th><th>书名</th><th>昨日在读</th><th>今日在读</th><th>变化</th></tr></thead><tbody>
-<tr><td>科幻末世阅读榜</td><td>精妹修机甲吗</td><td>146.2万</td><td>167.5万</td><td>+14.6%</td></tr>
+<tr><td>科幻末世阅读榜</td><td>精妹修机甲吗</td><td>146.2万</td><td>167.5万</td><td><span class="trend-up">+14.6%</span></td></tr>
 </tbody></table>
 <div class="note-box" style="font-size:12px">注：昨日可见表格为"万"单位精度（如15.8万=158000），导致&lt;10%的波动无法精确捕捉。精妹修机甲增幅显著（+21.3万），连续3天霸榜科幻末世阅读榜#1，星际机甲题材头部效应强化。</div>
 </div>
 <div class="doc-block" id="signals">
 <h2 class="section-title">四、值得关注的信号</h2>
-<div class="insight-card warm"><div class="insight-title">信号1：AI/太空算力新闻密集 — 星际机甲题材外部背书强化</div>
-<div class="insight-body">2026年7月WAIC发布"星枢计划"首发星座、商汤算力星座千星规划、国星宇航全球首创"星载大模型远程操控地面机器人"验证。AI+太空算力题材获强外部背书，与阅读榜#1《精妹修机甲吗》（在读167.5万，+14.6%）共振。星际机甲题材头部效应强化，但新书榜暂无对应爆款，存在"头部已验证+新书未跟进"的机会窗口。</div></div>
-<div class="insight-card accent"><div class="insight-title">信号2：极寒末世题材增量放缓 — 系统机制创新成分化点</div>
-<div class="insight-body">极寒/囤货题材继续霸榜（32本）但头部格局稳定、增量放缓，推流方向正从"单一囤货"向"囤货+系统机制创新"分化。《全民求生：别人吓哭，我在炖怪》《游戏入侵：全服第一捡垃圾》验证具体系统机制比抽象"升级流"更吸睛。建议Qiao在空间囤货基础上嫁接具体系统机制（如数据流/烹饪/拾荒），避免同质化限流。</div></div>
-<div class="insight-card cool"><div class="insight-title">信号3：暑假档短篇效率突出 — 碎片化阅读场景利好</div>
-<div class="insight-body">短篇（&lt;15万字）在新书榜效率突出：《反派理性喜欢的妻子》10.9万字效率5071。短篇合集模式（多单元剧+独立CP）成为效率之王，适合暑假学生碎片化阅读场景。预计7-8月短篇快节奏+系统机制创新题材持续利好。</div></div>
+<div class="signal-card warm">
+<div class="signal-title">信号1：国内极端天气驱动天灾/汛情题材 — 高温末世存在滞后机会</div>
+<div class="signal-body">2026年7月中国极端天气集中爆发：广西台风"美莎克"引发严重汛情（55条河流超警、漓江超警7.46米）、"七下八上"防汛关键期609条河流超警（较常年偏多35%）、北方四轮热浪（新疆华北首轮高温核心，刷新历史纪录）。国内真实灾害驱动末世求生/囤货焦虑，但<strong>当前榜单仍以"极寒"为主，与国内"高温/汛情"现实存在滞后</strong>。建议Qiao关注"高温末世+水源危机+空间囤货"组合，可能成为下一波推流方向——现实已发生但题材尚未爆发，正是入局窗口。</div>
+</div>
+<div class="signal-card accent">
+<div class="signal-title">信号2：AI算力焦虑升温 — 星际机甲题材获国内背书</div>
+<div class="signal-body">WAIC 2026（7月18日）集中释放国产算力里程碑：Kimi K3参数2.8万亿（全球最大开源模型）、曙光8000"登峰"（中国首个全国产十万卡AI超集群）、人形机器人整机产品超全球半数。7月19日Kimi K3爆火致算力承压暂停C端新用户订阅，<strong>AI算力焦虑直接引发社会关注</strong>。与阅读榜#1《精妹修机甲吗》（在读167.5万，<span class="trend-up">+14.6%</span>）共振，星际机甲题材头部效应强化。新书榜暂无对应爆款，存在"头部已验证+新书未跟进"的机会窗口。</div>
+</div>
+<div class="signal-card cool">
+<div class="signal-title">信号3：暑假档短篇效率突出 — 碎片化阅读场景利好</div>
+<div class="signal-body">短篇（&lt;15万字）在新书榜效率突出：《反派理性喜欢的妻子》10.9万字效率<span class="highlight-num">5071</span>。短篇合集模式（多单元剧+独立CP）成为效率之王，适合暑假学生碎片化阅读场景。预计7-8月短篇快节奏+系统机制创新题材持续利好。与当下"短剧化/快节奏"内容消费趋势共振。</div>
+</div>
 </div>
 <div class="doc-block" id="sources">
 <h2 class="section-title">数据来源与说明</h2>
@@ -546,7 +598,7 @@ h1 { font-size: 28px; font-weight: 700; color: var(--c-ink); margin: 0 0 8px; le
 <p><strong>数据来源：</strong>番茄小说网（fanqienovel.com）API + 页面初始数据。四榜各30条，共120条，按bookId去重。rankVersion=1784601000。</p>
 <p><strong>PUA字体加密：</strong>与上次报告共现书使用历史正确文本，新书保留API原文并标注。部分新书标题存在PUA加密字符（如"零能80度"应为"零下80度"），已尽量从上下文推断补全。</p>
 <p><strong>效率定义：</strong>效率 = 在读人数 ÷ (字数 ÷ 10000) = 每万字的在读人数。效率越高，单位字数吸引的读者越多。</p>
-<p><strong>外部因素：</strong>Web搜索2026年7月近期天气/AI/社会新闻（极寒天气、WAIC 2026、厄尔尼诺）。</p>
+<p><strong>外部因素：</strong>Web搜索2026年7月中国社会新闻（广西汛情、北方高温、WAIC 2026算力）。社会心理连接专注对中国读者有影响的本土因素。</p>
 <p><strong>历史对比：</strong>基于2026-07-20报告隐藏JSON块+可见表格对比。昨日可见表格为"万"单位精度，部分小幅波动无法精确捕捉。</p>
 </div></div>
 <div class="hidden-json">
