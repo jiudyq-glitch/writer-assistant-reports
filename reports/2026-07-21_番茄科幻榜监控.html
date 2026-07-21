@@ -4,603 +4,1081 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>番茄科幻榜监控 2026-07-21 日报</title>
-<link rel="stylesheet" href="assets/doc.css">
+<title>番茄科幻榜监控日报（2026-07-21）</title>
+<meta name="description" content="番茄小说网科幻末世 / 游戏体育四榜监控日报，2026-07-21 快照，含 Top10 数据、效率分析、标签人设趋势与深度信号。">
 <style>
+/* ========== 苹果风性冷淡设计系统 ========== */
+/* 设计原则：白底、深灰文字、细边框、大量留白、克制色彩点缀
+   参考链接：fanqie-report-2026-07-20 组件结构 + Apple Design 极简美学
+   强调色：玫瑰红 #b83f58（效率高亮/NEW），蓝 #2563eb（连载），绿 #0f766e（完结）
+   无黄色背景 */
+
 :root {
-    --c-ink: #1a1a1f;
-    --c-text: #2d2d35;
-    --c-muted: #6b6b75;
-    --c-line: #e8e6e1;
-    --c-bg: #faf9f7;
-    --c-card: #ffffff;
-    --c-accent: #4a6b5e;
-    --c-accent-soft: #eef2f0;
-    --c-warm: #8a7968;
-    --c-warm-soft: #f3efe9;
-    --c-cool: #5a6b7a;
-    --c-cool-soft: #eef1f4;
-    --c-highlight: #2d4a3e;
-    --c-highlight-soft: #d9e5df;
-    --c-alert: #9c5a3f;
-    --c-alert-soft: #f4e8e0;
+  --ink: #1d1d1f;          /* 苹果深灰 - 主标题/重点文字 */
+  --text: #46535f;          /* 正文文字（参考链接 cover-lead 色） */
+  --muted: #6e6e73;         /* 苹果中灰 - 副文字/标签 */
+  --faint: #8e8e93;         /* 苹果浅灰 - 极弱信息 */
+  --line: #d2d2d7;          /* 苹果分隔线 - 细边框 */
+  --line-soft: #e5e5ea;     /* 更浅的分隔线 */
+  --bg: #ffffff;            /* 纯白主背景 */
+  --bg-soft: #f5f5f7;       /* 苹果浅灰背景 - 卡片/区块 */
+  --bg-cover: #f5f5f7;      /* 封面渐变起点 */
+  --card: #ffffff;          /* 卡片白 */
+  /* 强调色（参考链接原色，去除黄色） */
+  --accent: #b83f58;        /* 玫瑰红 - 效率高亮/NEW/重点 */
+  --accent-soft: #fbeaec;   /* 浅红 - NEW 背景 */
+  --ongoing-bg: #eaf1ff;   /* 浅蓝 - 连载背景 */
+  --ongoing-fg: #2563eb;    /* 蓝 - 连载文字 */
+  --completed-bg: #e9f4f1; /* 浅绿 - 完结背景 */
+  --completed-fg: #0f766e;  /* 深绿 - 完结文字 */
+  /* 排名徽章（去除金色/棕色，改用苹果灰阶） */
+  --rank1: #1d1d1f;         /* #1 深灰 */
+  --rank2: #6e6e73;         /* #2 中灰 */
+  --rank3: #8e8e93;         /* #3 浅灰 */
+  /* 重点突出组件 */
+  --highlight-bg: #f5f5f7;          /* 重点卡片背景 */
+  --highlight-border: #1d1d1f;      /* 重点卡片左边框 - 深灰 */
+  --highlight-num: #b83f58;         /* 高亮数字 - 玫瑰红 */
+  --signal-num-bg: #1d1d1f;         /* 信号圆形徽章背景 */
 }
-* { box-sizing: border-box; }
-body { font-family: 'Noto Sans CJK SC', 'PingFang SC', 'WenQuanYi Micro Hei', sans-serif; background: var(--c-bg); color: var(--c-text); margin: 0; line-height: 1.7; }
-.doc-main { max-width: 960px; margin: 0 auto; padding: 40px 32px 80px; }
-.doc-block { margin: 32px 0; }
-h1 { font-size: 28px; font-weight: 700; color: var(--c-ink); margin: 0 0 8px; letter-spacing: -0.5px; }
-.doc-subtitle { font-size: 13px; color: var(--c-muted); margin: 0 0 4px; }
-.doc-note { padding: 14px 18px; background: var(--c-cool-soft); border-radius: 8px; font-size: 13px; line-height: 1.8; margin: 16px 0; color: var(--c-text); }
-/* 重点突出组件 */
-.key-callout { padding: 16px 20px; background: var(--c-highlight-soft); border-radius: 8px; border-left: 3px solid var(--c-highlight); margin: 16px 0; font-size: 14px; line-height: 1.8; }
-.key-callout strong { color: var(--c-highlight); }
-.highlight-num { background: var(--c-highlight-soft); padding: 1px 6px; border-radius: 4px; font-weight: 700; color: var(--c-highlight); }
-.trend-up { color: var(--c-accent); font-weight: 600; }
-.trend-down { color: var(--c-alert); font-weight: 600; }
-.tag-pill { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; margin: 2px; }
-.tag-pill.up { background: var(--c-accent-soft); color: var(--c-accent); }
-.tag-pill.down { background: var(--c-alert-soft); color: var(--c-alert); }
-.tag-pill.new { background: var(--c-warm-soft); color: var(--c-warm); }
-.cover-cards { display: flex; gap: 16px; margin: 20px 0; flex-wrap: wrap; }
-.cover-card { width: 180px; border-radius: 10px; overflow: hidden; background: var(--c-card); box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.06); transition: transform 0.2s, box-shadow 0.2s; }
-.cover-card:hover { transform: translateY(-2px); box-shadow: 0 4px 24px rgba(0,0,0,0.1); }
-.cover-img-wrap { position: relative; width: 100%; height: 240px; overflow: hidden; background: var(--c-line); }
-.cover-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
-.cover-fallback { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: var(--c-muted); font-size: 13px; background: var(--c-bg); }
-.cover-rank { position: absolute; top: 10px; left: 10px; background: rgba(26,26,31,0.75); backdrop-filter: blur(4px); color: #fff; padding: 3px 10px; border-radius: 6px; font-size: 13px; font-weight: 600; }
-.cover-badge { position: absolute; top: 10px; right: 10px; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; }
-.cover-badge.new { background: var(--c-warm); color: #fff; }
-.cover-badge.hot { background: var(--c-accent); color: #fff; }
-.cover-info { padding: 12px; }
-.cover-title { font-size: 13px; font-weight: 600; line-height: 1.4; margin-bottom: 8px; color: var(--c-ink); height: 36px; overflow: hidden; }
-.cover-stats { display: flex; justify-content: space-between; font-size: 12px; }
-.stat-read { color: var(--c-ink); font-weight: 600; }
-.stat-eff { color: var(--c-accent); font-weight: 500; }
-.rank-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13px; background: var(--c-card); border-radius: 8px; overflow: hidden; }
-.rank-table th { background: var(--c-ink); color: #fff; padding: 10px 12px; text-align: left; font-weight: 600; font-size: 12px; letter-spacing: 0.3px; }
-.rank-table td { padding: 9px 12px; border-bottom: 1px solid var(--c-line); }
-.rank-table tr:hover { background: var(--c-bg); }
-.rank-table tr:last-child td { border-bottom: none; }
-.rank-table.compact { font-size: 12px; }
-.rank-table.compact th, .rank-table.compact td { padding: 7px 10px; }
-.col-rank { width: 50px; text-align: center; color: var(--c-muted); }
-.col-title { min-width: 200px; }
-.col-read, .col-eff { text-align: right; }
-.tag-new { background: var(--c-warm); color: #fff; padding: 1px 6px; border-radius: 4px; font-size: 10px; margin-left: 4px; }
-.insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 20px 0; }
-.insight-card { padding: 18px; border-radius: 10px; background: var(--c-card); border: 1px solid var(--c-line); position: relative; overflow: hidden; }
-.insight-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; }
-.insight-card.warm::before { background: var(--c-warm); }
-.insight-card.accent::before { background: var(--c-accent); }
-.insight-card.cool::before { background: var(--c-cool); }
-.insight-card.ink::before { background: var(--c-ink); }
-.insight-title { font-size: 12px; font-weight: 600; color: var(--c-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
-.insight-body { font-size: 13px; line-height: 1.65; color: var(--c-text); }
-.graduation-warning { margin: 14px 0; padding: 14px 18px; background: var(--c-warm-soft); border-radius: 8px; font-size: 13px; line-height: 1.8; }
-.grad-item { display: inline-block; margin: 3px 8px 3px 0; padding: 3px 10px; background: var(--c-card); border-radius: 6px; font-size: 12px; border: 1px solid var(--c-line); }
-.section-title { font-size: 20px; font-weight: 700; color: var(--c-ink); margin: 36px 0 16px; padding-bottom: 10px; border-bottom: 1px solid var(--c-line); letter-spacing: -0.3px; }
-.subsection-title { font-size: 15px; font-weight: 600; color: var(--c-ink); margin: 24px 0 12px; }
-.chart-container { margin: 24px 0; }
-.note-box { padding: 14px 18px; background: var(--c-cool-soft); border-radius: 8px; font-size: 13px; line-height: 1.8; margin: 16px 0; color: var(--c-text); }
-.tag-trend-box { padding: 14px 18px; background: var(--c-warm-soft); border-radius: 8px; font-size: 13px; line-height: 1.9; margin: 12px 0; color: var(--c-text); }
-.cp-analysis-box { padding: 16px 20px; background: var(--c-accent-soft); border-radius: 8px; font-size: 13px; line-height: 1.9; margin: 12px 0; color: var(--c-text); }
-.signal-card { padding: 18px 22px; border-radius: 10px; background: var(--c-card); border: 1px solid var(--c-line); margin: 14px 0; position: relative; }
-.signal-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; }
-.signal-card.warm::before { background: var(--c-warm); }
-.signal-card.accent::before { background: var(--c-accent); }
-.signal-card.cool::before { background: var(--c-cool); }
-.signal-title { font-size: 14px; font-weight: 700; color: var(--c-ink); margin-bottom: 8px; }
-.signal-body { font-size: 13px; line-height: 1.7; color: var(--c-text); }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: -apple-system, "SF Pro Display", "SF Pro Text", "PingFang SC", "Helvetica Neue", "Noto Sans CJK SC", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ========== 布局：侧边目录 + 主内容 ========== */
+.doc-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 56px 48px 96px;
+}
+
+.toc-rail {
+  position: fixed;
+  top: 56px;
+  left: 48px;
+  width: 180px;
+  font-size: 13px;
+  max-height: calc(100vh - 112px);
+  overflow-y: auto;
+}
+.toc-rail .toc-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--faint);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+  padding-left: 12px;
+}
+.toc-rail a {
+  display: block;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-left: 2px solid var(--line-soft);
+  transition: all 160ms ease;
+}
+.toc-rail a:hover { color: var(--ink); border-left-color: var(--ink); }
+.toc-rail a.active { color: var(--accent); border-left-color: var(--accent); font-weight: 600; }
+
+@media (max-width: 1100px) {
+  .toc-rail { display: none; }
+  .doc-page { padding: 40px 24px 64px; }
+}
+
+/* ========== 封面页（参考链接 .report-cover） ========== */
+.report-cover {
+  margin: 0 0 56px;
+  padding: 52px 48px 40px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: linear-gradient(180deg, var(--bg-cover) 0%, #ffffff 62%);
+  scroll-margin-top: 28px;
+}
+.cover-eyebrow {
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+.report-cover h1 {
+  margin: 14px 0 6px;
+  font-size: 40px;
+  line-height: 1.14;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.5px;
+}
+.cover-date {
+  font-size: 24px;
+  color: var(--ink);
+  font-weight: 600;
+  margin-bottom: 22px;
+  letter-spacing: -0.2px;
+}
+.cover-meta {
+  margin: 6px 0;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.8;
+}
+.cover-meta strong { color: var(--text); font-weight: 600; }
+.cover-lead {
+  margin: 24px 0 4px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+  color: var(--text);
+  font-size: 15.5px;
+  line-height: 1.85;
+}
+.cover-lead strong { color: var(--ink); font-weight: 600; }
+
+/* 封面 KPI 网格（参考链接 .cover-metrics） */
+.cover-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 28px 0 4px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--card);
+}
+.cover-metric { padding: 16px 18px; }
+.cover-metric + .cover-metric { border-left: 1px solid var(--line-soft); }
+.cover-metric span {
+  display: block;
+  color: var(--muted);
+  font-size: 12.5px;
+  letter-spacing: 0.3px;
+}
+.cover-metric strong {
+  display: block;
+  margin: 8px 0 3px;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.cover-metric small {
+  display: block;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+/* ========== 章节区块 ========== */
+.doc-block {
+  margin: 48px 0;
+  scroll-margin-top: 28px;
+}
+.doc-block h2 {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+  letter-spacing: -0.4px;
+}
+.doc-block h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 28px 0 14px;
+  letter-spacing: -0.1px;
+}
+.doc-block p { margin: 10px 0; color: var(--text); }
+.doc-block p strong { color: var(--ink); font-weight: 600; }
+
+/* ========== 今日洞察 4 格（参考链接 insight-grid） ========== */
+.insight-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0 8px;
+}
+.insight-card {
+  padding: 22px 22px 20px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--card);
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 200ms ease;
+}
+.insight-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+.insight-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+}
+.insight-card.ink::before { background: var(--ink); }
+.insight-card.accent::before { background: var(--accent); }
+.insight-card.muted::before { background: var(--muted); }
+.insight-card.faint::before { background: var(--faint); }
+.insight-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--faint);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+}
+.insight-body {
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--text);
+}
+.insight-body strong { color: var(--ink); font-weight: 600; }
+
+/* ========== 封面卡片（参考链接 .cover-cards / .cover-card） ========== */
+.cover-group {
+  margin: 32px 0 10px;
+  scroll-margin-top: 28px;
+}
+.cover-group-title {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.cover-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.cover-card {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 200ms ease, transform 200ms ease;
+}
+.cover-card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+}
+.cover-img {
+  position: relative;
+  aspect-ratio: 3/4;
+  background: var(--bg-soft);
+}
+.cover-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.cover-fallback {
+  width: 100%; height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--faint);
+  font-size: 13px;
+}
+.cover-rank {
+  position: absolute;
+  top: 10px; left: 10px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+.cover-rank.r1 { background: var(--rank1); }
+.cover-rank.r2 { background: var(--rank2); }
+.cover-rank.r3 { background: var(--rank3); }
+.cover-badge-new {
+  position: absolute;
+  top: 10px; right: 10px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--accent);
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+.cover-info { padding: 12px 13px 14px; }
+.cover-title {
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--ink);
+  font-weight: 600;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 39px;
+}
+.cover-read {
+  margin-top: 8px;
+  font-size: 12.5px;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+}
+.cover-read b { color: var(--ink); font-weight: 600; }
+.cover-read .eff { color: var(--accent); font-weight: 600; }
+
+/* ========== 数据表格（参考链接 .doc-data-table） ========== */
+.doc-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 13.5px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.doc-data-table th {
+  background: var(--bg-soft);
+  color: var(--ink);
+  padding: 11px 14px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 12.5px;
+  letter-spacing: 0.3px;
+  border-bottom: 1px solid var(--line);
+}
+.doc-data-table th.num { text-align: right; }
+.doc-data-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line-soft);
+  color: var(--text);
+}
+.doc-data-table td.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+  font-weight: 500;
+}
+.doc-data-table tr:last-child td { border-bottom: none; }
+.doc-data-table tr:hover td { background: var(--bg-soft); }
+.doc-data-table.compact { font-size: 12.5px; }
+.doc-data-table.compact th, .doc-data-table.compact td { padding: 8px 11px; }
+
+/* 状态徽章（参考链接 .status-badge） */
+.status-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.status-badge.ongoing { background: var(--ongoing-bg); color: var(--ongoing-fg); }
+.status-badge.completed { background: var(--completed-bg); color: var(--completed-fg); }
+
+/* NEW 徽章（参考链接 .new-badge） */
+.new-badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--accent-soft);
+  color: var(--accent);
+  vertical-align: middle;
+  letter-spacing: 0.4px;
+}
+
+/* 标签（参考链接 .tags） */
+.tags { color: var(--muted); font-size: 13px; line-height: 1.6; }
+.tags .sep { color: var(--faint); margin: 0 5px; }
+
+/* 效率高亮（参考链接 .eff-hot） */
+.eff-hot { color: var(--accent); font-weight: 700; }
+
+/* ========== 重点突出组件（苹果风加粗 + 形状图标） ========== */
+/* 关键判断卡片 - 浅灰背景 + 左侧深灰边 + 圆角 */
+.key-callout {
+  margin: 20px 0;
+  padding: 20px 24px;
+  background: var(--highlight-bg);
+  border-radius: 14px;
+  border-left: 3px solid var(--highlight-border);
+  font-size: 14.5px;
+  line-height: 1.85;
+  color: var(--text);
+}
+.key-callout strong { color: var(--ink); font-weight: 700; }
+
+/* 高亮数字 - 玫瑰红 + 700 字重（形状：无背景，纯字重色彩突出） */
+.highlight-num {
+  color: var(--highlight-num);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 涨跌色 */
+.trend-up { color: var(--completed-fg); font-weight: 600; }
+.trend-down { color: var(--accent); font-weight: 600; }
+
+/* 药丸标签（参考链接 .trend-chip） */
+.trend-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 6px;
+}
+.trend-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 6px 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--card);
+  font-size: 13px;
+}
+.trend-chip b { color: var(--ink); font-weight: 600; }
+.trend-chip i { color: var(--muted); font-style: normal; }
+.trend-chip.up { border-color: var(--completed-fg); background: var(--completed-bg); }
+.trend-chip.up b { color: var(--completed-fg); }
+.trend-chip.down { border-color: var(--accent); background: var(--accent-soft); }
+.trend-chip.down b { color: var(--accent); }
+
+/* 毕业预警药丸 */
+.grad-item {
+  display: inline-block;
+  margin: 4px 8px 4px 0;
+  padding: 4px 11px;
+  background: var(--card);
+  border-radius: 8px;
+  font-size: 12.5px;
+  border: 1px solid var(--line);
+  color: var(--text);
+}
+.grad-item b { color: var(--ink); font-weight: 600; }
+
+/* 笔记/说明盒 */
+.note-box {
+  padding: 16px 20px;
+  background: var(--bg-soft);
+  border-radius: 12px;
+  font-size: 13.5px;
+  line-height: 1.85;
+  margin: 16px 0;
+  color: var(--text);
+}
+.note-box strong { color: var(--ink); font-weight: 600; }
+
+/* ========== 静态图表（参考链接 .static-chart） ========== */
+.static-chart {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--card);
+}
+.chart-caption {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+/* ========== 深度信号卡片（参考链接 .signal） ========== */
+.signal {
+  margin: 24px 0;
+  padding: 20px 22px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--card);
+}
+.signal-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.signal-num {
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: var(--signal-num-bg);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.signal-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.1px;
+}
+.signal-body {
+  margin: 8px 0 0;
+  color: var(--text);
+  font-size: 14.5px;
+  line-height: 1.85;
+}
+.signal-body strong { color: var(--ink); font-weight: 600; }
+
+/* ========== 数据来源 ========== */
+.doc-sources {
+  margin: 48px 0 0;
+  padding: 22px 24px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--bg-soft);
+}
+.doc-sources h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 12px;
+  border: none;
+  padding: 0;
+}
+.doc-sources p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.8;
+  margin: 6px 0;
+}
+.doc-sources p strong { color: var(--text); font-weight: 600; }
+
+/* 隐藏 JSON */
 .hidden-json { display: none; }
-.chart-canvas { width: 100%; }
-.chart-caption { font-size: 12px; color: var(--c-muted); margin-top: 8px; }
-.toc { position: fixed; top: 40px; right: 32px; width: 200px; font-size: 12px; color: var(--c-muted); }
-.toc a { color: var(--c-muted); text-decoration: none; display: block; padding: 3px 0; }
-.toc a:hover { color: var(--c-accent); }
+
+/* 响应式 */
+@media (max-width: 820px) {
+  .report-cover { padding: 36px 24px 28px; }
+  .report-cover h1 { font-size: 30px; }
+  .cover-date { font-size: 19px; }
+  .cover-metrics { grid-template-columns: 1fr 1fr; }
+  .cover-metric:nth-child(odd) { border-left: 0; }
+  .cover-metric:nth-child(n+3) { border-top: 1px solid var(--line); }
+  .insight-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .cover-cards { grid-template-columns: 1fr 1fr; }
+  .cover-metrics { grid-template-columns: 1fr; }
+  .cover-metric, .cover-metric + .cover-metric { border-left: 0; }
+  .cover-metric + .cover-metric { border-top: 1px solid var(--line); }
+  .doc-page { padding: 24px 16px 48px; }
+}
+
 </style>
 </head>
 <body>
-<aside id="toc" class="toc"></aside>
-<main class="doc-main">
-<div class="doc-block" id="cover">
-<h1>番茄科幻榜监控 2026-07-21 日报</h1>
-<p class="doc-subtitle">数据来源：番茄小说网（fanqienovel.com）四榜各30条，rankVersion=1784601000</p>
-<p class="doc-subtitle">对比基准：2026-07-20 报告 | 运行模式：日报（周二） | 效率 = 在读人数 ÷ (字数 ÷ 10000)</p>
+<nav class="toc-rail" id="toc"><div class="toc-title">目录</div></nav>
+<main class="doc-page">
+<header class="report-cover" id="封面">
+<div class="cover-eyebrow">番茄科幻榜监控 · 日报</div>
+<h1>番茄科幻榜监控日报</h1>
+<div class="cover-date">2026-07-21</div>
+<div class="cover-meta">数据来源：番茄小说网API（fanqienovel.com）  |  rankVersion: 1784601000  |  抓取时间：2026-07-21 15:00</div>
+<div class="cover-meta">模式：日报（周二）  ·  四榜各 30 本 = 120 本  ·  历史对比：2026-07-20</div>
+<div class="cover-meta">效率 = 在读人数 ÷ (字数 ÷ 10000)  ·  社会心理连接专注<strong>中国本土因素</strong>（国内极端天气 / AI算力焦虑）</div>
+<div class="cover-lead">
+本日四榜共监控 <strong>120 本</strong>作品。科幻末世新书榜 Top1《宿舍求生》以 <strong>18.7万在读、效率7434</strong> 领跑爆发力榜单；极寒/囤货题材继续霸榜但增量放缓，<strong>推流方向正从单一囤货向"囤货+系统机制创新"分化</strong>；国内极端天气（广西汛情、北方热浪）与榜单"极寒"题材存在滞后，<strong>"高温末世+水源危机"是潜在机会窗口</strong>；暑假档短篇高效率区间表现突出。详情见下文四榜快照、标签人设趋势、今日变化与深度信号四部分。
 </div>
-<div class="doc-block" id="insights">
-<h2 class="section-title">今日洞察速览</h2>
+<div class="cover-metrics">
+<div class="cover-metric"><span>监控范围</span><strong>4榜 × 30本</strong><small>共 120 本作品</small></div>
+<div class="cover-metric"><span>新上榜</span><strong>3 本</strong><small>集中于游戏体育新书榜尾段 + 阅读榜#30</small></div>
+<div class="cover-metric"><span>掉榜</span><strong>3 本</strong><small>游戏体育新书榜2本 + 阅读榜1本</small></div>
+<div class="cover-metric"><span>爆发力Top1效率</span><strong>7434</strong><small>宿舍求生：我刷广告开始变强，新书榜效率王者</small></div>
+</div>
+</header>
+<section class="doc-block" id="今日洞察">
+<h2>今日洞察速览</h2>
 <div class="insight-grid">
-<div class="insight-card warm"><div class="insight-title">变化最显著的书</div>
+<div class="insight-card ink"><div class="insight-title">变化最显著的书</div>
 <div class="insight-body"><strong>宿舍求生：我刷广告开始变强</strong>在读<span class="highlight-num">18.7万</span>（效率<span class="highlight-num">7434</span>，新书榜最高），连续3天稳居科幻新书榜前列。恶毒女配+诡异求生+纯龙傲天男主的强反差组合，精准命中暑假学生群体的代入感与猎奇需求。</div></div>
 <div class="insight-card accent"><div class="insight-title">最火人设组合</div>
 <div class="insight-body"><strong>生存型女主 × 隐藏实力男主 × 平等博弈CP</strong>。生存型女主占<span class="highlight-num">96%</span>，与7月中国极端天气（广西汛情、北方四轮热浪）驱动的灾害焦虑共振。隐藏实力男主56%，平等博弈CP为主流但动态反转（破镜重圆+强制爱）效率更高。</div></div>
-<div class="insight-card cool"><div class="insight-title">新上榜 3 本</div>
+<div class="insight-card muted"><div class="insight-title">新上榜 3 本</div>
 <div class="insight-body">集中在游戏体育新书榜尾段（#29木筏求生、#30游戏降临脆皮巫）+ 科幻末世阅读榜#30（撒糯米冒黑烟），均为腰部入榜。头部格局稳定，科幻新书榜Top9连续3天零换血。</div></div>
-<div class="insight-card ink"><div class="insight-title">编辑核心判断</div>
+<div class="insight-card faint"><div class="insight-title">编辑核心判断</div>
 <div class="insight-body">极寒/囤货题材继续霸榜但增量放缓，<strong>推流方向正从单一囤货向"囤货+系统机制创新"分化</strong>。萌宠+种田+美食（29本）与游戏入侵（21本）构成第二梯队。建议关注系统机制微创新（捡垃圾/炖怪/数据流），避免同质化限流。</div></div>
-</div></div>
-<div class="doc-block" id="snapshot">
-<h2 class="section-title">一、四榜数据快照</h2>
-<h3 class="subsection-title">科幻末世新书榜 Top3 封面展示</h3>
+</div>
+</section>
+<section class="doc-block" id="四榜数据快照">
+<h2>一、四榜数据快照（含新书榜 Top10 在读效率分析）</h2>
+<p style="color:var(--muted);font-size:13.5px">四榜各30本，新书榜排在阅读榜前面。封面图展示每榜前三名，表格从第4名开始。</p>
+<div class="cover-group"><div class="cover-group-title">科幻末世新书榜（30本，新上榜0本）</div></div>
 <div class="cover-cards">
 <div class="cover-card">
-            <div class="cover-img-wrap">
-                <img src="assets/covers/7628454764392500249.jpg" alt="极寒末世，我跟着重生者买买买" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="cover-img">
+                <img src="assets/covers/7628454764392500249.jpg" alt="极寒末世，我跟着重生者买买买 封面" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                 <div class="cover-fallback" style="display:none">封面未获取</div>
-                <span class="cover-rank">#1</span>
+                <span class="cover-rank r1">#1</span>
                 
             </div>
             <div class="cover-info">
                 <div class="cover-title">极寒末世，我跟着重生者买买买</div>
-                <div class="cover-stats">
-                    <span class="stat-read">在读 15.8万</span>
-                    <span class="stat-eff">效率 5731</span>
+                <div class="cover-read">
+                    <span>在读 <b>15.8万</b></span>
+                    <span class="eff">效率 5731</span>
                 </div>
             </div>
         </div>
 <div class="cover-card">
-            <div class="cover-img-wrap">
-                <img src="assets/covers/7632978161973595161.jpg" alt="宿舍求生：我刷广告开始变强" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="cover-img">
+                <img src="assets/covers/7632978161973595161.jpg" alt="宿舍求生：我刷广告开始变强 封面" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                 <div class="cover-fallback" style="display:none">封面未获取</div>
-                <span class="cover-rank">#2</span>
+                <span class="cover-rank r2">#2</span>
                 
             </div>
             <div class="cover-info">
                 <div class="cover-title">宿舍求生：我刷广告开始变强</div>
-                <div class="cover-stats">
-                    <span class="stat-read">在读 18.7万</span>
-                    <span class="stat-eff">效率 7434</span>
+                <div class="cover-read">
+                    <span>在读 <b>18.7万</b></span>
+                    <span class="eff">效率 7434</span>
                 </div>
             </div>
         </div>
 <div class="cover-card">
-            <div class="cover-img-wrap">
-                <img src="assets/covers/7651176432588049433.jpg" alt="末日来临：囤货癖的她又又赢麻了" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="cover-img">
+                <img src="assets/covers/7651176432588049433.jpg" alt="末日来临：囤货癖的她又又赢麻了 封面" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                 <div class="cover-fallback" style="display:none">封面未获取</div>
-                <span class="cover-rank">#3</span>
+                <span class="cover-rank r3">#3</span>
                 
             </div>
             <div class="cover-info">
                 <div class="cover-title">末日来临：囤货癖的她又又赢麻了</div>
-                <div class="cover-stats">
-                    <span class="stat-read">在读 9.4万</span>
-                    <span class="stat-eff">效率 4975</span>
+                <div class="cover-read">
+                    <span>在读 <b>9.4万</b></span>
+                    <span class="eff">效率 4975</span>
                 </div>
             </div>
         </div>
 </div>
-<h3 class="subsection-title">科幻末世新书榜（第4名起，新上榜0本）</h3>
-<table class="rank-table">
-<thead><tr><th class="col-rank">排名</th><th class="col-title">书名</th><th class="col-read">在读</th><th>字数</th><th class="col-eff">效率</th><th>状态</th><th>标签</th></tr></thead>
-<tbody>
-<tr><td class="col-rank">4</td><td class="col-title">末世？宅女舒适区</td><td class="col-read">7.5万</td><td>23.3万</td><td class="col-eff">3223</td><td>连载中</td><td>末世, 异能, 甜宠, 宅女, 锦鲤</td></tr>
-<tr><td class="col-rank">5</td><td class="col-title">反派理性喜欢的妻子</td><td class="col-read">5.6万</td><td>10.9万</td><td class="col-eff">5071</td><td>连载中</td><td>双洁, 宠妻, 短篇</td></tr>
-<tr><td class="col-rank">6</td><td class="col-title">零能80度，我在游能室热奇冒汗</td><td class="col-read">6.5万</td><td>25.4万</td><td class="col-eff">2561</td><td>连载中</td><td>极寒末世, 空间囤货, 游能堡垒, 灵泉洗髓, 不圣母</td></tr>
-<tr><td class="col-rank">7</td><td class="col-title">末日来临，小漂亮被前男友娇养了</td><td class="col-read">6.1万</td><td>14.8万</td><td class="col-eff">4128</td><td>连载中</td><td>1V1, 双洁, 破镜重圆, 异能, 强制爱</td></tr>
-<tr><td class="col-rank">8</td><td class="col-title">末世修仙养女儿，清冷佛子杀疯了</td><td class="col-read">5.6万</td><td>22.2万</td><td class="col-eff">2531</td><td>连载中</td><td>双洁, 末世, 丧尸, 修仙</td></tr>
-<tr><td class="col-rank">9</td><td class="col-title">别惹小祖宗！末世大佬是宠妹狂魔</td><td class="col-read">6.2万</td><td>14.3万</td><td class="col-eff">4372</td><td>连载中</td><td>末世, 面长商人, 团宠, 重生, 升级</td></tr>
-<tr><td class="col-rank">10</td><td class="col-title">末世作精女配勾引疯批哥哥</td><td class="col-read">4.9万</td><td>21.4万</td><td class="col-eff">2287</td><td>连载中</td><td>穿书, 恶毒女配, 偏执男主, 末世甜宠, 空间</td></tr>
-<tr><td class="col-rank">11</td><td class="col-title">末世！她都修仙了你惹她干嘛</td><td class="col-read">5.2万</td><td>26.8万</td><td class="col-eff">1932</td><td>连载中</td><td>丧尸, 修仙, 重生, 空间, 异能</td></tr>
-<tr><td class="col-rank">12</td><td class="col-title">末日倒计时，我盯的了机友宿舍</td><td class="col-read">4.1万</td><td>22.4万</td><td class="col-eff">1848</td><td>连载中</td><td>系统, 空间, 界机主全洁, 超界雄竞修罗场, 末世囤货爽文</td></tr>
-<tr><td class="col-rank">13</td><td class="col-title">废土：我能看见万物数据</td><td class="col-read">3.8万</td><td>18.8万</td><td class="col-eff">2008</td><td>连载中</td><td>废土求生, 异能, 数据, 采集, 空间</td></tr>
-<tr><td class="col-rank">14</td><td class="col-title">末世经营：四面大佬蹲我小店脸杂</td><td class="col-read">4.0万</td><td>17.9万</td><td class="col-eff">2225</td><td>连载中</td><td>末世, 废土, 重生, 经营, 系统</td></tr>
-<tr><td class="col-rank">15</td><td class="col-title">穿C末世成，我拥有了冰箱空间</td><td class="col-read">3.4万</td><td>19.1万</td><td class="col-eff">1771</td><td>连载中</td><td>穿C, 末世, 系统, 空间, 囤货</td></tr>
-<tr><td class="col-rank">16</td><td class="col-title">黑屋？美人P+P被末世暴徒豪夺</td><td class="col-read">4.0万</td><td>24.1万</td><td class="col-eff">1675</td><td>连载中</td><td>末世, 暴徒, 甜宠</td></tr>
-<tr><td class="col-rank">17</td><td class="col-title">末世收娃躲深山，前机友追海了</td><td class="col-read">3.8万</td><td>26.4万</td><td class="col-eff">1437</td><td>已完结</td><td>双重生, 破镜重圆, 空间囤货, 山村种田, 末世</td></tr>
-<tr><td class="col-rank">18</td><td class="col-title">废土拾荒：开局匹配五个异能者</td><td class="col-read">3.3万</td><td>16.6万</td><td class="col-eff">2001</td><td>连载中</td><td>废土拾荒, 异能, 界夫, 种田, 先婚成我</td></tr>
-<tr><td class="col-rank">19</td><td class="col-title">电梯求生：我与天赋是长特殊蘑菇</td><td class="col-read">3.2万</td><td>25.6万</td><td class="col-eff">1239</td><td>连载中</td><td>游戏入侵, 电梯求生, CP, 囤货, C限流</td></tr>
-<tr><td class="col-rank">20</td><td class="col-title">亲姐是末世女主？我才是苟王！</td><td class="col-read">2.4万</td><td>25.4万</td><td class="col-eff">957</td><td>连载中</td><td>（评, 刚女, 成期型涨哒）C, P, 末世</td></tr>
-<tr><td class="col-rank">21</td><td class="col-title">星际狩猎采集开农场，大佬馋哭了</td><td class="col-read">3.1万</td><td>29.1万</td><td class="col-eff">1082</td><td>连载中</td><td>星际基建, 狩猎采集, 种田美食, 全息播, 真假千金</td></tr>
-<tr><td class="col-rank">22</td><td class="col-title">被种能异种之卵成，我不做人了</td><td class="col-read">1.7万</td><td>18.8万</td><td class="col-eff">893</td><td>连载中</td><td>末世, 异种寄生, 逃生, 囚禁, 人电</td></tr>
-<tr><td class="col-rank">23</td><td class="col-title">我靠游戏长板在废土陪领主</td><td class="col-read">1.7万</td><td>27.0万</td><td class="col-eff">617</td><td>连载中</td><td>领主模拟器长板, 叮！净化土壤一米, 种能变异奇瓜种世, 叮！收集废铁一百斤, 合成全的植空气制水瘾</td></tr>
-<tr><td class="col-rank">24</td><td class="col-title">等等，我先签个公【综影视】</td><td class="col-read">2.7万</td><td>23.2万</td><td class="col-eff">1168</td><td>连载中</td><td>综影视, 系统</td></tr>
-<tr><td class="col-rank">25</td><td class="col-title">救命穿越废土，开局通知我去选夫</td><td class="col-read">2.2万</td><td>24.2万</td><td class="col-eff">917</td><td>已完结</td><td>雷系异能, 光系异能, 从海没有被坚定选择, 原生家庭小透明, 冰系异能</td></tr>
-<tr><td class="col-rank">26</td><td class="col-title">穿C极寒末世，偷换机主空间戒指</td><td class="col-read">2.3万</td><td>19.1万</td><td class="col-eff">1214</td><td>连载中</td><td>末世, 囤货, 空间, 独狼女主, 不圣母</td></tr>
-<tr><td class="col-rank">27</td><td class="col-title">惊！娱乐圈团宠竟是帝编小殿能</td><td class="col-read">2.6万</td><td>13.4万</td><td class="col-eff">1917</td><td>连载中</td><td>星际</td></tr>
-<tr><td class="col-rank">28</td><td class="col-title">天灾末世我空间捡漏</td><td class="col-read">2.1万</td><td>27.1万</td><td class="col-eff">760</td><td>连载中</td><td>天灾＋CP, ＋空间, 天灾, 空间, CP</td></tr>
-<tr><td class="col-rank">29</td><td class="col-title">女穿机：虐文女主她好香</td><td class="col-read">2.0万</td><td>24.2万</td><td class="col-eff">828</td><td>已完结</td><td>女穿机, 甜蜜我情, 满级大佬, 末世求生, 末世</td></tr>
-<tr><td class="col-rank">30</td><td class="col-title">穿越末世居然收了个养老系统</td><td class="col-read">2.4万</td><td>15.9万</td><td class="col-eff">1530</td><td>连载中</td><td>末世, 系统</td></tr>
+<h3>科幻末世新书榜（第4名起）</h3>
+<table class="doc-data-table"><thead><tr><th>排名</th><th>书名</th><th class="num">在读</th><th>字数</th><th class="num">效率</th><th>状态</th><th>标签关键词</th></tr></thead><tbody>
+<tr><td>4</td><td>末世？宅女舒适区</td><td class="num">7.5万</td><td>23.3万</td><td class="num">3223</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">末世</span><span class="tags sep">·</span><span class="tags">异能</span><span class="tags sep">·</span><span class="tags">甜宠</span><span class="tags sep">·</span><span class="tags">宅女</span><span class="tags sep">·</span><span class="tags">锦鲤</span></td></tr>
+<tr><td>5</td><td>反派理性喜欢的妻子</td><td class="num">5.6万</td><td>10.9万</td><td class="num eff-hot">5071</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">双洁</span><span class="tags sep">·</span><span class="tags">宠妻</span><span class="tags sep">·</span><span class="tags">短篇</span></td></tr>
+<tr><td>6</td><td>零能80度，我在游能室热奇冒汗</td><td class="num">6.5万</td><td>25.4万</td><td class="num">2561</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">极寒末世</span><span class="tags sep">·</span><span class="tags">空间囤货</span><span class="tags sep">·</span><span class="tags">游能堡垒</span><span class="tags sep">·</span><span class="tags">灵泉洗髓</span><span class="tags sep">·</span><span class="tags">不圣母</span></td></tr>
+<tr><td>7</td><td>末日来临，小漂亮被前男友娇养了</td><td class="num">6.1万</td><td>14.8万</td><td class="num">4128</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">1V1</span><span class="tags sep">·</span><span class="tags">双洁</span><span class="tags sep">·</span><span class="tags">破镜重圆</span><span class="tags sep">·</span><span class="tags">异能</span><span class="tags sep">·</span><span class="tags">强制爱</span></td></tr>
+<tr><td>8</td><td>末世修仙养女儿，清冷佛子杀疯了</td><td class="num">5.6万</td><td>22.2万</td><td class="num">2531</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">双洁</span><span class="tags sep">·</span><span class="tags">末世</span><span class="tags sep">·</span><span class="tags">丧尸</span><span class="tags sep">·</span><span class="tags">修仙</span></td></tr>
+<tr><td>9</td><td>别惹小祖宗！末世大佬是宠妹狂魔</td><td class="num">6.2万</td><td>14.3万</td><td class="num">4372</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">末世</span><span class="tags sep">·</span><span class="tags">面长商人</span><span class="tags sep">·</span><span class="tags">团宠</span><span class="tags sep">·</span><span class="tags">重生</span><span class="tags sep">·</span><span class="tags">升级</span></td></tr>
+<tr><td>10</td><td>末世作精女配勾引疯批哥哥</td><td class="num">4.9万</td><td>21.4万</td><td class="num">2287</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">穿书</span><span class="tags sep">·</span><span class="tags">恶毒女配</span><span class="tags sep">·</span><span class="tags">偏执男主</span><span class="tags sep">·</span><span class="tags">末世甜宠</span><span class="tags sep">·</span><span class="tags">空间</span></td></tr>
+<tr><td>11</td><td>末世！她都修仙了你惹她干嘛</td><td class="num">5.2万</td><td>26.8万</td><td class="num">1932</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">丧尸</span><span class="tags sep">·</span><span class="tags">修仙</span><span class="tags sep">·</span><span class="tags">重生</span><span class="tags sep">·</span><span class="tags">空间</span><span class="tags sep">·</span><span class="tags">异能</span></td></tr>
+<tr><td>12</td><td>末日倒计时，我盯的了机友宿舍</td><td class="num">4.1万</td><td>22.4万</td><td class="num">1848</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">系统</span><span class="tags sep">·</span><span class="tags">空间</span><span class="tags sep">·</span><span class="tags">界机主全洁</span><span class="tags sep">·</span><span class="tags">超界雄竞修罗场</span><span class="tags sep">·</span><span class="tags">末世囤货爽文</span></td></tr>
+<tr><td>13</td><td>废土：我能看见万物数据</td><td class="num">3.8万</td><td>18.8万</td><td class="num">2008</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">废土求生</span><span class="tags sep">·</span><span class="tags">异能</span><span class="tags sep">·</span><span class="tags">数据</span><span class="tags sep">·</span><span class="tags">采集</span><span class="tags sep">·</span><span class="tags">空间</span></td></tr>
+<tr><td>14</td><td>末世经营：四面大佬蹲我小店脸杂</td><td class="num">4.0万</td><td>17.9万</td><td class="num">2225</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">末世</span><span class="tags sep">·</span><span class="tags">废土</span><span class="tags sep">·</span><span class="tags">重生</span><span class="tags sep">·</span><span class="tags">经营</span><span class="tags sep">·</span><span class="tags">系统</span></td></tr>
+<tr><td>15</td><td>穿C末世成，我拥有了冰箱空间</td><td class="num">3.4万</td><td>19.1万</td><td class="num">1771</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">穿C</span><span class="tags sep">·</span><span class="tags">末世</span><span class="tags sep">·</span><span class="tags">系统</span><span class="tags sep">·</span><span class="tags">空间</span><span class="tags sep">·</span><span class="tags">囤货</span></td></tr>
+<tr><td>16</td><td>黑屋？美人P+P被末世暴徒豪夺</td><td class="num">4.0万</td><td>24.1万</td><td class="num">1675</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">末世</span><span class="tags sep">·</span><span class="tags">暴徒</span><span class="tags sep">·</span><span class="tags">甜宠</span></td></tr>
+<tr><td>17</td><td>末世收娃躲深山，前机友追海了</td><td class="num">3.8万</td><td>26.4万</td><td class="num">1437</td><td><span class="status-badge completed">完结</span></td><td><span class="tags">双重生</span><span class="tags sep">·</span><span class="tags">破镜重圆</span><span class="tags sep">·</span><span class="tags">空间囤货</span><span class="tags sep">·</span><span class="tags">山村种田</span><span class="tags sep">·</span><span class="tags">末世</span></td></tr>
+<tr><td>18</td><td>废土拾荒：开局匹配五个异能者</td><td class="num">3.3万</td><td>16.6万</td><td class="num">2001</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">废土拾荒</span><span class="tags sep">·</span><span class="tags">异能</span><span class="tags sep">·</span><span class="tags">界夫</span><span class="tags sep">·</span><span class="tags">种田</span><span class="tags sep">·</span><span class="tags">先婚成我</span></td></tr>
+<tr><td>19</td><td>电梯求生：我与天赋是长特殊蘑菇</td><td class="num">3.2万</td><td>25.6万</td><td class="num">1239</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">游戏入侵</span><span class="tags sep">·</span><span class="tags">电梯求生</span><span class="tags sep">·</span><span class="tags">CP</span><span class="tags sep">·</span><span class="tags">囤货</span><span class="tags sep">·</span><span class="tags">C限流</span></td></tr>
+<tr><td>20</td><td>亲姐是末世女主？我才是苟王！</td><td class="num">2.4万</td><td>25.4万</td><td class="num">957</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">（评</span><span class="tags sep">·</span><span class="tags">刚女</span><span class="tags sep">·</span><span class="tags">成期型涨哒）C</span><span class="tags sep">·</span><span class="tags">P</span><span class="tags sep">·</span><span class="tags">末世</span></td></tr>
+<tr><td>21</td><td>星际狩猎采集开农场，大佬馋哭了</td><td class="num">3.1万</td><td>29.1万</td><td class="num">1082</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">星际基建</span><span class="tags sep">·</span><span class="tags">狩猎采集</span><span class="tags sep">·</span><span class="tags">种田美食</span><span class="tags sep">·</span><span class="tags">全息播</span><span class="tags sep">·</span><span class="tags">真假千金</span></td></tr>
+<tr><td>22</td><td>被种能异种之卵成，我不做人了</td><td class="num">1.7万</td><td>18.8万</td><td class="num">893</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">末世</span><span class="tags sep">·</span><span class="tags">异种寄生</span><span class="tags sep">·</span><span class="tags">逃生</span><span class="tags sep">·</span><span class="tags">囚禁</span><span class="tags sep">·</span><span class="tags">人电</span></td></tr>
+<tr><td>23</td><td>我靠游戏长板在废土陪领主</td><td class="num">1.7万</td><td>27.0万</td><td class="num">617</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">领主模拟器长板</span><span class="tags sep">·</span><span class="tags">叮！净化土壤一米</span><span class="tags sep">·</span><span class="tags">种能变异奇瓜种世</span><span class="tags sep">·</span><span class="tags">叮！收集废铁一百斤</span><span class="tags sep">·</span><span class="tags">合成全的植空气制水瘾</span></td></tr>
+<tr><td>24</td><td>等等，我先签个公【综影视】</td><td class="num">2.7万</td><td>23.2万</td><td class="num">1168</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">综影视</span><span class="tags sep">·</span><span class="tags">系统</span></td></tr>
+<tr><td>25</td><td>救命穿越废土，开局通知我去选夫</td><td class="num">2.2万</td><td>24.2万</td><td class="num">917</td><td><span class="status-badge completed">完结</span></td><td><span class="tags">雷系异能</span><span class="tags sep">·</span><span class="tags">光系异能</span><span class="tags sep">·</span><span class="tags">从海没有被坚定选择</span><span class="tags sep">·</span><span class="tags">原生家庭小透明</span><span class="tags sep">·</span><span class="tags">冰系异能</span></td></tr>
+<tr><td>26</td><td>穿C极寒末世，偷换机主空间戒指</td><td class="num">2.3万</td><td>19.1万</td><td class="num">1214</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">末世</span><span class="tags sep">·</span><span class="tags">囤货</span><span class="tags sep">·</span><span class="tags">空间</span><span class="tags sep">·</span><span class="tags">独狼女主</span><span class="tags sep">·</span><span class="tags">不圣母</span></td></tr>
+<tr><td>27</td><td>惊！娱乐圈团宠竟是帝编小殿能</td><td class="num">2.6万</td><td>13.4万</td><td class="num">1917</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">星际</span></td></tr>
+<tr><td>28</td><td>天灾末世我空间捡漏</td><td class="num">2.1万</td><td>27.1万</td><td class="num">760</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">天灾＋CP</span><span class="tags sep">·</span><span class="tags">＋空间</span><span class="tags sep">·</span><span class="tags">天灾</span><span class="tags sep">·</span><span class="tags">空间</span><span class="tags sep">·</span><span class="tags">CP</span></td></tr>
+<tr><td>29</td><td>女穿机：虐文女主她好香</td><td class="num">2.0万</td><td>24.2万</td><td class="num">828</td><td><span class="status-badge completed">完结</span></td><td><span class="tags">女穿机</span><span class="tags sep">·</span><span class="tags">甜蜜我情</span><span class="tags sep">·</span><span class="tags">满级大佬</span><span class="tags sep">·</span><span class="tags">末世求生</span><span class="tags sep">·</span><span class="tags">末世</span></td></tr>
+<tr><td>30</td><td>穿越末世居然收了个养老系统</td><td class="num">2.4万</td><td>15.9万</td><td class="num">1530</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">末世</span><span class="tags sep">·</span><span class="tags">系统</span></td></tr>
 </tbody></table>
-<h3 class="subsection-title">游戏体育新书榜 Top3 封面展示</h3>
+<div class="cover-group"><div class="cover-group-title">游戏体育新书榜（30本，新上榜2本）</div></div>
 <div class="cover-cards">
 <div class="cover-card">
-            <div class="cover-img-wrap">
-                <img src="assets/covers/7650045105436363838.jpg" alt="游戏入侵：全服第一捡垃圾" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="cover-img">
+                <img src="assets/covers/7650045105436363838.jpg" alt="游戏入侵：全服第一捡垃圾 封面" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                 <div class="cover-fallback" style="display:none">封面未获取</div>
-                <span class="cover-rank">#1</span>
+                <span class="cover-rank r1">#1</span>
                 
             </div>
             <div class="cover-info">
                 <div class="cover-title">游戏入侵：全服第一捡垃圾</div>
-                <div class="cover-stats">
-                    <span class="stat-read">在读 4.2万</span>
-                    <span class="stat-eff">效率 2027</span>
+                <div class="cover-read">
+                    <span>在读 <b>4.2万</b></span>
+                    <span class="eff">效率 2027</span>
                 </div>
             </div>
         </div>
 <div class="cover-card">
-            <div class="cover-img-wrap">
-                <img src="assets/covers/7645267155046370366.jpg" alt="万人嫌反派炮灰成了早逝白月光" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="cover-img">
+                <img src="assets/covers/7645267155046370366.jpg" alt="万人嫌反派炮灰成了早逝白月光 封面" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                 <div class="cover-fallback" style="display:none">封面未获取</div>
-                <span class="cover-rank">#2</span>
+                <span class="cover-rank r2">#2</span>
                 
             </div>
             <div class="cover-info">
                 <div class="cover-title">万人嫌反派炮灰成了早逝白月光</div>
-                <div class="cover-stats">
-                    <span class="stat-read">在读 2.2万</span>
-                    <span class="stat-eff">效率 1610</span>
+                <div class="cover-read">
+                    <span>在读 <b>2.2万</b></span>
+                    <span class="eff">效率 1610</span>
                 </div>
             </div>
         </div>
 <div class="cover-card">
-            <div class="cover-img-wrap">
-                <img src="assets/covers/7639946783598070846.jpg" alt="S级陪玩：电竞少女制霸全场" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="cover-img">
+                <img src="assets/covers/7639946783598070846.jpg" alt="S级陪玩：电竞少女制霸全场 封面" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                 <div class="cover-fallback" style="display:none">封面未获取</div>
-                <span class="cover-rank">#3</span>
+                <span class="cover-rank r3">#3</span>
                 
             </div>
             <div class="cover-info">
                 <div class="cover-title">S级陪玩：电竞少女制霸全场</div>
-                <div class="cover-stats">
-                    <span class="stat-read">在读 1.8万</span>
-                    <span class="stat-eff">效率 859</span>
+                <div class="cover-read">
+                    <span>在读 <b>1.8万</b></span>
+                    <span class="eff">效率 859</span>
                 </div>
             </div>
         </div>
 </div>
-<h3 class="subsection-title">游戏体育新书榜（第4名起，新上榜2本）</h3>
-<table class="rank-table">
-<thead><tr><th class="col-rank">排名</th><th class="col-title">书名</th><th class="col-read">在读</th><th>字数</th><th class="col-eff">效率</th><th>状态</th><th>标签</th></tr></thead>
-<tbody>
-<tr><td class="col-rank">4</td><td class="col-title">海上求生：我提前氪金</td><td class="col-read">1.9万</td><td>21.9万</td><td class="col-eff">863</td><td>连载中</td><td>海上求生, 全民求生, 基建, 求生, CP</td></tr>
-<tr><td class="col-rank">5</td><td class="col-title">全民求生：别人吓哭，我在炖怪</td><td class="col-read">1.6万</td><td>27.4万</td><td class="col-eff">597</td><td>连载中</td><td>全民求生, 美食, 种田, 安全屋, 天灾</td></tr>
-<tr><td class="col-rank">6</td><td class="col-title">求生游戏，我真不是美食魔女</td><td class="col-read">1.3万</td><td>17.9万</td><td class="col-eff">716</td><td>连载中</td><td>求生游戏, 魔女, 重生</td></tr>
-<tr><td class="col-rank">7</td><td class="col-title">公路求生，开局和前任绑定共生</td><td class="col-read">1.2万</td><td>19.4万</td><td class="col-eff">605</td><td>连载中</td><td>公路求生, 破镜重圆, 基建, 萌宠, 囤货</td></tr>
-<tr><td class="col-rank">8</td><td class="col-title">虚拟游戏：P+P竟是全服第一</td><td class="col-read">1.4万</td><td>20.5万</td><td class="col-eff">705</td><td>连载中</td><td>模拟经营, 双重机甲, 日, 脸脸, 游戏入侵</td></tr>
-<tr><td class="col-rank">9</td><td class="col-title">游戏入侵：开局SSS天赋武财S</td><td class="col-read">1.3万</td><td>13.4万</td><td class="col-eff">977</td><td>连载中</td><td>游戏入侵, CP, 独狼, 副本, 升级流</td></tr>
-<tr><td class="col-rank">10</td><td class="col-title">求生游戏：我在童梦森林盖树屋</td><td class="col-read">1.3万</td><td>21.2万</td><td class="col-eff">615</td><td>连载中</td><td>全民求生, 囤货, 萌宠, 求生, CP</td></tr>
-<tr><td class="col-rank">11</td><td class="col-title">播：姐哥们集我主播了怎么办</td><td class="col-read">1.5万</td><td>14.0万</td><td class="col-eff">1046</td><td>连载中</td><td>游戏主播, 播日, 论坛体, 法文C官配</td></tr>
-<tr><td class="col-rank">12</td><td class="col-title">海岛求生：杀杀杀，榜一她杀疯了</td><td class="col-read">1.5万</td><td>16.0万</td><td class="col-eff">961</td><td>连载中</td><td>大女主, CP＋, 心狠手辣, 女主, 没有仁义尽一说</td></tr>
-<tr><td class="col-rank">13</td><td class="col-title">全民求生：我在沙漠陪农场主</td><td class="col-read">9800</td><td>20.4万</td><td class="col-eff">480</td><td>连载中</td><td>求生, 沙漠, 战力Po.1, 从C公有, 农场主</td></tr>
-<tr><td class="col-rank">14</td><td class="col-title">列车求生：我与天赋是三选一</td><td class="col-read">1.5万</td><td>12.8万</td><td class="col-eff">1202</td><td>连载中</td><td>列车求生, 半孤狼, 永远领先别人, 不圣母, 成长型主角</td></tr>
-<tr><td class="col-rank">15</td><td class="col-title">公路求生：我与天赋永久叠加</td><td class="col-read">1.1万</td><td>17.3万</td><td class="col-eff">620</td><td>连载中</td><td>采集囤货, 不圣母, CP, 轻松爽文, 你玩</td></tr>
-<tr><td class="col-rank">16</td><td class="col-title">公路求生，榜一她与每日+算翻倍</td><td class="col-read">1.2万</td><td>12.8万</td><td class="col-eff">953</td><td>连载中</td><td>游戏须知, 于各戏金体投放。, 请尽量在, 每日程接关系公你与评, 。</td></tr>
-<tr><td class="col-rank">17</td><td class="col-title">编运狼人杀，开局和女巫通视野</td><td class="col-read">7724</td><td>21.3万</td><td class="col-eff">363</td><td>连载中</td><td>女强, 系统, 电挂, 爽文, 推性</td></tr>
-<tr><td class="col-rank">18</td><td class="col-title">全民求生：开局一间茅草棚</td><td class="col-read">1.1万</td><td>14.8万</td><td class="col-eff">735</td><td>连载中</td><td>CP＋, 囤货, 种田, 基建, 可成长天赋</td></tr>
-<tr><td class="col-rank">19</td><td class="col-title">升维游戏：从零开始建设第一领游</td><td class="col-read">7509</td><td>21.0万</td><td class="col-eff">357</td><td>连载中</td><td>女强CP＋, 游戏, 基建, 领主, 系统</td></tr>
-<tr><td class="col-rank">20</td><td class="col-title">编运求生：我靠御兽杀穿莽荒啦</td><td class="col-read">8180</td><td>14.9万</td><td class="col-eff">549</td><td>连载中</td><td>CP＋, 女强, 编运, 播, 莽荒求生</td></tr>
-<tr><td class="col-rank">21</td><td class="col-title">海的求生：幸运满值有统戏集世罩</td><td class="col-read">7500</td><td>22.5万</td><td class="col-eff">333</td><td>连载中</td><td>海的求生, 系统, 领主, 基建, 魔法</td></tr>
-<tr><td class="col-rank">22</td><td class="col-title">公路求生：我在灵宠空间种田躺赢</td><td class="col-read">5326</td><td>23.7万</td><td class="col-eff">224</td><td>连载中</td><td>天灾, 求生, 基建, 种田, 空间</td></tr>
-<tr><td class="col-rank">23</td><td class="col-title">你说海洋求生，我说吃吃吃</td><td class="col-read">7519</td><td>28.5万</td><td class="col-eff">264</td><td>连载中</td><td>囤货, CP, 系苏鲁, 航海, 副本</td></tr>
-<tr><td class="col-rank">24</td><td class="col-title">耶猫与甜宠日+</td><td class="col-read">5047</td><td>14.6万</td><td class="col-eff">346</td><td>连载中</td><td>-</td></tr>
-<tr><td class="col-rank">25</td><td class="col-title">全民求生，野人领主型啃啃啃！</td><td class="col-read">6815</td><td>22.5万</td><td class="col-eff">303</td><td>连载中</td><td>天灾, 求生, 基建, 系统, 领主</td></tr>
-<tr><td class="col-rank">26</td><td class="col-title">游戏入侵：开局拿能SSS级天赋</td><td class="col-read">8728</td><td>15.4万</td><td class="col-eff">567</td><td>连载中</td><td>命运, 重生, 游戏入侵</td></tr>
-<tr><td class="col-rank">27</td><td class="col-title">C限求生：我与安全屋通桃源</td><td class="col-read">6221</td><td>13.2万</td><td class="col-eff">471</td><td>连载中</td><td>CP, 安全屋升级, 种田囤货, C限求生, 大女主</td></tr>
-<tr><td class="col-rank">28</td><td class="col-title">龙岛：我是服务器隐藏大少爷</td><td class="col-read">9543</td><td>16.1万</td><td class="col-eff">593</td><td>连载中</td><td>K服与C冕之王, CP</td></tr>
-<tr><td class="col-rank">29</td><td class="col-title">木筏求：闺蜜躺赢 <span class="tag-new">NEW</span></td><td class="col-read">4778</td><td>18.8万</td><td class="col-eff">255</td><td>连载中</td><td>基建, 系统, 萌宠, 锦鲤</td></tr>
-<tr><td class="col-rank">30</td><td class="col-title">游戏降临：脆皮巫求指南 <span class="tag-new">NEW</span></td><td class="col-read">4308</td><td>25.3万</td><td class="col-eff">170</td><td>连载中</td><td>基建, 独狼</td></tr>
+<h3>游戏体育新书榜（第4名起）</h3>
+<table class="doc-data-table"><thead><tr><th>排名</th><th>书名</th><th class="num">在读</th><th>字数</th><th class="num">效率</th><th>状态</th><th>标签关键词</th></tr></thead><tbody>
+<tr><td>4</td><td>海上求生：我提前氪金</td><td class="num">1.9万</td><td>21.9万</td><td class="num">863</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">海上求生</span><span class="tags sep">·</span><span class="tags">全民求生</span><span class="tags sep">·</span><span class="tags">基建</span><span class="tags sep">·</span><span class="tags">求生</span><span class="tags sep">·</span><span class="tags">CP</span></td></tr>
+<tr><td>5</td><td>全民求生：别人吓哭，我在炖怪</td><td class="num">1.6万</td><td>27.4万</td><td class="num">597</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">全民求生</span><span class="tags sep">·</span><span class="tags">美食</span><span class="tags sep">·</span><span class="tags">种田</span><span class="tags sep">·</span><span class="tags">安全屋</span><span class="tags sep">·</span><span class="tags">天灾</span></td></tr>
+<tr><td>6</td><td>求生游戏，我真不是美食魔女</td><td class="num">1.3万</td><td>17.9万</td><td class="num">716</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">求生游戏</span><span class="tags sep">·</span><span class="tags">魔女</span><span class="tags sep">·</span><span class="tags">重生</span></td></tr>
+<tr><td>7</td><td>公路求生，开局和前任绑定共生</td><td class="num">1.2万</td><td>19.4万</td><td class="num">605</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">公路求生</span><span class="tags sep">·</span><span class="tags">破镜重圆</span><span class="tags sep">·</span><span class="tags">基建</span><span class="tags sep">·</span><span class="tags">萌宠</span><span class="tags sep">·</span><span class="tags">囤货</span></td></tr>
+<tr><td>8</td><td>虚拟游戏：P+P竟是全服第一</td><td class="num">1.4万</td><td>20.5万</td><td class="num">705</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">模拟经营</span><span class="tags sep">·</span><span class="tags">双重机甲</span><span class="tags sep">·</span><span class="tags">日</span><span class="tags sep">·</span><span class="tags">脸脸</span><span class="tags sep">·</span><span class="tags">游戏入侵</span></td></tr>
+<tr><td>9</td><td>游戏入侵：开局SSS天赋武财S</td><td class="num">1.3万</td><td>13.4万</td><td class="num">977</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">游戏入侵</span><span class="tags sep">·</span><span class="tags">CP</span><span class="tags sep">·</span><span class="tags">独狼</span><span class="tags sep">·</span><span class="tags">副本</span><span class="tags sep">·</span><span class="tags">升级流</span></td></tr>
+<tr><td>10</td><td>求生游戏：我在童梦森林盖树屋</td><td class="num">1.3万</td><td>21.2万</td><td class="num">615</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">全民求生</span><span class="tags sep">·</span><span class="tags">囤货</span><span class="tags sep">·</span><span class="tags">萌宠</span><span class="tags sep">·</span><span class="tags">求生</span><span class="tags sep">·</span><span class="tags">CP</span></td></tr>
+<tr><td>11</td><td>播：姐哥们集我主播了怎么办</td><td class="num">1.5万</td><td>14.0万</td><td class="num">1046</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">游戏主播</span><span class="tags sep">·</span><span class="tags">播日</span><span class="tags sep">·</span><span class="tags">论坛体</span><span class="tags sep">·</span><span class="tags">法文C官配</span></td></tr>
+<tr><td>12</td><td>海岛求生：杀杀杀，榜一她杀疯了</td><td class="num">1.5万</td><td>16.0万</td><td class="num">961</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">大女主</span><span class="tags sep">·</span><span class="tags">CP＋</span><span class="tags sep">·</span><span class="tags">心狠手辣</span><span class="tags sep">·</span><span class="tags">女主</span><span class="tags sep">·</span><span class="tags">没有仁义尽一说</span></td></tr>
+<tr><td>13</td><td>全民求生：我在沙漠陪农场主</td><td class="num">9800</td><td>20.4万</td><td class="num">480</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">求生</span><span class="tags sep">·</span><span class="tags">沙漠</span><span class="tags sep">·</span><span class="tags">战力Po.1</span><span class="tags sep">·</span><span class="tags">从C公有</span><span class="tags sep">·</span><span class="tags">农场主</span></td></tr>
+<tr><td>14</td><td>列车求生：我与天赋是三选一</td><td class="num">1.5万</td><td>12.8万</td><td class="num">1202</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">列车求生</span><span class="tags sep">·</span><span class="tags">半孤狼</span><span class="tags sep">·</span><span class="tags">永远领先别人</span><span class="tags sep">·</span><span class="tags">不圣母</span><span class="tags sep">·</span><span class="tags">成长型主角</span></td></tr>
+<tr><td>15</td><td>公路求生：我与天赋永久叠加</td><td class="num">1.1万</td><td>17.3万</td><td class="num">620</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">采集囤货</span><span class="tags sep">·</span><span class="tags">不圣母</span><span class="tags sep">·</span><span class="tags">CP</span><span class="tags sep">·</span><span class="tags">轻松爽文</span><span class="tags sep">·</span><span class="tags">你玩</span></td></tr>
+<tr><td>16</td><td>公路求生，榜一她与每日+算翻倍</td><td class="num">1.2万</td><td>12.8万</td><td class="num">953</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">游戏须知</span><span class="tags sep">·</span><span class="tags">于各戏金体投放。</span><span class="tags sep">·</span><span class="tags">请尽量在</span><span class="tags sep">·</span><span class="tags">每日程接关系公你与评</span><span class="tags sep">·</span><span class="tags">。</span></td></tr>
+<tr><td>17</td><td>编运狼人杀，开局和女巫通视野</td><td class="num">7724</td><td>21.3万</td><td class="num">363</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">女强</span><span class="tags sep">·</span><span class="tags">系统</span><span class="tags sep">·</span><span class="tags">电挂</span><span class="tags sep">·</span><span class="tags">爽文</span><span class="tags sep">·</span><span class="tags">推性</span></td></tr>
+<tr><td>18</td><td>全民求生：开局一间茅草棚</td><td class="num">1.1万</td><td>14.8万</td><td class="num">735</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">CP＋</span><span class="tags sep">·</span><span class="tags">囤货</span><span class="tags sep">·</span><span class="tags">种田</span><span class="tags sep">·</span><span class="tags">基建</span><span class="tags sep">·</span><span class="tags">可成长天赋</span></td></tr>
+<tr><td>19</td><td>升维游戏：从零开始建设第一领游</td><td class="num">7509</td><td>21.0万</td><td class="num">357</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">女强CP＋</span><span class="tags sep">·</span><span class="tags">游戏</span><span class="tags sep">·</span><span class="tags">基建</span><span class="tags sep">·</span><span class="tags">领主</span><span class="tags sep">·</span><span class="tags">系统</span></td></tr>
+<tr><td>20</td><td>编运求生：我靠御兽杀穿莽荒啦</td><td class="num">8180</td><td>14.9万</td><td class="num">549</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">CP＋</span><span class="tags sep">·</span><span class="tags">女强</span><span class="tags sep">·</span><span class="tags">编运</span><span class="tags sep">·</span><span class="tags">播</span><span class="tags sep">·</span><span class="tags">莽荒求生</span></td></tr>
+<tr><td>21</td><td>海的求生：幸运满值有统戏集世罩</td><td class="num">7500</td><td>22.5万</td><td class="num">333</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">海的求生</span><span class="tags sep">·</span><span class="tags">系统</span><span class="tags sep">·</span><span class="tags">领主</span><span class="tags sep">·</span><span class="tags">基建</span><span class="tags sep">·</span><span class="tags">魔法</span></td></tr>
+<tr><td>22</td><td>公路求生：我在灵宠空间种田躺赢</td><td class="num">5326</td><td>23.7万</td><td class="num">224</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">天灾</span><span class="tags sep">·</span><span class="tags">求生</span><span class="tags sep">·</span><span class="tags">基建</span><span class="tags sep">·</span><span class="tags">种田</span><span class="tags sep">·</span><span class="tags">空间</span></td></tr>
+<tr><td>23</td><td>你说海洋求生，我说吃吃吃</td><td class="num">7519</td><td>28.5万</td><td class="num">264</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">囤货</span><span class="tags sep">·</span><span class="tags">CP</span><span class="tags sep">·</span><span class="tags">系苏鲁</span><span class="tags sep">·</span><span class="tags">航海</span><span class="tags sep">·</span><span class="tags">副本</span></td></tr>
+<tr><td>24</td><td>耶猫与甜宠日+</td><td class="num">5047</td><td>14.6万</td><td class="num">346</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">-</span></td></tr>
+<tr><td>25</td><td>全民求生，野人领主型啃啃啃！</td><td class="num">6815</td><td>22.5万</td><td class="num">303</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">天灾</span><span class="tags sep">·</span><span class="tags">求生</span><span class="tags sep">·</span><span class="tags">基建</span><span class="tags sep">·</span><span class="tags">系统</span><span class="tags sep">·</span><span class="tags">领主</span></td></tr>
+<tr><td>26</td><td>游戏入侵：开局拿能SSS级天赋</td><td class="num">8728</td><td>15.4万</td><td class="num">567</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">命运</span><span class="tags sep">·</span><span class="tags">重生</span><span class="tags sep">·</span><span class="tags">游戏入侵</span></td></tr>
+<tr><td>27</td><td>C限求生：我与安全屋通桃源</td><td class="num">6221</td><td>13.2万</td><td class="num">471</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">CP</span><span class="tags sep">·</span><span class="tags">安全屋升级</span><span class="tags sep">·</span><span class="tags">种田囤货</span><span class="tags sep">·</span><span class="tags">C限求生</span><span class="tags sep">·</span><span class="tags">大女主</span></td></tr>
+<tr><td>28</td><td>龙岛：我是服务器隐藏大少爷</td><td class="num">9543</td><td>16.1万</td><td class="num">593</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">K服与C冕之王</span><span class="tags sep">·</span><span class="tags">CP</span></td></tr>
+<tr><td>29</td><td>木筏求：闺蜜躺赢 <span class="new-badge">NEW</span></td><td class="num">4778</td><td>18.8万</td><td class="num">255</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">基建</span><span class="tags sep">·</span><span class="tags">系统</span><span class="tags sep">·</span><span class="tags">萌宠</span><span class="tags sep">·</span><span class="tags">锦鲤</span></td></tr>
+<tr><td>30</td><td>游戏降临：脆皮巫求指南 <span class="new-badge">NEW</span></td><td class="num">4308</td><td>25.3万</td><td class="num">170</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">基建</span><span class="tags sep">·</span><span class="tags">独狼</span></td></tr>
 </tbody></table>
-<h3 class="subsection-title">科幻末世阅读榜 Top3 封面展示</h3>
+<div class="cover-group"><div class="cover-group-title">科幻末世阅读榜（30本，新上榜1本）</div></div>
 <div class="cover-cards">
 <div class="cover-card">
-            <div class="cover-img-wrap">
-                <img src="assets/covers/7602866445675940888.jpg" alt="精妹修机甲吗" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="cover-img">
+                <img src="assets/covers/7602866445675940888.jpg" alt="精妹修机甲吗 封面" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                 <div class="cover-fallback" style="display:none">封面未获取</div>
-                <span class="cover-rank">#1</span>
+                <span class="cover-rank r1">#1</span>
                 
             </div>
             <div class="cover-info">
                 <div class="cover-title">精妹修机甲吗</div>
-                <div class="cover-stats">
-                    <span class="stat-read">在读 167.5万</span>
-                    <span class="stat-eff">效率 24320</span>
+                <div class="cover-read">
+                    <span>在读 <b>167.5万</b></span>
+                    <span class="eff">效率 24320</span>
                 </div>
             </div>
         </div>
 <div class="cover-card">
-            <div class="cover-img-wrap">
-                <img src="assets/covers/7346909068407098430.jpg" alt="末世降临：尸尸呀囤囤囤囤！" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="cover-img">
+                <img src="assets/covers/7346909068407098430.jpg" alt="末世降临：尸尸呀囤囤囤囤！ 封面" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                 <div class="cover-fallback" style="display:none">封面未获取</div>
-                <span class="cover-rank">#2</span>
+                <span class="cover-rank r2">#2</span>
                 
             </div>
             <div class="cover-info">
                 <div class="cover-title">末世降临：尸尸呀囤囤囤囤！</div>
-                <div class="cover-stats">
-                    <span class="stat-read">在读 34.9万</span>
-                    <span class="stat-eff">效率 3118</span>
+                <div class="cover-read">
+                    <span>在读 <b>34.9万</b></span>
+                    <span class="eff">效率 3118</span>
                 </div>
             </div>
         </div>
 <div class="cover-card">
-            <div class="cover-img-wrap">
-                <img src="assets/covers/7164673910623964198.jpg" alt="末世囤货，我要通关末世" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="cover-img">
+                <img src="assets/covers/7164673910623964198.jpg" alt="末世囤货，我要通关末世 封面" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                 <div class="cover-fallback" style="display:none">封面未获取</div>
-                <span class="cover-rank">#3</span>
+                <span class="cover-rank r3">#3</span>
                 
             </div>
             <div class="cover-info">
                 <div class="cover-title">末世囤货，我要通关末世</div>
-                <div class="cover-stats">
-                    <span class="stat-read">在读 31.9万</span>
-                    <span class="stat-eff">效率 2617</span>
+                <div class="cover-read">
+                    <span>在读 <b>31.9万</b></span>
+                    <span class="eff">效率 2617</span>
                 </div>
             </div>
         </div>
 </div>
-<h3 class="subsection-title">科幻末世阅读榜（第4名起，新上榜1本）</h3>
-<table class="rank-table">
-<thead><tr><th class="col-rank">排名</th><th class="col-title">书名</th><th class="col-read">在读</th><th>字数</th><th class="col-eff">效率</th><th>状态</th><th>标签</th></tr></thead>
-<tbody>
-<tr><td class="col-rank">4</td><td class="col-title">在末世经营中餐厅爆火</td><td class="col-read">26.7万</td><td>145.0万</td><td class="col-eff">1840</td><td>连载中</td><td>末世, 经营, 系统, 美食, 种田</td></tr>
-<tr><td class="col-rank">5</td><td class="col-title">异能密集？我收编异能队</td><td class="col-read">24.5万</td><td>75.8万</td><td class="col-eff">3228</td><td>已完结</td><td>异能, 爽文, 女强</td></tr>
-<tr><td class="col-rank">6</td><td class="col-title">特遣队，阴到没边！</td><td class="col-read">21.1万</td><td>84.3万</td><td class="col-eff">2505</td><td>连载中</td><td>群像, 战乱末世, 大女主, 全洁</td></tr>
-<tr><td class="col-rank">7</td><td class="col-title">穿成恶毒女配，绑定阴湿反派黑化前</td><td class="col-read">22.3万</td><td>59.9万</td><td class="col-eff">3728</td><td>已完结</td><td>恶毒女配, 反派, 恋爱文, 末世, 系统</td></tr>
-<tr><td class="col-rank">8</td><td class="col-title">末世文恶毒女配？嚣张一日是一日</td><td class="col-read">17.2万</td><td>153.2万</td><td class="col-eff">1124</td><td>已完结</td><td>恶毒女配, 空间, 丧尸, 面交易</td></tr>
-<tr><td class="col-rank">9</td><td class="col-title">荒野救援队，在线肘击世界</td><td class="col-read">17.1万</td><td>159.6万</td><td class="col-eff">1070</td><td>已完结</td><td>末日天灾, 群像, 救援, 天灾, CP</td></tr>
-<tr><td class="col-rank">10</td><td class="col-title">末世重生：大佬从百万囤货开始</td><td class="col-read">14.4万</td><td>103.3万</td><td class="col-eff">1393</td><td>已完结</td><td>末世, 狠人, 系统空间, 囤货, 基建</td></tr>
-<tr><td class="col-rank">11</td><td class="col-title">抱紧妖孽反派大腿：末世游戏外挂</td><td class="col-read">11.1万</td><td>60.4万</td><td class="col-eff">1845</td><td>连载中</td><td>穿书, 真千金, 末世, 金手指, 假千金</td></tr>
-<tr><td class="col-rank">12</td><td class="col-title">收球跑成突降末世，孩世爹找疯了</td><td class="col-read">11.5万</td><td>56.6万</td><td class="col-eff">2031</td><td>连载中</td><td>末世, 天灾, 求生, 空间, 暴徒</td></tr>
-<tr><td class="col-rank">13</td><td class="col-title">弱智就弱智吧，我照样星际变强！</td><td class="col-read">11.5万</td><td>69.5万</td><td class="col-eff">1659</td><td>连载中</td><td>CP＋, 星际, CP</td></tr>
-<tr><td class="col-rank">14</td><td class="col-title">末世菟丝萝：姐夫你倒是说句梦啊</td><td class="col-read">11.2万</td><td>68.3万</td><td class="col-eff">1645</td><td>连载中</td><td>末世, 菟丝绿茶, 泪失禁美人, 界机主全洁, 雄竞修罗场</td></tr>
-<tr><td class="col-rank">15</td><td class="col-title">变成丧尸那咋了？我照样陪团宠！</td><td class="col-read">9.9万</td><td>40.3万</td><td class="col-eff">2453</td><td>已完结</td><td>CP＋, 末世, 丧尸, 异能, CP</td></tr>
-<tr><td class="col-rank">16</td><td class="col-title">真公主？不，真君主！</td><td class="col-read">9.9万</td><td>86.0万</td><td class="col-eff">1155</td><td>连载中</td><td>万编狩猎场, CP, 大女主, 前期军校争霸, 成期一统人族</td></tr>
-<tr><td class="col-rank">17</td><td class="col-title">都末世了，有亿异能怪合性吧</td><td class="col-read">10.6万</td><td>91.2万</td><td class="col-eff">1157</td><td>已完结</td><td>末世, 天灾, 大佬, 爽文C逻辑, CP＋</td></tr>
-<tr><td class="col-rank">18</td><td class="col-title">末世：我一个炮灰，坏一怎么了</td><td class="col-read">10.2万</td><td>113.2万</td><td class="col-eff">903</td><td>已完结</td><td>末世, 丧尸, 求生, 空间, 异能</td></tr>
-<tr><td class="col-rank">19</td><td class="col-title">星际：逼我退学？反手造S级瘾甲</td><td class="col-read">10.0万</td><td>116.3万</td><td class="col-eff">856</td><td>连载中</td><td>星际, 搞笑, 学院, 比赛, 瘾甲制造</td></tr>
-<tr><td class="col-rank">20</td><td class="col-title">开局天灾，我靠囤百亿物资躺赢</td><td class="col-read">9.6万</td><td>132.6万</td><td class="col-eff">721</td><td>已完结</td><td>末世, 重生, 空间, 囤货, 宠物</td></tr>
-<tr><td class="col-rank">21</td><td class="col-title">末世降临，我靠种田收室友杀疯了</td><td class="col-read">9.4万</td><td>154.2万</td><td class="col-eff">611</td><td>已完结</td><td>末世游戏, 界面长, 群像文, 种田, CP</td></tr>
-<tr><td class="col-rank">22</td><td class="col-title">温软玫瑰沦然他心尖偏宠【末世】</td><td class="col-read">8.8万</td><td>36.1万</td><td class="col-eff">2429</td><td>已完结</td><td>末世, 反派, 双洁, 修罗场</td></tr>
-<tr><td class="col-rank">23</td><td class="col-title">小队全员兽化，菟丝萝夹缝末逃</td><td class="col-read">12.0万</td><td>39.8万</td><td class="col-eff">3006</td><td>连载中</td><td>是与哦, 宿主, 而且, 邻在与世戏, 末雄兽界</td></tr>
-<tr><td class="col-rank">24</td><td class="col-title">末世降临不求慌，先囤粮食成囤枪</td><td class="col-read">8.6万</td><td>206.6万</td><td class="col-eff">416</td><td>已完结</td><td>末世重生, 囤货, 空间, CP, 基建</td></tr>
-<tr><td class="col-rank">25</td><td class="col-title">全民求生，我成了万年老二</td><td class="col-read">8.2万</td><td>82.4万</td><td class="col-eff">992</td><td>已完结</td><td>CP＋, 囤货, C限流, 天灾, 有队友</td></tr>
-<tr><td class="col-rank">26</td><td class="col-title">C尽冰原：开局三个具箱</td><td class="col-read">7.9万</td><td>113.2万</td><td class="col-eff">702</td><td>连载中</td><td>求生游戏, 游戏入侵, 极寒末世, 基建狂魔, 萌宠</td></tr>
-<tr><td class="col-rank">27</td><td class="col-title">末日狂欢：小怪物她有七秒记忆</td><td class="col-read">7.7万</td><td>50.0万</td><td class="col-eff">1549</td><td>已完结</td><td>末世, 囤货, 安全屋, 双洁, 破镜重圆</td></tr>
-<tr><td class="col-rank">28</td><td class="col-title">末世重生之千归途</td><td class="col-read">6.0万</td><td>64.5万</td><td class="col-eff">937</td><td>已完结</td><td>戏份戏份, 末世, 重生, 空间, 囤货</td></tr>
-<tr><td class="col-rank">29</td><td class="col-title">天灾异种：金手指？拿海吧你</td><td class="col-read">7.7万</td><td>105.1万</td><td class="col-eff">733</td><td>连载中</td><td>天灾, 变异, 女强, 重生, 空间</td></tr>
-<tr><td class="col-rank">30</td><td class="col-title">撒糯米！冒黑烟啊 <span class="tag-new">NEW</span></td><td class="col-read">8.4万</td><td>109.1万</td><td class="col-eff">769</td><td>已完结</td><td>-</td></tr>
+<h3>科幻末世阅读榜（第4名起）</h3>
+<table class="doc-data-table"><thead><tr><th>排名</th><th>书名</th><th class="num">在读</th><th>字数</th><th class="num">效率</th><th>状态</th><th>标签关键词</th></tr></thead><tbody>
+<tr><td>4</td><td>在末世经营中餐厅爆火</td><td class="num">26.7万</td><td>145.0万</td><td class="num">1840</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">末世</span><span class="tags sep">·</span><span class="tags">经营</span><span class="tags sep">·</span><span class="tags">系统</span><span class="tags sep">·</span><span class="tags">美食</span><span class="tags sep">·</span><span class="tags">种田</span></td></tr>
+<tr><td>5</td><td>异能密集？我收编异能队</td><td class="num">24.5万</td><td>75.8万</td><td class="num">3228</td><td><span class="status-badge completed">完结</span></td><td><span class="tags">异能</span><span class="tags sep">·</span><span class="tags">爽文</span><span class="tags sep">·</span><span class="tags">女强</span></td></tr>
+<tr><td>6</td><td>特遣队，阴到没边！</td><td class="num">21.1万</td><td>84.3万</td><td class="num">2505</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">群像</span><span class="tags sep">·</span><span class="tags">战乱末世</span><span class="tags sep">·</span><span class="tags">大女主</span><span class="tags sep">·</span><span class="tags">全洁</span></td></tr>
+<tr><td>7</td><td>穿成恶毒女配，绑定阴湿反派黑化前</td><td class="num">22.3万</td><td>59.9万</td><td class="num">3728</td><td><span class="status-badge completed">完结</span></td><td><span class="tags">恶毒女配</span><span class="tags sep">·</span><span class="tags">反派</span><span class="tags sep">·</span><span class="tags">恋爱文</span><span class="tags sep">·</span><span class="tags">末世</span><span class="tags sep">·</span><span class="tags">系统</span></td></tr>
+<tr><td>8</td><td>末世文恶毒女配？嚣张一日是一日</td><td class="num">17.2万</td><td>153.2万</td><td class="num">1124</td><td><span class="status-badge completed">完结</span></td><td><span class="tags">恶毒女配</span><span class="tags sep">·</span><span class="tags">空间</span><span class="tags sep">·</span><span class="tags">丧尸</span><span class="tags sep">·</span><span class="tags">面交易</span></td></tr>
+<tr><td>9</td><td>荒野救援队，在线肘击世界</td><td class="num">17.1万</td><td>159.6万</td><td class="num">1070</td><td><span class="status-badge completed">完结</span></td><td><span class="tags">末日天灾</span><span class="tags sep">·</span><span class="tags">群像</span><span class="tags sep">·</span><span class="tags">救援</span><span class="tags sep">·</span><span class="tags">天灾</span><span class="tags sep">·</span><span class="tags">CP</span></td></tr>
+<tr><td>10</td><td>末世重生：大佬从百万囤货开始</td><td class="num">14.4万</td><td>103.3万</td><td class="num">1393</td><td><span class="status-badge completed">完结</span></td><td><span class="tags">末世</span><span class="tags sep">·</span><span class="tags">狠人</span><span class="tags sep">·</span><span class="tags">系统空间</span><span class="tags sep">·</span><span class="tags">囤货</span><span class="tags sep">·</span><span class="tags">基建</span></td></tr>
+<tr><td>11</td><td>抱紧妖孽反派大腿：末世游戏外挂</td><td class="num">11.1万</td><td>60.4万</td><td class="num">1845</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">穿书</span><span class="tags sep">·</span><span class="tags">真千金</span><span class="tags sep">·</span><span class="tags">末世</span><span class="tags sep">·</span><span class="tags">金手指</span><span class="tags sep">·</span><span class="tags">假千金</span></td></tr>
+<tr><td>12</td><td>收球跑成突降末世，孩世爹找疯了</td><td class="num">11.5万</td><td>56.6万</td><td class="num">2031</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">末世</span><span class="tags sep">·</span><span class="tags">天灾</span><span class="tags sep">·</span><span class="tags">求生</span><span class="tags sep">·</span><span class="tags">空间</span><span class="tags sep">·</span><span class="tags">暴徒</span></td></tr>
+<tr><td>13</td><td>弱智就弱智吧，我照样星际变强！</td><td class="num">11.5万</td><td>69.5万</td><td class="num">1659</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">CP＋</span><span class="tags sep">·</span><span class="tags">星际</span><span class="tags sep">·</span><span class="tags">CP</span></td></tr>
+<tr><td>14</td><td>末世菟丝萝：姐夫你倒是说句梦啊</td><td class="num">11.2万</td><td>68.3万</td><td class="num">1645</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">末世</span><span class="tags sep">·</span><span class="tags">菟丝绿茶</span><span class="tags sep">·</span><span class="tags">泪失禁美人</span><span class="tags sep">·</span><span class="tags">界机主全洁</span><span class="tags sep">·</span><span class="tags">雄竞修罗场</span></td></tr>
+<tr><td>15</td><td>变成丧尸那咋了？我照样陪团宠！</td><td class="num">9.9万</td><td>40.3万</td><td class="num">2453</td><td><span class="status-badge completed">完结</span></td><td><span class="tags">CP＋</span><span class="tags sep">·</span><span class="tags">末世</span><span class="tags sep">·</span><span class="tags">丧尸</span><span class="tags sep">·</span><span class="tags">异能</span><span class="tags sep">·</span><span class="tags">CP</span></td></tr>
+<tr><td>16</td><td>真公主？不，真君主！</td><td class="num">9.9万</td><td>86.0万</td><td class="num">1155</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">万编狩猎场</span><span class="tags sep">·</span><span class="tags">CP</span><span class="tags sep">·</span><span class="tags">大女主</span><span class="tags sep">·</span><span class="tags">前期军校争霸</span><span class="tags sep">·</span><span class="tags">成期一统人族</span></td></tr>
+<tr><td>17</td><td>都末世了，有亿异能怪合性吧</td><td class="num">10.6万</td><td>91.2万</td><td class="num">1157</td><td><span class="status-badge completed">完结</span></td><td><span class="tags">末世</span><span class="tags sep">·</span><span class="tags">天灾</span><span class="tags sep">·</span><span class="tags">大佬</span><span class="tags sep">·</span><span class="tags">爽文C逻辑</span><span class="tags sep">·</span><span class="tags">CP＋</span></td></tr>
+<tr><td>18</td><td>末世：我一个炮灰，坏一怎么了</td><td class="num">10.2万</td><td>113.2万</td><td class="num">903</td><td><span class="status-badge completed">完结</span></td><td><span class="tags">末世</span><span class="tags sep">·</span><span class="tags">丧尸</span><span class="tags sep">·</span><span class="tags">求生</span><span class="tags sep">·</span><span class="tags">空间</span><span class="tags sep">·</span><span class="tags">异能</span></td></tr>
+<tr><td>19</td><td>星际：逼我退学？反手造S级瘾甲</td><td class="num">10.0万</td><td>116.3万</td><td class="num">856</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">星际</span><span class="tags sep">·</span><span class="tags">搞笑</span><span class="tags sep">·</span><span class="tags">学院</span><span class="tags sep">·</span><span class="tags">比赛</span><span class="tags sep">·</span><span class="tags">瘾甲制造</span></td></tr>
+<tr><td>20</td><td>开局天灾，我靠囤百亿物资躺赢</td><td class="num">9.6万</td><td>132.6万</td><td class="num">721</td><td><span class="status-badge completed">完结</span></td><td><span class="tags">末世</span><span class="tags sep">·</span><span class="tags">重生</span><span class="tags sep">·</span><span class="tags">空间</span><span class="tags sep">·</span><span class="tags">囤货</span><span class="tags sep">·</span><span class="tags">宠物</span></td></tr>
+<tr><td>21</td><td>末世降临，我靠种田收室友杀疯了</td><td class="num">9.4万</td><td>154.2万</td><td class="num">611</td><td><span class="status-badge completed">完结</span></td><td><span class="tags">末世游戏</span><span class="tags sep">·</span><span class="tags">界面长</span><span class="tags sep">·</span><span class="tags">群像文</span><span class="tags sep">·</span><span class="tags">种田</span><span class="tags sep">·</span><span class="tags">CP</span></td></tr>
+<tr><td>22</td><td>温软玫瑰沦然他心尖偏宠【末世】</td><td class="num">8.8万</td><td>36.1万</td><td class="num">2429</td><td><span class="status-badge completed">完结</span></td><td><span class="tags">末世</span><span class="tags sep">·</span><span class="tags">反派</span><span class="tags sep">·</span><span class="tags">双洁</span><span class="tags sep">·</span><span class="tags">修罗场</span></td></tr>
+<tr><td>23</td><td>小队全员兽化，菟丝萝夹缝末逃</td><td class="num">12.0万</td><td>39.8万</td><td class="num">3006</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">是与哦</span><span class="tags sep">·</span><span class="tags">宿主</span><span class="tags sep">·</span><span class="tags">而且</span><span class="tags sep">·</span><span class="tags">邻在与世戏</span><span class="tags sep">·</span><span class="tags">末雄兽界</span></td></tr>
+<tr><td>24</td><td>末世降临不求慌，先囤粮食成囤枪</td><td class="num">8.6万</td><td>206.6万</td><td class="num">416</td><td><span class="status-badge completed">完结</span></td><td><span class="tags">末世重生</span><span class="tags sep">·</span><span class="tags">囤货</span><span class="tags sep">·</span><span class="tags">空间</span><span class="tags sep">·</span><span class="tags">CP</span><span class="tags sep">·</span><span class="tags">基建</span></td></tr>
+<tr><td>25</td><td>全民求生，我成了万年老二</td><td class="num">8.2万</td><td>82.4万</td><td class="num">992</td><td><span class="status-badge completed">完结</span></td><td><span class="tags">CP＋</span><span class="tags sep">·</span><span class="tags">囤货</span><span class="tags sep">·</span><span class="tags">C限流</span><span class="tags sep">·</span><span class="tags">天灾</span><span class="tags sep">·</span><span class="tags">有队友</span></td></tr>
+<tr><td>26</td><td>C尽冰原：开局三个具箱</td><td class="num">7.9万</td><td>113.2万</td><td class="num">702</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">求生游戏</span><span class="tags sep">·</span><span class="tags">游戏入侵</span><span class="tags sep">·</span><span class="tags">极寒末世</span><span class="tags sep">·</span><span class="tags">基建狂魔</span><span class="tags sep">·</span><span class="tags">萌宠</span></td></tr>
+<tr><td>27</td><td>末日狂欢：小怪物她有七秒记忆</td><td class="num">7.7万</td><td>50.0万</td><td class="num">1549</td><td><span class="status-badge completed">完结</span></td><td><span class="tags">末世</span><span class="tags sep">·</span><span class="tags">囤货</span><span class="tags sep">·</span><span class="tags">安全屋</span><span class="tags sep">·</span><span class="tags">双洁</span><span class="tags sep">·</span><span class="tags">破镜重圆</span></td></tr>
+<tr><td>28</td><td>末世重生之千归途</td><td class="num">6.0万</td><td>64.5万</td><td class="num">937</td><td><span class="status-badge completed">完结</span></td><td><span class="tags">戏份戏份</span><span class="tags sep">·</span><span class="tags">末世</span><span class="tags sep">·</span><span class="tags">重生</span><span class="tags sep">·</span><span class="tags">空间</span><span class="tags sep">·</span><span class="tags">囤货</span></td></tr>
+<tr><td>29</td><td>天灾异种：金手指？拿海吧你</td><td class="num">7.7万</td><td>105.1万</td><td class="num">733</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">天灾</span><span class="tags sep">·</span><span class="tags">变异</span><span class="tags sep">·</span><span class="tags">女强</span><span class="tags sep">·</span><span class="tags">重生</span><span class="tags sep">·</span><span class="tags">空间</span></td></tr>
+<tr><td>30</td><td>撒糯米！冒黑烟啊 <span class="new-badge">NEW</span></td><td class="num">8.4万</td><td>109.1万</td><td class="num">769</td><td><span class="status-badge completed">完结</span></td><td><span class="tags">-</span></td></tr>
 </tbody></table>
-<h3 class="subsection-title">游戏体育阅读榜 Top3 封面展示</h3>
+<div class="cover-group"><div class="cover-group-title">游戏体育阅读榜（30本，新上榜0本）</div></div>
 <div class="cover-cards">
 <div class="cover-card">
-            <div class="cover-img-wrap">
-                <img src="assets/covers/7361653460183288894.jpg" alt="游戏入侵：抢机缘成瘾诶" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="cover-img">
+                <img src="assets/covers/7361653460183288894.jpg" alt="游戏入侵：抢机缘成瘾诶 封面" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                 <div class="cover-fallback" style="display:none">封面未获取</div>
-                <span class="cover-rank">#1</span>
+                <span class="cover-rank r1">#1</span>
                 
             </div>
             <div class="cover-info">
                 <div class="cover-title">游戏入侵：抢机缘成瘾诶</div>
-                <div class="cover-stats">
-                    <span class="stat-read">在读 161.1万</span>
-                    <span class="stat-eff">效率 5143</span>
+                <div class="cover-read">
+                    <span>在读 <b>161.1万</b></span>
+                    <span class="eff">效率 5143</span>
                 </div>
             </div>
         </div>
 <div class="cover-card">
-            <div class="cover-img-wrap">
-                <img src="assets/covers/7448581895861849112.jpg" alt="公路求生榜一说她要到公路尽头" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="cover-img">
+                <img src="assets/covers/7448581895861849112.jpg" alt="公路求生榜一说她要到公路尽头 封面" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                 <div class="cover-fallback" style="display:none">封面未获取</div>
-                <span class="cover-rank">#2</span>
+                <span class="cover-rank r2">#2</span>
                 
             </div>
             <div class="cover-info">
                 <div class="cover-title">公路求生榜一说她要到公路尽头</div>
-                <div class="cover-stats">
-                    <span class="stat-read">在读 28.9万</span>
-                    <span class="stat-eff">效率 1166</span>
+                <div class="cover-read">
+                    <span>在读 <b>28.9万</b></span>
+                    <span class="eff">效率 1166</span>
                 </div>
             </div>
         </div>
 <div class="cover-card">
-            <div class="cover-img-wrap">
-                <img src="assets/covers/7523091212388027454.jpg" alt="全球木筏求生：我开局幽灵船打劫" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="cover-img">
+                <img src="assets/covers/7523091212388027454.jpg" alt="全球木筏求生：我开局幽灵船打劫 封面" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                 <div class="cover-fallback" style="display:none">封面未获取</div>
-                <span class="cover-rank">#3</span>
+                <span class="cover-rank r3">#3</span>
                 
             </div>
             <div class="cover-info">
                 <div class="cover-title">全球木筏求生：我开局幽灵船打劫</div>
-                <div class="cover-stats">
-                    <span class="stat-read">在读 20.5万</span>
-                    <span class="stat-eff">效率 1461</span>
+                <div class="cover-read">
+                    <span>在读 <b>20.5万</b></span>
+                    <span class="eff">效率 1461</span>
                 </div>
             </div>
         </div>
 </div>
-<h3 class="subsection-title">游戏体育阅读榜（第4名起，新上榜0本）</h3>
-<table class="rank-table">
-<thead><tr><th class="col-rank">排名</th><th class="col-title">书名</th><th class="col-read">在读</th><th>字数</th><th class="col-eff">效率</th><th>状态</th><th>标签</th></tr></thead>
-<tbody>
-<tr><td class="col-rank">4</td><td class="col-title">求生游戏：请叫我诚信商人</td><td class="col-read">19.7万</td><td>46.9万</td><td class="col-eff">4203</td><td>连载中</td><td>求生游戏, 升级流, 商人, 求生, CP</td></tr>
-<tr><td class="col-rank">5</td><td class="col-title">求生游戏：我有一座湖心岛</td><td class="col-read">19.0万</td><td>52.2万</td><td class="col-eff">3646</td><td>连载中</td><td>求生游戏, 基建, 种田, 萌宠, CP</td></tr>
-<tr><td class="col-rank">6</td><td class="col-title">公路求生，但我是隔壁无限流大佬</td><td class="col-read">11.7万</td><td>85.2万</td><td class="col-eff">1378</td><td>连载中</td><td>公路求生, 无限流, 天灾, 安全屋, 求生</td></tr>
-<tr><td class="col-rank">7</td><td class="col-title">海上求生：我的木筏通桃源</td><td class="col-read">8.4万</td><td>202.5万</td><td class="col-eff">417</td><td>已完结</td><td>海上求生, 木筏, 已完结, 求生</td></tr>
-<tr><td class="col-rank">8</td><td class="col-title">魔女的农场：生存游戏建造家园</td><td class="col-read">6.1万</td><td>76.7万</td><td class="col-eff">796</td><td>连载中</td><td>魔女, 农场, 建造, 领主</td></tr>
-<tr><td class="col-rank">9</td><td class="col-title">我恨我，玩家榜前十全是我</td><td class="col-read">6.1万</td><td>37.0万</td><td class="col-eff">1636</td><td>连载中</td><td>游戏入侵, 女强, 无CP, 升级流, CP</td></tr>
-<tr><td class="col-rank">10</td><td class="col-title">重生NPC我成了隐藏BOSS</td><td class="col-read">4.7万</td><td>34.8万</td><td class="col-eff">1359</td><td>连载中</td><td>NPC, 游戏, 机甲, 女强, 基建</td></tr>
-<tr><td class="col-rank">11</td><td class="col-title">剁剁剁剁，全都剁了包包世</td><td class="col-read">4.4万</td><td>76.7万</td><td class="col-eff">569</td><td>连载中</td><td>游戏, 两戏互通, 升级, 家庭, 机主具人</td></tr>
-<tr><td class="col-rank">12</td><td class="col-title">游戏入侵：原女主她天生反骨</td><td class="col-read">3.9万</td><td>132.8万</td><td class="col-eff">292</td><td>连载中</td><td>重生, CP, 疯批, 独狼, 法电狂徒</td></tr>
-<tr><td class="col-rank">13</td><td class="col-title">公路求生，我与恋我脑机友重生了</td><td class="col-read">3.7万</td><td>80.1万</td><td class="col-eff">467</td><td>连载中</td><td>公路求生, 内测, 升级流, 游戏, 副本</td></tr>
-<tr><td class="col-rank">14</td><td class="col-title">公路求生：我被拉+了管性群</td><td class="col-read">3.5万</td><td>120.5万</td><td class="col-eff">294</td><td>已完结</td><td>入游戏。, 末群居民然什么不仔细, 周围与环境？, 我求急, 求生</td></tr>
-<tr><td class="col-rank">15</td><td class="col-title">末游戏一，就不对劲啊！</td><td class="col-read">3.6万</td><td>88.9万</td><td class="col-eff">408</td><td>连载中</td><td>末世游戏降临, 大佬归归, 全息游戏, 微第四天灾, CP＋</td></tr>
-<tr><td class="col-rank">16</td><td class="col-title">全民求生：E级天赋与塔之魔女</td><td class="col-read">3.5万</td><td>222.3万</td><td class="col-eff">159</td><td>连载中</td><td>天赋升格魔药, 种族转换魔药, 种田, CP, 女强</td></tr>
-<tr><td class="col-rank">17</td><td class="col-title">求生游戏，我在异世卷成大佬</td><td class="col-read">3.4万</td><td>312.3万</td><td class="col-eff">110</td><td>连载中</td><td>法文玩完, 求生, 基建, 女强, CP</td></tr>
-<tr><td class="col-rank">18</td><td class="col-title">求生之路：从徒步开始</td><td class="col-read">3.7万</td><td>53.8万</td><td class="col-eff">694</td><td>连载中</td><td>求生, 徒步, 天灾, 囤货, 种田</td></tr>
-<tr><td class="col-rank">19</td><td class="col-title">游戏入侵：我与天赋有亿不法经</td><td class="col-read">3.4万</td><td>235.8万</td><td class="col-eff">143</td><td>连载中</td><td>编运求生游戏, 万族争霸, 盗S, CP, 领游争霸</td></tr>
-<tr><td class="col-rank">20</td><td class="col-title">末路求生游戏，开局一辆大巴车</td><td class="col-read">3.3万</td><td>115.4万</td><td class="col-eff">283</td><td>已完结</td><td>女强, CP＋, 囤货, 公路求生, C限流</td></tr>
-<tr><td class="col-rank">21</td><td class="col-title">重生之萝滑女王绝不认输</td><td class="col-read">2.7万</td><td>32.1万</td><td class="col-eff">844</td><td>连载中</td><td>重生, 萝滑, 双强, 甜宠, 1V1</td></tr>
-<tr><td class="col-rank">22</td><td class="col-title">木筏求生：我致力脸造鼠托邦</td><td class="col-read">2.6万</td><td>153.0万</td><td class="col-eff">170</td><td>连载中</td><td>女强, CP, 种田, 基建, 求生爽</td></tr>
-<tr><td class="col-rank">23</td><td class="col-title">游戏降临：开局上醒财富之S</td><td class="col-read">2.7万</td><td>81.3万</td><td class="col-eff">334</td><td>连载中</td><td>游戏入侵, 女强, 升级, 爽文, 机全洁</td></tr>
-<tr><td class="col-rank">24</td><td class="col-title">卡牌，开局制作风堇卡</td><td class="col-read">2.4万</td><td>109.7万</td><td class="col-eff">217</td><td>连载中</td><td>卡牌, 星穹铁道, 崩铁, CP＋, 机甲</td></tr>
-<tr><td class="col-rank">25</td><td class="col-title">闭麦躺好，我Parry全场</td><td class="col-read">2.5万</td><td>69.4万</td><td class="col-eff">357</td><td>已完结</td><td>玩完, 放心食, 那种一赢公底与, 那么不好意思, 如果有雷同纯属巧合</td></tr>
-<tr><td class="col-rank">26</td><td class="col-title">游戏入侵：开局随瘾抽取一个系统</td><td class="col-read">2.5万</td><td>77.3万</td><td class="col-eff">318</td><td>已完结</td><td>CP, 爽文, 脸脸, C敌升级流, 一路横推</td></tr>
-<tr><td class="col-rank">27</td><td class="col-title">游戏入侵之从虫母开始</td><td class="col-read">2.2万</td><td>67.8万</td><td class="col-eff">328</td><td>连载中</td><td>游戏入侵, 1vn, 机全洁, 女主虫母的, 基建流</td></tr>
-<tr><td class="col-rank">28</td><td class="col-title">C限末世：恶毒美人杀疯了</td><td class="col-read">2.3万</td><td>94.1万</td><td class="col-eff">248</td><td>连载中</td><td>玩完, 行, 拼命脸补丁, 末世, 丧尸</td></tr>
-<tr><td class="col-rank">29</td><td class="col-title">游戏降临，开局接拉满天赋</td><td class="col-read">2.1万</td><td>31.7万</td><td class="col-eff">655</td><td>连载中</td><td>评, 刚开, CP＋, 游戏降临, 副本</td></tr>
-<tr><td class="col-rank">30</td><td class="col-title">异编恋翻车成，球星前任求我别女</td><td class="col-read">2.2万</td><td>37.6万</td><td class="col-eff">576</td><td>已完结</td><td>-</td></tr>
+<h3>游戏体育阅读榜（第4名起）</h3>
+<table class="doc-data-table"><thead><tr><th>排名</th><th>书名</th><th class="num">在读</th><th>字数</th><th class="num">效率</th><th>状态</th><th>标签关键词</th></tr></thead><tbody>
+<tr><td>4</td><td>求生游戏：请叫我诚信商人</td><td class="num">19.7万</td><td>46.9万</td><td class="num">4203</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">求生游戏</span><span class="tags sep">·</span><span class="tags">升级流</span><span class="tags sep">·</span><span class="tags">商人</span><span class="tags sep">·</span><span class="tags">求生</span><span class="tags sep">·</span><span class="tags">CP</span></td></tr>
+<tr><td>5</td><td>求生游戏：我有一座湖心岛</td><td class="num">19.0万</td><td>52.2万</td><td class="num">3646</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">求生游戏</span><span class="tags sep">·</span><span class="tags">基建</span><span class="tags sep">·</span><span class="tags">种田</span><span class="tags sep">·</span><span class="tags">萌宠</span><span class="tags sep">·</span><span class="tags">CP</span></td></tr>
+<tr><td>6</td><td>公路求生，但我是隔壁无限流大佬</td><td class="num">11.7万</td><td>85.2万</td><td class="num">1378</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">公路求生</span><span class="tags sep">·</span><span class="tags">无限流</span><span class="tags sep">·</span><span class="tags">天灾</span><span class="tags sep">·</span><span class="tags">安全屋</span><span class="tags sep">·</span><span class="tags">求生</span></td></tr>
+<tr><td>7</td><td>海上求生：我的木筏通桃源</td><td class="num">8.4万</td><td>202.5万</td><td class="num">417</td><td><span class="status-badge completed">完结</span></td><td><span class="tags">海上求生</span><span class="tags sep">·</span><span class="tags">木筏</span><span class="tags sep">·</span><span class="tags">已完结</span><span class="tags sep">·</span><span class="tags">求生</span></td></tr>
+<tr><td>8</td><td>魔女的农场：生存游戏建造家园</td><td class="num">6.1万</td><td>76.7万</td><td class="num">796</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">魔女</span><span class="tags sep">·</span><span class="tags">农场</span><span class="tags sep">·</span><span class="tags">建造</span><span class="tags sep">·</span><span class="tags">领主</span></td></tr>
+<tr><td>9</td><td>我恨我，玩家榜前十全是我</td><td class="num">6.1万</td><td>37.0万</td><td class="num">1636</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">游戏入侵</span><span class="tags sep">·</span><span class="tags">女强</span><span class="tags sep">·</span><span class="tags">无CP</span><span class="tags sep">·</span><span class="tags">升级流</span><span class="tags sep">·</span><span class="tags">CP</span></td></tr>
+<tr><td>10</td><td>重生NPC我成了隐藏BOSS</td><td class="num">4.7万</td><td>34.8万</td><td class="num">1359</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">NPC</span><span class="tags sep">·</span><span class="tags">游戏</span><span class="tags sep">·</span><span class="tags">机甲</span><span class="tags sep">·</span><span class="tags">女强</span><span class="tags sep">·</span><span class="tags">基建</span></td></tr>
+<tr><td>11</td><td>剁剁剁剁，全都剁了包包世</td><td class="num">4.4万</td><td>76.7万</td><td class="num">569</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">游戏</span><span class="tags sep">·</span><span class="tags">两戏互通</span><span class="tags sep">·</span><span class="tags">升级</span><span class="tags sep">·</span><span class="tags">家庭</span><span class="tags sep">·</span><span class="tags">机主具人</span></td></tr>
+<tr><td>12</td><td>游戏入侵：原女主她天生反骨</td><td class="num">3.9万</td><td>132.8万</td><td class="num">292</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">重生</span><span class="tags sep">·</span><span class="tags">CP</span><span class="tags sep">·</span><span class="tags">疯批</span><span class="tags sep">·</span><span class="tags">独狼</span><span class="tags sep">·</span><span class="tags">法电狂徒</span></td></tr>
+<tr><td>13</td><td>公路求生，我与恋我脑机友重生了</td><td class="num">3.7万</td><td>80.1万</td><td class="num">467</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">公路求生</span><span class="tags sep">·</span><span class="tags">内测</span><span class="tags sep">·</span><span class="tags">升级流</span><span class="tags sep">·</span><span class="tags">游戏</span><span class="tags sep">·</span><span class="tags">副本</span></td></tr>
+<tr><td>14</td><td>公路求生：我被拉+了管性群</td><td class="num">3.5万</td><td>120.5万</td><td class="num">294</td><td><span class="status-badge completed">完结</span></td><td><span class="tags">入游戏。</span><span class="tags sep">·</span><span class="tags">末群居民然什么不仔细</span><span class="tags sep">·</span><span class="tags">周围与环境？</span><span class="tags sep">·</span><span class="tags">我求急</span><span class="tags sep">·</span><span class="tags">求生</span></td></tr>
+<tr><td>15</td><td>末游戏一，就不对劲啊！</td><td class="num">3.6万</td><td>88.9万</td><td class="num">408</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">末世游戏降临</span><span class="tags sep">·</span><span class="tags">大佬归归</span><span class="tags sep">·</span><span class="tags">全息游戏</span><span class="tags sep">·</span><span class="tags">微第四天灾</span><span class="tags sep">·</span><span class="tags">CP＋</span></td></tr>
+<tr><td>16</td><td>全民求生：E级天赋与塔之魔女</td><td class="num">3.5万</td><td>222.3万</td><td class="num">159</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">天赋升格魔药</span><span class="tags sep">·</span><span class="tags">种族转换魔药</span><span class="tags sep">·</span><span class="tags">种田</span><span class="tags sep">·</span><span class="tags">CP</span><span class="tags sep">·</span><span class="tags">女强</span></td></tr>
+<tr><td>17</td><td>求生游戏，我在异世卷成大佬</td><td class="num">3.4万</td><td>312.3万</td><td class="num">110</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">法文玩完</span><span class="tags sep">·</span><span class="tags">求生</span><span class="tags sep">·</span><span class="tags">基建</span><span class="tags sep">·</span><span class="tags">女强</span><span class="tags sep">·</span><span class="tags">CP</span></td></tr>
+<tr><td>18</td><td>求生之路：从徒步开始</td><td class="num">3.7万</td><td>53.8万</td><td class="num">694</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">求生</span><span class="tags sep">·</span><span class="tags">徒步</span><span class="tags sep">·</span><span class="tags">天灾</span><span class="tags sep">·</span><span class="tags">囤货</span><span class="tags sep">·</span><span class="tags">种田</span></td></tr>
+<tr><td>19</td><td>游戏入侵：我与天赋有亿不法经</td><td class="num">3.4万</td><td>235.8万</td><td class="num">143</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">编运求生游戏</span><span class="tags sep">·</span><span class="tags">万族争霸</span><span class="tags sep">·</span><span class="tags">盗S</span><span class="tags sep">·</span><span class="tags">CP</span><span class="tags sep">·</span><span class="tags">领游争霸</span></td></tr>
+<tr><td>20</td><td>末路求生游戏，开局一辆大巴车</td><td class="num">3.3万</td><td>115.4万</td><td class="num">283</td><td><span class="status-badge completed">完结</span></td><td><span class="tags">女强</span><span class="tags sep">·</span><span class="tags">CP＋</span><span class="tags sep">·</span><span class="tags">囤货</span><span class="tags sep">·</span><span class="tags">公路求生</span><span class="tags sep">·</span><span class="tags">C限流</span></td></tr>
+<tr><td>21</td><td>重生之萝滑女王绝不认输</td><td class="num">2.7万</td><td>32.1万</td><td class="num">844</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">重生</span><span class="tags sep">·</span><span class="tags">萝滑</span><span class="tags sep">·</span><span class="tags">双强</span><span class="tags sep">·</span><span class="tags">甜宠</span><span class="tags sep">·</span><span class="tags">1V1</span></td></tr>
+<tr><td>22</td><td>木筏求生：我致力脸造鼠托邦</td><td class="num">2.6万</td><td>153.0万</td><td class="num">170</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">女强</span><span class="tags sep">·</span><span class="tags">CP</span><span class="tags sep">·</span><span class="tags">种田</span><span class="tags sep">·</span><span class="tags">基建</span><span class="tags sep">·</span><span class="tags">求生爽</span></td></tr>
+<tr><td>23</td><td>游戏降临：开局上醒财富之S</td><td class="num">2.7万</td><td>81.3万</td><td class="num">334</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">游戏入侵</span><span class="tags sep">·</span><span class="tags">女强</span><span class="tags sep">·</span><span class="tags">升级</span><span class="tags sep">·</span><span class="tags">爽文</span><span class="tags sep">·</span><span class="tags">机全洁</span></td></tr>
+<tr><td>24</td><td>卡牌，开局制作风堇卡</td><td class="num">2.4万</td><td>109.7万</td><td class="num">217</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">卡牌</span><span class="tags sep">·</span><span class="tags">星穹铁道</span><span class="tags sep">·</span><span class="tags">崩铁</span><span class="tags sep">·</span><span class="tags">CP＋</span><span class="tags sep">·</span><span class="tags">机甲</span></td></tr>
+<tr><td>25</td><td>闭麦躺好，我Parry全场</td><td class="num">2.5万</td><td>69.4万</td><td class="num">357</td><td><span class="status-badge completed">完结</span></td><td><span class="tags">玩完</span><span class="tags sep">·</span><span class="tags">放心食</span><span class="tags sep">·</span><span class="tags">那种一赢公底与</span><span class="tags sep">·</span><span class="tags">那么不好意思</span><span class="tags sep">·</span><span class="tags">如果有雷同纯属巧合</span></td></tr>
+<tr><td>26</td><td>游戏入侵：开局随瘾抽取一个系统</td><td class="num">2.5万</td><td>77.3万</td><td class="num">318</td><td><span class="status-badge completed">完结</span></td><td><span class="tags">CP</span><span class="tags sep">·</span><span class="tags">爽文</span><span class="tags sep">·</span><span class="tags">脸脸</span><span class="tags sep">·</span><span class="tags">C敌升级流</span><span class="tags sep">·</span><span class="tags">一路横推</span></td></tr>
+<tr><td>27</td><td>游戏入侵之从虫母开始</td><td class="num">2.2万</td><td>67.8万</td><td class="num">328</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">游戏入侵</span><span class="tags sep">·</span><span class="tags">1vn</span><span class="tags sep">·</span><span class="tags">机全洁</span><span class="tags sep">·</span><span class="tags">女主虫母的</span><span class="tags sep">·</span><span class="tags">基建流</span></td></tr>
+<tr><td>28</td><td>C限末世：恶毒美人杀疯了</td><td class="num">2.3万</td><td>94.1万</td><td class="num">248</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">玩完</span><span class="tags sep">·</span><span class="tags">行</span><span class="tags sep">·</span><span class="tags">拼命脸补丁</span><span class="tags sep">·</span><span class="tags">末世</span><span class="tags sep">·</span><span class="tags">丧尸</span></td></tr>
+<tr><td>29</td><td>游戏降临，开局接拉满天赋</td><td class="num">2.1万</td><td>31.7万</td><td class="num">655</td><td><span class="status-badge ongoing">连载</span></td><td><span class="tags">评</span><span class="tags sep">·</span><span class="tags">刚开</span><span class="tags sep">·</span><span class="tags">CP＋</span><span class="tags sep">·</span><span class="tags">游戏降临</span><span class="tags sep">·</span><span class="tags">副本</span></td></tr>
+<tr><td>30</td><td>异编恋翻车成，球星前任求我别女</td><td class="num">2.2万</td><td>37.6万</td><td class="num">576</td><td><span class="status-badge completed">完结</span></td><td><span class="tags">-</span></td></tr>
 </tbody></table>
-<h3 class="subsection-title">新书榜 Top10 在读效率分析</h3>
-<table class="rank-table compact">
-<thead><tr><th class="col-rank">排名</th><th class="col-title">书名</th><th class="col-read">在读</th><th>字数</th><th class="col-eff">效率</th><th>在榜时间</th></tr></thead>
-<tbody>
-<tr><td class="col-rank">#2</td><td class="col-title">宿舍求生：我刷广告开始变强</td><td class="col-read">18.7万</td><td>25.1万</td><td class="col-eff">7434</td><td>3天</td></tr>
-<tr><td class="col-rank">#1</td><td class="col-title">极寒末世，我跟着重生者买买买</td><td class="col-read">15.8万</td><td>27.5万</td><td class="col-eff">5731</td><td>3天</td></tr>
-<tr><td class="col-rank">#5</td><td class="col-title">反派理性喜欢的妻子</td><td class="col-read">5.6万</td><td>10.9万</td><td class="col-eff">5071</td><td>3天</td></tr>
-<tr><td class="col-rank">#3</td><td class="col-title">末日来临：囤货癖的她又又赢麻了</td><td class="col-read">9.4万</td><td>18.8万</td><td class="col-eff">4975</td><td>3天</td></tr>
-<tr><td class="col-rank">#9</td><td class="col-title">别惹小祖宗！末世大佬是宠妹狂魔</td><td class="col-read">6.2万</td><td>14.3万</td><td class="col-eff">4372</td><td>2天</td></tr>
-<tr><td class="col-rank">#7</td><td class="col-title">末日来临，小漂亮被前男友娇养了</td><td class="col-read">6.1万</td><td>14.8万</td><td class="col-eff">4128</td><td>3天</td></tr>
-<tr><td class="col-rank">#4</td><td class="col-title">末世？宅女舒适区</td><td class="col-read">7.5万</td><td>23.3万</td><td class="col-eff">3223</td><td>3天</td></tr>
-<tr><td class="col-rank">#6</td><td class="col-title">零能80度，我在游能室热奇冒汗</td><td class="col-read">6.5万</td><td>25.4万</td><td class="col-eff">2561</td><td>2天</td></tr>
-<tr><td class="col-rank">#8</td><td class="col-title">末世修仙养女儿，清冷佛子杀疯了</td><td class="col-read">5.6万</td><td>22.2万</td><td class="col-eff">2531</td><td>3天</td></tr>
-<tr><td class="col-rank">#10</td><td class="col-title">末世作精女配勾引疯批哥哥</td><td class="col-read">4.9万</td><td>21.4万</td><td class="col-eff">2287</td><td>3天</td></tr>
+<h3>新书榜 Top10 在读效率分析</h3>
+<table class="doc-data-table compact"><thead><tr><th>排名</th><th>书名</th><th class="num">在读</th><th>字数</th><th class="num">效率</th><th>在榜时间</th></tr></thead><tbody>
+<tr><td>#2</td><td>宿舍求生：我刷广告开始变强</td><td class="num">18.7万</td><td>25.1万</td><td class="num eff-hot">7434</td><td>3天</td></tr>
+<tr><td>#1</td><td>极寒末世，我跟着重生者买买买</td><td class="num">15.8万</td><td>27.5万</td><td class="num eff-hot">5731</td><td>3天</td></tr>
+<tr><td>#5</td><td>反派理性喜欢的妻子</td><td class="num">5.6万</td><td>10.9万</td><td class="num eff-hot">5071</td><td>3天</td></tr>
+<tr><td>#3</td><td>末日来临：囤货癖的她又又赢麻了</td><td class="num">9.4万</td><td>18.8万</td><td class="num">4975</td><td>3天</td></tr>
+<tr><td>#9</td><td>别惹小祖宗！末世大佬是宠妹狂魔</td><td class="num">6.2万</td><td>14.3万</td><td class="num">4372</td><td>2天</td></tr>
+<tr><td>#7</td><td>末日来临，小漂亮被前男友娇养了</td><td class="num">6.1万</td><td>14.8万</td><td class="num">4128</td><td>3天</td></tr>
+<tr><td>#4</td><td>末世？宅女舒适区</td><td class="num">7.5万</td><td>23.3万</td><td class="num">3223</td><td>3天</td></tr>
+<tr><td>#6</td><td>零能80度，我在游能室热奇冒汗</td><td class="num">6.5万</td><td>25.4万</td><td class="num">2561</td><td>2天</td></tr>
+<tr><td>#8</td><td>末世修仙养女儿，清冷佛子杀疯了</td><td class="num">5.6万</td><td>22.2万</td><td class="num">2531</td><td>3天</td></tr>
+<tr><td>#10</td><td>末世作精女配勾引疯批哥哥</td><td class="num">4.9万</td><td>21.4万</td><td class="num">2287</td><td>3天</td></tr>
 </tbody></table>
 <div class="key-callout">
-<strong>爆发力Top3（效率=在读÷(字数÷10000)）：</strong><br>
-<strong>① 宿舍求生：我刷广告开始变强</strong> — 效率<span class="highlight-num">7434</span>，25.1万字。恶毒女配+诡异求生+纯龙傲天男主，强反差+系统金手指。<br>
+<strong>爆发力 Top3（效率 = 在读 ÷ (字数 ÷ 10000)）：</strong><br>
+<strong>① 宿舍求生：我刷广告开始变强</strong> — 效率<span class="highlight-num">7434</span>，25.1万字。恶毒女配+诡异求生+纯龙傲天男主，强反差+系统金手指，新书榜效率王者。<br>
 <strong>② 极寒末世，我跟着重生者买买买</strong> — 效率<span class="highlight-num">5731</span>，27.5万字（即将毕业）。极寒+重生+独狼+囤货。<br>
-<strong>③ 反派理性喜欢的妻子</strong> — 效率<span class="highlight-num">5071</span>，10.9万字。末世暴徒+双洁+短篇合集，以低字数博高在读。
+<strong>③ 反派理性喜欢的妻子</strong> — 效率<span class="highlight-num">5071</span>，10.9万字。末世暴徒+双洁+短篇合集，以低字数博高在读，短篇合集模式效率突出。
 </div>
-<div class="graduation-warning"><strong>即将毕业预警（25万字+）：</strong><span class='grad-item'>宿舍求生：我刷广告开始变强 (25.1万, 效率7434)</span><span class='grad-item'>极寒末世，我跟着重生者买买买 (27.5万, 效率5731)</span><span class='grad-item'>零能80度，我在游能室热奇冒汗 (25.4万, 效率2561)</span><span class='grad-item'>末世！她都修仙了你惹她干嘛 (26.8万, 效率1932)</span><span class='grad-item'>末世收娃躲深山，前机友追海了 (26.4万, 效率1437)</span><span class='grad-item'>电梯求生：我与天赋是长特殊蘑菇 (25.6万, 效率1239)</span><span class='grad-item'>星际狩猎采集开农场，大佬馋哭了 (29.1万, 效率1082)</span><span class='grad-item'>亲姐是末世女主？我才是苟王！ (25.4万, 效率957)</span><span class='grad-item'>天灾末世我空间捡漏 (27.1万, 效率760)</span></div>
+<div class="note-box"><strong>即将毕业预警（新书榜 25万字+，预估迁移至阅读榜）：</strong><span class="grad-item"><b>宿舍求生：我刷广告开始变强</b> (25.1万, 效率7434)</span><span class="grad-item"><b>极寒末世，我跟着重生者买买买</b> (27.5万, 效率5731)</span><span class="grad-item"><b>零能80度，我在游能室热奇冒汗</b> (25.4万, 效率2561)</span><span class="grad-item"><b>末世！她都修仙了你惹她干嘛</b> (26.8万, 效率1932)</span><span class="grad-item"><b>末世收娃躲深山，前机友追海了</b> (26.4万, 效率1437)</span><span class="grad-item"><b>电梯求生：我与天赋是长特殊蘑菇</b> (25.6万, 效率1239)</span><span class="grad-item"><b>星际狩猎采集开农场，大佬馋哭了</b> (29.1万, 效率1082)</span><span class="grad-item"><b>亲姐是末世女主？我才是苟王！</b> (25.4万, 效率957)</span><span class="grad-item"><b>天灾末世我空间捡漏</b> (27.1万, 效率760)</span></div>
+<div class="key-callout"><strong>重点预警：</strong><strong>宿舍求生</strong>（25.1万 + 18.7万在读）和<strong>极寒末世</strong>（27.5万 + 15.7万在读）毕业后大概率直接杀入科幻末世阅读榜 Top5，与现有阅读榜极寒/囤货题材形成集群。</div>
 <div class="note-box">
-<strong>书名取名技巧：</strong>①场景具象化+反差动作——"宿舍求生：我刷广告开始变强"用日常场景+反常规动作；"零下80度，我地下室热得冒汗"用极端温度对比。②主角身份+爽点前置——"末日来临：囤货癖的她又又赢麻了"把标签化人设直接放书名+口语化爽点。③题材+系统机制——"游戏入侵：全服第一捡垃圾""全民求生：别人吓哭，我在炖怪"用具体动作比抽象"升级流"更吸睛。<strong>建议Qiao取名采用"极端场景词+具体反差动作+口语化爽点词"三段式。</strong>
-</div></div>
-<div class="doc-block" id="chart-newbooks">
-<h3 class="subsection-title">新书榜在读人数对比（科幻末世 + 游戏体育 Top10）</h3>
-<div class="doc-chart" id="chart-newbook-comparison" data-chart="bar" data-data="chart-newbook-data" data-type="bar">
-<div class="chart-canvas" style="height:420px"></div>
-<p class="chart-caption">数据来源：番茄小说API，2026-07-21 rankVersion=1784601000。效率=在读÷(字数÷10000)。</p>
+<strong>书名取名技巧：</strong>①场景具象化+反差动作——"宿舍求生：我刷广告开始变强"用日常场景+反常规动作；"零下80度，我地下室热得冒汗"用极端温度对比。②主角身份+爽点前置——"末日来临：囤货癖的她又又赢麻了"把标签化人设直接放书名+口语化爽点。③题材+系统机制——"游戏入侵：全服第一捡垃圾""全民求生：别人吓哭，我在炖怪"用具体动作比抽象"升级流"更吸睛。<strong>建议 Qiao 取名采用"极端场景词 + 具体反差动作 + 口语化爽点词"三段式。</strong>
 </div>
-<script type="application/json" id="chart-newbook-data">
-{"scifi": [{"name": "极寒末世，我跟着重生", "value": 157502}, {"name": "宿舍求生：我刷广告开", "value": 186763}, {"name": "末日来临：囤货癖的她", "value": 93706}, {"name": "末世？宅女舒适区", "value": 75052}, {"name": "反派理性喜欢的妻子", "value": 55513}, {"name": "零能80度，我在游能", "value": 65015}, {"name": "末日来临，小漂亮被前", "value": 60973}, {"name": "末世修仙养女儿，清冷", "value": 56201}, {"name": "别惹小祖宗！末世大佬", "value": 62428}, {"name": "末世作精女配勾引疯批", "value": 48973}], "game": [{"name": "游戏入侵：全服第一捡", "value": 42406}, {"name": "万人嫌反派炮灰成了早", "value": 22308}, {"name": "S级陪玩：电竞少女制", "value": 17660}, {"name": "海上求生：我提前氪金", "value": 18920}, {"name": "全民求生：别人吓哭，", "value": 16346}, {"name": "求生游戏，我真不是美", "value": 12837}, {"name": "公路求生，开局和前任", "value": 11757}, {"name": "虚拟游戏：P+P竟是", "value": 14430}, {"name": "游戏入侵：开局SSS", "value": 13061}, {"name": "求生游戏：我在童梦森", "value": 13030}]}
-</script></div>
-<div class="doc-block" id="tags">
-<h2 class="section-title">二、标签 + 人设/CP张力趋势速览</h2>
-<h3 class="subsection-title">a) Top15 标签频次</h3>
-<table class="rank-table compact"><thead><tr><th>标签</th><th>频次</th><th>分类</th></tr></thead><tbody>
-<tr><td>CP</td><td>53</td><td>关系结构</td></tr>
-<tr><td>末世</td><td>40</td><td>题材</td></tr>
-<tr><td>求生</td><td>38</td><td>题材</td></tr>
-<tr><td>囤货</td><td>32</td><td>核心梗</td></tr>
-<tr><td>空间</td><td>29</td><td>核心梗</td></tr>
-<tr><td>系统</td><td>25</td><td>核心梗</td></tr>
-<tr><td>重生</td><td>23</td><td>其他</td></tr>
-<tr><td>异能</td><td>22</td><td>核心梗</td></tr>
-<tr><td>天灾</td><td>20</td><td>题材</td></tr>
-<tr><td>基建</td><td>19</td><td>题材</td></tr>
-<tr><td>爽文</td><td>18</td><td>其他</td></tr>
-<tr><td>种田</td><td>18</td><td>题材</td></tr>
-<tr><td>丧尸</td><td>17</td><td>题材</td></tr>
-<tr><td>女强</td><td>17</td><td>人设</td></tr>
-<tr><td>甜宠</td><td>14</td><td>关系</td></tr>
+<h3>新书榜在读人数对比（科幻末世 + 游戏体育 Top10）</h3>
+<img class="static-chart" src="assets/newbook_rank_comparison.png" alt="新书榜在读人数对比图">
+<p class="chart-caption">数据来源：番茄小说网 API，2026-07-21 rankVersion=1784601000。科幻末世新书榜 Top1-2 均超 15 万在读，显著高于游戏体育新书榜。</p>
+</section>
+<section class="doc-block" id="标签人设趋势">
+<h2>二、标签 + 人设/CP 张力趋势速览</h2>
+<p style="color:var(--muted);font-size:13.5px">基于四榜 120 本的标签与人设字段频次统计，识别当前流量基本盘与上升信号。</p>
+<h3>a) Top5 标签 + 增长/衰退</h3>
+<table class="doc-data-table compact"><thead><tr><th>标签</th><th class="num">频次</th><th>分类</th></tr></thead><tbody>
+<tr><td><strong>CP</strong></td><td class="num">53</td><td>关系结构</td></tr>
+<tr><td><strong>末世</strong></td><td class="num">40</td><td>题材类型</td></tr>
+<tr><td><strong>求生</strong></td><td class="num">38</td><td>题材类型</td></tr>
+<tr><td><strong>囤货</strong></td><td class="num">32</td><td>核心梗</td></tr>
+<tr><td><strong>空间</strong></td><td class="num">29</td><td>核心梗</td></tr>
 </tbody></table>
-<div class="tag-trend-box">
-<strong>增长Top3：</strong>
-<span class="tag-pill up">空间 ↑14次共现</span>
-<span class="tag-pill up">基建 ↑求生基建组合稳定</span>
-<span class="tag-pill up">萌宠/种田/美食 ↑29本含此梗</span><br>
-<strong>衰退Top2：</strong>
-<span class="tag-pill down">纯游戏入侵 ↓退居其次</span>
-<span class="tag-pill down">恶毒女配 ↓新书榜仅6本</span><br>
-<strong>一句话结论：</strong>CP+末世+求生+囤货四标签构成流量基本盘，<strong>空间+基建+萌宠/种田为当前上升信号</strong>。
+<div class="trend-row">
+<span class="trend-chip up"><b>空间</b> <i>↑ 囤货+空间共现14次</i></span>
+<span class="trend-chip up"><b>基建</b> <i>↑ 求生+基建组合稳定</i></span>
+<span class="trend-chip up"><b>萌宠/种田/美食</b> <i>↑ 29本含此梗</i></span>
 </div>
-<h3 class="subsection-title">b) 具体梗深挖（中国社会心理链接）</h3>
-<div class="tag-trend-box">
-<strong>天灾/汛情/暴雨（20本含天灾标签）：</strong>2026年7月中国极端天气集中爆发——广西台风"美莎克"引发严重汛情（55条河流超警、漓江流域水位暴涨7.46米）、"七下八上"防汛关键期609条河流超警（较常年偏多35%）、北方四轮热浪（新疆华北首轮高温核心，月末江南华南反扑）。<strong>国内真实灾害驱动末世求生/囤货焦虑</strong>→天灾+空间+囤货组合持续有效，但读者焦虑核心是"洪水/暴雨/高温"而非"极寒"。
+<div class="trend-row">
+<span class="trend-chip down"><b>纯游戏入侵</b> <i>↓ 退居其次</i></span>
+<span class="trend-chip down"><b>恶毒女配</b> <i>↓ 新书榜仅6本</i></span>
 </div>
-<div class="tag-trend-box">
-<strong>高温/热浪（北方干旱极端高温刷新历史纪录）：</strong>2026年7月西北新疆、华北黄淮成为高温核心，月末江南华南反扑，四轮热浪无缝衔接。高温焦虑→"极热末世/旱灾/水源危机"题材潜在机会，但当前榜单仍以极寒为主（滞后于现实）。<strong>建议Qiao关注"高温末世+水源危机+空间囤货"组合，可能成为下一波推流方向。</strong>
+<div class="key-callout"><strong>一句话结论：</strong>CP + 末世 + 求生 + 囤货 四标签构成流量基本盘，<strong>空间 + 基建 + 萌宠/种田为当前上升信号</strong>。</div>
+<h3>b) 具体梗深挖（中国社会心理链接）</h3>
+<div class="note-box">
+<strong>天灾/汛情/暴雨（20本含天灾标签）：</strong>2026年7月中国极端天气集中爆发——广西台风"美莎克"引发严重汛情（55条河流超警、漓江流域水位暴涨7.46米）、"七下八上"防汛关键期609条河流超警（较常年偏多35%）、北方四轮热浪（新疆华北首轮高温核心，月末江南华南反扑）。<strong>国内真实灾害驱动末世求生/囤货焦虑</strong>→ 天灾+空间+囤货组合持续有效，但读者焦虑核心是"洪水/暴雨/高温"而非"极寒"。
 </div>
-<div class="tag-trend-box">
-<strong>萌宠/种田/美食（29本）：</strong>压力社会的治愈需求，末世高压叙事下需要情感缓冲带→"废土里种田养猫"的反差萌，投射读者对"可控小确幸"的渴望→末世+萌宠+种田慢热节奏适合长篇留存。与中国当下"躺平/松弛感"网络文化共振。
+<div class="note-box">
+<strong>高温/热浪（北方干旱极端高温刷新历史纪录）：</strong>2026年7月西北新疆、华北黄淮成为高温核心，月末江南华南反扑，四轮热浪无缝衔接。高温焦虑→"极热末世/旱灾/水源危机"题材潜在机会，但当前榜单仍以极寒为主（滞后于现实）。<strong>建议 Qiao 关注"高温末世 + 水源危机 + 空间囤货"组合，可能成为下一波推流方向。</strong>
 </div>
-<div class="tag-trend-box">
-<strong>电梯/密室/安全屋（8本）：</strong>空间焦虑与安全感渴望，封闭空间=确定边界→都市读者对"属于自己的安全空间"的投射（与高房价/合租焦虑相关）→安全屋+系统机制创新（囤怪物/炖怪）是新兴方向。
+<div class="note-box">
+<strong>萌宠/种田/美食（29本）：</strong>压力社会的治愈需求，末世高压叙事下需要情感缓冲带 → "废土里种田养猫"的反差萌，投射读者对"可控小确幸"的渴望 → 末世+萌宠+种田慢热节奏适合长篇留存。与中国当下"躺平/松弛感"网络文化共振。
 </div>
-<div class="tag-trend-box">
-<strong>前任/破镜重圆（7本）：</strong>情感代偿与"被追回"的价值确认→末世高压下情感关系重构，"末日让前任重新选择我"满足被重视心理→破镜重圆+末世强制爱组合有张力但需控制节奏。
+<div class="note-box">
+<strong>电梯/密室/安全屋（8本）：</strong>空间焦虑与安全感渴望，封闭空间 = 确定边界 → 都市读者对"属于自己的安全空间"的投射（与高房价/合租焦虑相关）→ 安全屋+系统机制创新（囤怪物/炖怪）是新兴方向。
 </div>
-<div class="tag-trend-box">
-<strong>拾荒/捡垃圾/废土（7本）：</strong>资源焦虑时代的生存幻想，从废墟中淘金→"废土拾荒"投射读者对"变废为宝"的价值再造渴望→拾荒+异能+数据流系统机制创新值得关注。与当下"二手经济/循环利用"社会趋势共振。
+<div class="note-box">
+<strong>前任/破镜重圆（7本）：</strong>情感代偿与"被追回"的价值确认 → 末世高压下情感关系重构，"末日让前任重新选择我"满足被重视心理 → 破镜重圆+末世强制爱组合有张力但需控制节奏。
 </div>
-<h3 class="subsection-title">c) 人设/CP速览（Craft深层维度）</h3>
-<div class="cp-analysis-box">
-<strong>女主核心动机Top3：</strong>生存型(建立安全边界，约96%) > 自我实现型(突破限制) > 保护欲型(守护付出)。末世题材将女主动机高度集中于"生存安全感"，与国内极端天气驱动的灾害焦虑共振。<br>
-<strong>角色弧光分布：</strong>成长型(认知升级)为主流(61%)，重生型/信息差次之(19%)，平弧型/信念坚定(18%)。成长型主导说明读者偏好"认知升级"而非"金手指碾压"。<br>
-<strong>读者投射类型：</strong>共情型("我懂她的痛"，43%) > 代入型("我就是她"，29%) > 仰望型("我想成为她"，22%)。共情型主导，说明"脆弱+坚韧"组合比纯爽文大佬更易引发情感共鸣。<br>
-<strong>男主权力地位Top3：</strong>隐藏实力/绝对上位(暴徒/疯批/大佬，约56%) > 平等博弈/奉献型(全洁/双洁，约37%) > 未明确。隐藏实力男主与不圣母女主形成"双强+信息差"张力。<br>
-<strong>情感表达模式：</strong>占有型(独占欲，强制爱/修罗场)与奉献型(无条件付出，甜宠/宠妻)并列，反映读者对"被独占"与"被宠溺"的双重需求。<br>
-<strong>CP权力动态：</strong>平等博弈(53本，CP标配) > 动态反转(破镜重圆/强制爱) > 共谋共生(甜宠/双洁)。信任路径以"试探→交付"为主。<br>
-<strong>一句话趋势：</strong>生存型女主×隐藏实力男主×平等博弈CP为主流配置，但动态反转（破镜重圆+强制爱）效率更高，提供更强情感拉扯。
+<div class="note-box">
+<strong>拾荒/捡垃圾/废土（7本）：</strong>资源焦虑时代的生存幻想，从废墟中淘金 → "废土拾荒"投射读者对"变废为宝"的价值再造渴望 → 拾荒+异能+数据流系统机制创新值得关注。与当下"二手经济/循环利用"社会趋势共振。
 </div>
-<h3 class="subsection-title">d) 核心梗观察</h3>
-<div class="tag-trend-box">
-<strong>系统机制创新持续活跃：</strong>拾荒/炖怪/安全屋/数据流/捡垃圾等具体系统机制成为新书差异化核心。《全民求生：别人吓哭，我在炖怪》《游戏入侵：全服第一捡垃圾》验证"具体动作+反差"的系统机制比抽象"升级流"更吸睛。<br>
-<strong>短篇合集模式效率突出：</strong>《反派理性喜欢的妻子》10.9万字效率5071，短篇合集（多单元剧+独立CP）以低字数博高在读，适合暑假碎片化阅读。微创新点：节奏创新（短篇合集）+ 人设反转（反派洗白）。
-</div>
-<h3 class="subsection-title">标签组合共现Top5（科幻末世类）</h3>
-<table class="rank-table compact"><thead><tr><th>标签组合</th><th>共现次数</th></tr></thead><tbody>
-<tr><td>末世 + 空间</td><td>16</td></tr>
-<tr><td>囤货 + 空间</td><td>14</td></tr>
-<tr><td>囤货 + 末世</td><td>14</td></tr>
-<tr><td>空间 + 重生</td><td>12</td></tr>
-<tr><td>异能 + 空间</td><td>12</td></tr>
-</tbody></table>
-<div class="note-box" style="font-size:12px"><strong>解读：</strong>末世+空间(16次)为绝对头部组合，提供"题材+存储空间"双重确定性；囤货+空间(14次)和囤货+末世(14次)为标准配置；空间+重生(12次)是空间金手指与信息差结合的高效组合。</div>
-<h3 class="subsection-title">当日有效组合 & 风险组合</h3>
+<h3>c) 人设/CP速览（Craft 深层维度）</h3>
 <div class="key-callout">
-<strong>有效组合：</strong>空间+囤货+极寒末世（宿舍求生/极寒末世双头部验证）、穿书+恶毒女配+末世甜宠（阅读榜#7效率3728）、重生+极寒+独狼（《极寒末世》效率5731）<br>
+<strong>女主核心动机 Top3：</strong>生存型（建立安全边界，约<span class="highlight-num">96%</span>）&gt; 自我实现型（突破限制）&gt; 保护欲型（守护付出）。末世题材将女主动机高度集中于"生存安全感"，与国内极端天气驱动的灾害焦虑共振。<br>
+<strong>女主弧光分布：</strong>成长型（认知升级，<span class="highlight-num">61%</span>）&gt; 重生型/信息差（<span class="highlight-num">19%</span>）&gt; 平弧型/信念坚定（<span class="highlight-num">18%</span>）。成长型主导说明读者偏好"认知升级"而非"金手指碾压"，但重生信息差型效率更高。<br>
+<strong>读者投射类型：</strong>共情型（"我懂她的痛"，<span class="highlight-num">43%</span>）&gt; 代入型（"我就是她"，<span class="highlight-num">29%</span>）&gt; 仰望型（"我想成为她"，<span class="highlight-num">22%</span>）。共情型主导，说明末世女主的"脆弱+坚韧"组合比纯爽文大佬更易引发情感共鸣。<br>
+<strong>男主权力地位 Top3：</strong>隐藏实力/绝对上位（暴徒/疯批/大佬，约<span class="highlight-num">56%</span>）&gt; 平等博弈/奉献型（全洁/双洁，约<span class="highlight-num">37%</span>）&gt; 未明确。隐藏实力男主在末世题材中突出，与不圣母女主形成"双强+信息差"张力。<br>
+<strong>男主情感表达：</strong>占有型（独占欲，强制爱/修罗场）与奉献型（无条件付出，甜宠/宠妻）并列，反映读者对"被独占"与"被宠溺"的双重需求。<br>
+<strong>CP 权力动态：</strong>平等博弈（53本，CP标配）&gt; 动态反转（破镜重圆/强制爱）&gt; 共谋共生（甜宠/双洁）。<strong>信任路径：</strong>试探→交付（甜宠/双洁）&gt; 利用→真心（穿书/恶毒女配）&gt; 误解→理解（破镜重圆）。<br>
+<strong>一句话趋势：</strong>生存型女主 × 隐藏实力男主 × 平等博弈CP 为主流配置，但<strong>动态反转（破镜重圆+强制爱）效率更高</strong>，提供更强情感拉扯。
+</div>
+<h3>d) 核心梗观察</h3>
+<div class="note-box">
+<strong>1. 系统机制创新持续活跃</strong> — 拾荒/炖怪/安全屋/数据流/捡垃圾等具体系统机制成为新书差异化核心。《全民求生：别人吓哭，我在炖怪》《游戏入侵：全服第一捡垃圾》验证"具体动作+反差"的系统机制比抽象"升级流"更吸睛。<br>
+<strong>2. 短篇合集模式效率突出</strong> — 《反派理性喜欢的妻子》10.9万字效率<span class="highlight-num">5071</span>，短篇合集（多单元剧+独立CP）以低字数博高在读，适合暑假碎片化阅读。微创新点：节奏创新（短篇合集）+ 人设反转（反派洗白）。
+</div>
+<h3>标签组合共现 Top5（科幻末世类）</h3>
+<table class="doc-data-table compact"><thead><tr><th>标签组合</th><th class="num">共现次数</th></tr></thead><tbody>
+<tr><td><strong>末世 + 空间</strong></td><td class="num">16</td></tr>
+<tr><td><strong>囤货 + 空间</strong></td><td class="num">14</td></tr>
+<tr><td><strong>囤货 + 末世</strong></td><td class="num">14</td></tr>
+<tr><td><strong>空间 + 重生</strong></td><td class="num">12</td></tr>
+<tr><td><strong>异能 + 空间</strong></td><td class="num">12</td></tr>
+</tbody></table>
+<div class="note-box" style="font-size:12.5px"><strong>解读：</strong>末世+空间(16次)为绝对头部组合，提供"题材+存储空间"双重确定性；囤货+空间(14次)和囤货+末世(14次)为标准配置；空间+重生(12次)是空间金手指与信息差结合的高效组合。</div>
+<h3>当日有效组合 & 风险组合</h3>
+<div class="key-callout">
+<strong>有效组合：</strong>空间+囤货+极寒末世（宿舍求生/极寒末世双头部验证）、穿书+恶毒女配+末世甜宠（阅读榜#7效率3728）、重生+极寒+独狼（《极寒末世》效率<span class="highlight-num">5731</span>）<br>
 <strong>风险组合：</strong>电竞+末世（受众冲突，游戏体育新书榜电竞标签效率偏低）、纯甜宠+无限流（节奏冲突，甜宠读者难以适应副本节奏）<br>
 <strong>潜在机会：</strong>高温末世+水源危机+空间囤货（滞后于现实，待爆发）
 </div>
-</div>
-<div class="doc-block" id="changes">
-<h2 class="section-title">三、今日变化备注</h2>
-<p style="color:var(--c-muted);font-size:13px">与 2026-07-20 报告对比（昨日可见表格为"万"单位精度，小幅波动被精度掩盖，仅显示显著变化）。</p>
-<h3 class="subsection-title">新上榜（3本）</h3>
-<table class="rank-table compact"><thead><tr><th>榜单</th><th>排名</th><th>书名</th><th>在读</th></tr></thead><tbody>
-<tr><td>游戏体育新书榜</td><td>#29</td><td>木筏求：闺蜜躺赢</td><td>4778</td></tr>
-<tr><td>游戏体育新书榜</td><td>#30</td><td>游戏降临：脆皮巫求指南</td><td>4308</td></tr>
-<tr><td>科幻末世阅读榜</td><td>#30</td><td>撒糯米！冒黑烟啊</td><td>8.4万</td></tr>
+</section>
+<section class="doc-block" id="今日变化">
+<h2>三、今日变化备注</h2>
+<p style="color:var(--muted);font-size:13.5px">与 2026-07-20 报告对比（昨日可见表格为"万"单位精度，小幅波动被精度掩盖，仅显示显著变化）。</p>
+<h3>新上榜书目（3本）</h3>
+<table class="doc-data-table compact"><thead><tr><th>榜单</th><th>排名</th><th>书名</th><th class="num">在读</th></tr></thead><tbody>
+<tr><td>游戏体育新书榜</td><td>#29</td><td>木筏求：闺蜜躺赢</td><td class="num">4778</td></tr>
+<tr><td>游戏体育新书榜</td><td>#30</td><td>游戏降临：脆皮巫求指南</td><td class="num">4308</td></tr>
+<tr><td>科幻末世阅读榜</td><td>#30</td><td>撒糯米！冒黑烟啊</td><td class="num">8.4万</td></tr>
 </tbody></table>
-<h3 class="subsection-title">掉榜（3本）</h3>
-<table class="rank-table compact"><thead><tr><th>榜单</th><th>书名</th><th>昨日在读</th></tr></thead><tbody>
-<tr><td>游戏体育新书榜</td><td>全民安全屋：别人囤粮，我囤怪物</td><td>~1.2万</td></tr>
-<tr><td>游戏体育新书榜</td><td>夜市求生：开局绑定一辆小吃车</td><td>~0.7万</td></tr>
-<tr><td>科幻末世阅读榜</td><td>丧尸海了我库库作（PUA加密，书名待修复）</td><td>~6.9万</td></tr>
+<div class="note-box">新上榜3本均集中在榜单尾段（#29/#30），头部格局稳定。游戏体育新书榜尾段赛马激烈。</div>
+<h3>掉榜书目（3本）</h3>
+<table class="doc-data-table compact"><thead><tr><th>榜单</th><th>书名</th><th class="num">昨日在读</th></tr></thead><tbody>
+<tr><td>游戏体育新书榜</td><td>全民安全屋：别人囤粮，我囤怪物</td><td class="num">~1.2万</td></tr>
+<tr><td>游戏体育新书榜</td><td>夜市求生：开局绑定一辆小吃车</td><td class="num">~0.7万</td></tr>
+<tr><td>科幻末世阅读榜</td><td>丧尸海了我库库作（PUA加密，书名待修复）</td><td class="num">~6.9万</td></tr>
 </tbody></table>
-<h3 class="subsection-title">在读显著变化（>15%变动）</h3>
-<table class="rank-table compact"><thead><tr><th>榜单</th><th>书名</th><th>昨日在读</th><th>今日在读</th><th>变化</th></tr></thead><tbody>
-<tr><td>科幻末世阅读榜</td><td>精妹修机甲吗</td><td>146.2万</td><td>167.5万</td><td><span class="trend-up">+14.6%</span></td></tr>
+<div class="note-box">游戏体育新书榜2本掉榜，推测点击率/追更率下降触发赛马限流；科幻末世阅读榜1本掉榜被新上榜书替换。</div>
+<h3>在读显著变化（&gt;20%增幅或&gt;15%降幅）</h3>
+<table class="doc-data-table compact"><thead><tr><th>榜单</th><th>书名</th><th class="num">昨日在读</th><th class="num">今日在读</th><th>变化</th></tr></thead><tbody>
+<tr><td>科幻末世阅读榜</td><td>精妹修机甲吗</td><td class="num">146.2万</td><td class="num">167.5万</td><td><span class="trend-up">+14.6%</span></td></tr>
 </tbody></table>
-<div class="note-box" style="font-size:12px">注：昨日可见表格为"万"单位精度（如15.8万=158000），导致&lt;10%的波动无法精确捕捉。精妹修机甲增幅显著（+21.3万），连续3天霸榜科幻末世阅读榜#1，星际机甲题材头部效应强化。</div>
+<div class="note-box" style="font-size:12.5px">注：昨日可见表格为"万"单位精度（如15.8万=158000），导致&lt;10%的波动无法精确捕捉。精妹修机甲增幅显著（+21.3万），连续3天霸榜科幻末世阅读榜#1，星际机甲题材头部效应强化。</div>
+</section>
+<section class="doc-block" id="深度信号">
+<h2>四、值得关注的信号</h2>
+<div class="signal">
+<div class="signal-head"><span class="signal-num">1</span><span class="signal-title">国内极端天气驱动天灾/汛情题材 — 高温末世存在滞后机会</span></div>
+<div class="signal-body">2026年7月中国极端天气集中爆发：广西台风"美莎克"引发严重汛情（55条河流超警、漓江超警7.46米）、"七下八上"防汛关键期609条河流超警（较常年偏多35%）、北方四轮热浪（新疆华北首轮高温核心，刷新历史纪录）。国内真实灾害驱动末世求生/囤货焦虑，但<strong>当前榜单仍以"极寒"为主，与国内"高温/汛情"现实存在滞后</strong>。建议 Qiao 关注"高温末世 + 水源危机 + 空间囤货"组合，可能成为下一波推流方向——现实已发生但题材尚未爆发，正是入局窗口。</div>
 </div>
-<div class="doc-block" id="signals">
-<h2 class="section-title">四、值得关注的信号</h2>
-<div class="signal-card warm">
-<div class="signal-title">信号1：国内极端天气驱动天灾/汛情题材 — 高温末世存在滞后机会</div>
-<div class="signal-body">2026年7月中国极端天气集中爆发：广西台风"美莎克"引发严重汛情（55条河流超警、漓江超警7.46米）、"七下八上"防汛关键期609条河流超警（较常年偏多35%）、北方四轮热浪（新疆华北首轮高温核心，刷新历史纪录）。国内真实灾害驱动末世求生/囤货焦虑，但<strong>当前榜单仍以"极寒"为主，与国内"高温/汛情"现实存在滞后</strong>。建议Qiao关注"高温末世+水源危机+空间囤货"组合，可能成为下一波推流方向——现实已发生但题材尚未爆发，正是入局窗口。</div>
+<div class="signal">
+<div class="signal-head"><span class="signal-num">2</span><span class="signal-title">AI算力焦虑升温 — 星际机甲题材获国内背书</span></div>
+<div class="signal-body">WAIC 2026（7月18日）集中释放国产算力里程碑：Kimi K3 参数<span class="highlight-num">2.8万亿</span>（全球最大开源模型）、曙光8000"登峰"（中国首个全国产十万卡AI超集群）、人形机器人整机产品超全球半数。7月19日 Kimi K3 爆火致算力承压暂停C端新用户订阅，<strong>AI算力焦虑直接引发社会关注</strong>。与阅读榜#1《精妹修机甲吗》（在读<span class="highlight-num">167.5万</span>，<span class="trend-up">+14.6%</span>）共振，星际机甲题材头部效应强化。新书榜暂无对应爆款，存在"头部已验证+新书未跟进"的机会窗口。</div>
 </div>
-<div class="signal-card accent">
-<div class="signal-title">信号2：AI算力焦虑升温 — 星际机甲题材获国内背书</div>
-<div class="signal-body">WAIC 2026（7月18日）集中释放国产算力里程碑：Kimi K3参数2.8万亿（全球最大开源模型）、曙光8000"登峰"（中国首个全国产十万卡AI超集群）、人形机器人整机产品超全球半数。7月19日Kimi K3爆火致算力承压暂停C端新用户订阅，<strong>AI算力焦虑直接引发社会关注</strong>。与阅读榜#1《精妹修机甲吗》（在读167.5万，<span class="trend-up">+14.6%</span>）共振，星际机甲题材头部效应强化。新书榜暂无对应爆款，存在"头部已验证+新书未跟进"的机会窗口。</div>
-</div>
-<div class="signal-card cool">
-<div class="signal-title">信号3：暑假档短篇效率突出 — 碎片化阅读场景利好</div>
+<div class="signal">
+<div class="signal-head"><span class="signal-num">3</span><span class="signal-title">暑假档短篇效率突出 — 碎片化阅读场景利好</span></div>
 <div class="signal-body">短篇（&lt;15万字）在新书榜效率突出：《反派理性喜欢的妻子》10.9万字效率<span class="highlight-num">5071</span>。短篇合集模式（多单元剧+独立CP）成为效率之王，适合暑假学生碎片化阅读场景。预计7-8月短篇快节奏+系统机制创新题材持续利好。与当下"短剧化/快节奏"内容消费趋势共振。</div>
 </div>
-</div>
-<div class="doc-block" id="sources">
-<h2 class="section-title">数据来源与说明</h2>
-<div class="doc-note">
-<p><strong>数据来源：</strong>番茄小说网（fanqienovel.com）API + 页面初始数据。四榜各30条，共120条，按bookId去重。rankVersion=1784601000。</p>
+</section>
+<section class="doc-sources" id="数据说明">
+<h2>数据来源与说明</h2>
+<p><strong>数据来源：</strong>番茄小说网（fanqienovel.com）API + 页面初始数据。四榜各30条，共120条，按 bookId 去重。rankVersion=1784601000。</p>
 <p><strong>PUA字体加密：</strong>与上次报告共现书使用历史正确文本，新书保留API原文并标注。部分新书标题存在PUA加密字符（如"零能80度"应为"零下80度"），已尽量从上下文推断补全。</p>
 <p><strong>效率定义：</strong>效率 = 在读人数 ÷ (字数 ÷ 10000) = 每万字的在读人数。效率越高，单位字数吸引的读者越多。</p>
-<p><strong>外部因素：</strong>Web搜索2026年7月中国社会新闻（广西汛情、北方高温、WAIC 2026算力）。社会心理连接专注对中国读者有影响的本土因素。</p>
-<p><strong>历史对比：</strong>基于2026-07-20报告隐藏JSON块+可见表格对比。昨日可见表格为"万"单位精度，部分小幅波动无法精确捕捉。</p>
-</div></div>
+<p><strong>外部因素：</strong>Web 搜索 2026 年 7 月中国社会新闻（广西汛情、北方高温、WAIC 2026算力）。社会心理连接专注<strong>对中国读者有影响的本土因素</strong>。</p>
+<p><strong>历史对比：</strong>基于 2026-07-20 报告隐藏 JSON 块 + 可见表格对比。昨日可见表格为"万"单位精度，部分小幅波动无法精确捕捉。</p>
+</section>
 <div class="hidden-json">
 <!-- FANQIE_DATA_START
 {
@@ -5686,6 +6164,40 @@ h1 { font-size: 28px; font-weight: 700; color: var(--c-ink); margin: 0 0 8px; le
 FANQIE_DATA_END -->
 </div>
 </main>
-<script src="assets/doc.js"></script>
+<script>
+(function(){
+  var rail = document.getElementById('toc');
+  if(!rail) return;
+  var blocks = document.querySelectorAll('.doc-block, .report-cover, .doc-sources');
+  var frag = document.createElement('div');
+  frag.className = 'toc-title';
+  frag.textContent = '目录';
+  rail.innerHTML = '';
+  rail.appendChild(frag);
+  blocks.forEach(function(b){
+    var id = b.id;
+    if(!id) return;
+    var h = b.querySelector('h1, h2');
+    if(!h) return;
+    var a = document.createElement('a');
+    a.href = '#' + id;
+    a.textContent = h.textContent.trim();
+    b.setAttribute('data-toc-label', h.textContent.trim());
+    rail.appendChild(a);
+  });
+  // 滚动高亮
+  var links = rail.querySelectorAll('a');
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        links.forEach(function(l){ l.classList.remove('active'); });
+        var active = rail.querySelector('a[href="#' + e.target.id + '"]');
+        if(active) active.classList.add('active');
+      }
+    });
+  }, {rootMargin: '-20% 0px -70% 0px'});
+  blocks.forEach(function(b){ if(b.id) observer.observe(b); });
+})();
+</script>
 </body>
 </html>
