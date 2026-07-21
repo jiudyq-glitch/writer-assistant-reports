@@ -5,224 +5,192 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>番茄科幻榜监控日报（2026-07-21）</title>
-<meta name="description" content="番茄小说网科幻末世 / 游戏体育四榜监控日报，2026-07-21 快照，含 Top10 数据、效率分析、标签人设趋势与深度信号。">
+<meta name="description" content="番茄小说网科幻末世 / 游戏体育四榜监控日报，2026-07-21 快照。">
 <style>
-/* ========== 苹果风性冷淡设计系统 ========== */
-/* 设计原则：白底、深灰文字、细边框、大量留白、克制色彩点缀
-   参考链接：fanqie-report-2026-07-20 组件结构 + Apple Design 极简美学
-   强调色：玫瑰红 #b83f58（效率高亮/NEW），蓝 #2563eb（连载），绿 #0f766e（完结）
-   无黄色背景 */
+/* ========== V6 Quiet Luxury 编辑风 ========== */
+/* 配色：海军蓝 Navy + 琥珀金 Amber + 炭灰 Charcoal
+   彻底告别红黑绿，走编辑/杂志的 quiet luxury 路线
+   字体：衬线标题 + 无衬线正文，编辑感 */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --ink: #1d1d1f;          /* 苹果深灰 - 主标题/重点文字 */
-  --text: #46535f;          /* 正文文字（参考链接 cover-lead 色） */
-  --muted: #6e6e73;         /* 苹果中灰 - 副文字/标签 */
-  --faint: #8e8e93;         /* 苹果浅灰 - 极弱信息 */
-  --line: #d2d2d7;          /* 苹果分隔线 - 细边框 */
-  --line-soft: #e5e5ea;     /* 更浅的分隔线 */
-  --bg: #ffffff;            /* 纯白主背景 */
-  --bg-soft: #f5f5f7;       /* 苹果浅灰背景 - 卡片/区块 */
-  --bg-cover: #f5f5f7;      /* 封面渐变起点 */
-  --card: #ffffff;          /* 卡片白 */
-  /* 强调色（参考链接原色，去除黄色） */
-  --accent: #b83f58;        /* 玫瑰红 - 效率高亮/NEW/重点 */
-  --accent-soft: #fbeaec;   /* 浅红 - NEW 背景 */
-  --ongoing-bg: #eaf1ff;   /* 浅蓝 - 连载背景 */
-  --ongoing-fg: #2563eb;    /* 蓝 - 连载文字 */
-  --completed-bg: #e9f4f1; /* 浅绿 - 完结背景 */
-  --completed-fg: #0f766e;  /* 深绿 - 完结文字 */
-  /* 排名徽章（去除金色/棕色，改用苹果灰阶） */
-  --rank1: #1d1d1f;         /* #1 深灰 */
-  --rank2: #6e6e73;         /* #2 中灰 */
-  --rank3: #8e8e93;         /* #3 浅灰 */
+  /* 中性色阶（炭灰→银灰） */
+  --ink: #1c1c1e;            /* 最深 - 标题 */
+  --text: #3a3a3c;           /* 正文 */
+  --muted: #6e6e73;          /* 副文字 */
+  --faint: #86868b;          /* 极弱信息 */
+  --line: #d1d1d6;           /* 分隔线 */
+  --line-soft: #e5e5ea;      /* 更浅分隔 */
+  --bg: #ffffff;             /* 纯白主背景 */
+  --bg-soft: #f5f5f4;        /* 暖灰背景 - 卡片/区块 */
+  --bg-cover: #f5f5f4;       /* 封面渐变起点 */
+  --card: #ffffff;           /* 卡片白 */
+
+  /* 主强调色：海军蓝 Navy（替代红色） */
+  --accent: #2c3e6b;          /* 海军蓝 - 效率高亮/重点 */
+  --accent-soft: #e8ecf4;    /* 浅蓝 - 重点卡片背景 */
+  --accent-deep: #1a2a4f;     /* 深海军蓝 - hover/强调 */
+
+  /* 次强调色：琥珀金 Amber（替代绿色） */
+  --warm: #9e7b3e;           /* 琥珀金 - NEW/暖色点缀 */
+  --warm-soft: #f5f0e6;      /* 浅琥珀 - NEW背景/暖色卡片 */
+  --warm-deep: #7d6130;      /* 深琥珀 - hover */
+
+  /* 排名徽章（海军蓝灰阶，不用金色/棕色） */
+  --rank1: #1c1c1e;          /* #1 炭灰 */
+  --rank2: #6e6e73;          /* #2 银灰 */
+  --rank3: #86868b;          /* #3 浅灰 */
+
+  /* 状态徽章 */
+  --ongoing-bg: #e8ecf4;    /* 连载 - 浅海军蓝 */
+  --ongoing-fg: #2c3e6b;    /* 连载 - 海军蓝 */
+  --completed-bg: #f5f0e6;  /* 完结 - 浅琥珀 */
+  --completed-fg: #9e7b3e;  /* 完结 - 琥珀金 */
+
   /* 重点突出组件 */
-  --highlight-bg: #f5f5f7;          /* 重点卡片背景 */
-  --highlight-border: #1d1d1f;      /* 重点卡片左边框 - 深灰 */
-  --highlight-num: #b83f58;         /* 高亮数字 - 玫瑰红 */
-  --signal-num-bg: #1d1d1f;         /* 信号圆形徽章背景 */
+  --highlight-bg: #f5f5f4;          /* 重点卡片背景 - 暖灰 */
+  --highlight-border: #2c3e6b;      /* 重点卡片左边框 - 海军蓝 */
+  --highlight-num: #2c3e6b;         /* 高亮数字 - 海军蓝 */
+  --signal-num-bg: #1c1c1e;        /* 信号圆形徽章背景 - 炭灰 */
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: -apple-system, "SF Pro Display", "SF Pro Text", "PingFang SC", "Helvetica Neue", "Noto Sans CJK SC", sans-serif;
+  font-family: "Noto Sans SC", -apple-system, "SF Pro Text", "PingFang SC", sans-serif;
   background: var(--bg);
   color: var(--text);
-  line-height: 1.7;
+  line-height: 1.75;
   font-size: 15px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-variant-numeric: tabular-nums;
 }
 
-/* ========== 布局：侧边目录 + 主内容 ========== */
+/* ========== 布局 ========== */
 .doc-page {
   max-width: 1100px;
   margin: 0 auto;
   padding: 56px 48px 96px;
 }
-
 .toc-rail {
-  position: fixed;
-  top: 56px;
-  left: 48px;
-  width: 180px;
-  font-size: 13px;
-  max-height: calc(100vh - 112px);
-  overflow-y: auto;
+  position: fixed; top: 56px; left: 48px;
+  width: 180px; font-size: 13px;
+  max-height: calc(100vh - 112px); overflow-y: auto;
 }
 .toc-rail .toc-title {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--faint);
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-bottom: 12px;
-  padding-left: 12px;
+  font-family: "Noto Serif SC", serif;
+  font-size: 11px; font-weight: 600; color: var(--faint);
+  text-transform: uppercase; letter-spacing: 2px;
+  margin-bottom: 14px; padding-left: 12px;
 }
 .toc-rail a {
-  display: block;
-  color: var(--muted);
-  text-decoration: none;
-  padding: 6px 12px;
-  border-left: 2px solid var(--line-soft);
+  display: block; color: var(--muted); text-decoration: none;
+  padding: 6px 12px; border-left: 2px solid var(--line-soft);
   transition: all 160ms ease;
 }
 .toc-rail a:hover { color: var(--ink); border-left-color: var(--ink); }
 .toc-rail a.active { color: var(--accent); border-left-color: var(--accent); font-weight: 600; }
-
 @media (max-width: 1100px) {
   .toc-rail { display: none; }
   .doc-page { padding: 40px 24px 64px; }
 }
 
-/* ========== 封面页（参考链接 .report-cover） ========== */
+/* ========== 封面页（精简：移除数据来源，移至末尾） ========== */
 .report-cover {
   margin: 0 0 56px;
-  padding: 52px 48px 40px;
+  padding: 56px 48px 44px;
   border: 1px solid var(--line);
-  border-radius: 22px;
-  background: linear-gradient(180deg, var(--bg-cover) 0%, #ffffff 62%);
+  border-radius: 20px;
+  background: linear-gradient(180deg, var(--bg-cover) 0%, #ffffff 70%);
   scroll-margin-top: 28px;
 }
 .cover-eyebrow {
   color: var(--accent);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 3px;
-  text-transform: uppercase;
+  font-family: "Noto Serif SC", serif;
+  font-size: 13px; font-weight: 600;
+  letter-spacing: 3px; text-transform: uppercase;
 }
 .report-cover h1 {
-  margin: 14px 0 6px;
-  font-size: 40px;
-  line-height: 1.14;
-  font-weight: 700;
-  color: var(--ink);
+  margin: 16px 0 6px;
+  font-family: "Noto Serif SC", serif;
+  font-size: 42px; line-height: 1.14;
+  font-weight: 700; color: var(--ink);
   letter-spacing: -0.5px;
 }
 .cover-date {
-  font-size: 24px;
-  color: var(--ink);
-  font-weight: 600;
-  margin-bottom: 22px;
+  font-size: 24px; color: var(--ink);
+  font-weight: 600; margin-bottom: 22px;
   letter-spacing: -0.2px;
 }
-.cover-meta {
-  margin: 6px 0;
-  color: var(--muted);
-  font-size: 13.5px;
-  line-height: 1.8;
-}
-.cover-meta strong { color: var(--text); font-weight: 600; }
 .cover-lead {
   margin: 24px 0 4px;
   padding-top: 22px;
   border-top: 1px solid var(--line);
   color: var(--text);
-  font-size: 15.5px;
-  line-height: 1.85;
+  font-size: 15.5px; line-height: 1.9;
 }
 .cover-lead strong { color: var(--ink); font-weight: 600; }
 
-/* 封面 KPI 网格（参考链接 .cover-metrics） */
+/* 封面 KPI 网格（V6：替换监控范围/掉榜为更有洞察的指标） */
 .cover-metrics {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   margin: 28px 0 4px;
   border: 1px solid var(--line);
-  border-radius: 16px;
+  border-radius: 14px;
   overflow: hidden;
   background: var(--card);
 }
 .cover-metric { padding: 16px 18px; }
 .cover-metric + .cover-metric { border-left: 1px solid var(--line-soft); }
 .cover-metric span {
-  display: block;
-  color: var(--muted);
-  font-size: 12.5px;
-  letter-spacing: 0.3px;
+  display: block; color: var(--muted);
+  font-size: 11.5px; letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 .cover-metric strong {
-  display: block;
-  margin: 8px 0 3px;
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--ink);
+  display: block; margin: 8px 0 3px;
+  font-size: 22px; font-weight: 700; color: var(--ink);
 }
 .cover-metric small {
-  display: block;
-  color: var(--muted);
-  font-size: 12.5px;
-  line-height: 1.5;
+  display: block; color: var(--muted);
+  font-size: 12px; line-height: 1.5;
 }
 
 /* ========== 章节区块 ========== */
-.doc-block {
-  margin: 48px 0;
-  scroll-margin-top: 28px;
-}
+.doc-block { margin: 48px 0; scroll-margin-top: 28px; }
 .doc-block h2 {
-  font-size: 26px;
-  font-weight: 700;
-  color: var(--ink);
-  margin: 0 0 24px;
-  padding-bottom: 14px;
+  font-family: "Noto Serif SC", serif;
+  font-size: 26px; font-weight: 700; color: var(--ink);
+  margin: 0 0 24px; padding-bottom: 14px;
   border-bottom: 1px solid var(--line);
   letter-spacing: -0.4px;
 }
 .doc-block h3 {
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--ink);
-  margin: 28px 0 14px;
-  letter-spacing: -0.1px;
+  font-size: 16px; font-weight: 600; color: var(--ink);
+  margin: 28px 0 14px; letter-spacing: -0.1px;
 }
 .doc-block p { margin: 10px 0; color: var(--text); }
 .doc-block p strong { color: var(--ink); font-weight: 600; }
 
-/* ========== 今日洞察 4 格（参考链接 insight-grid） ========== */
+/* ========== 今日洞察 4 格 ========== */
 .insight-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin: 20px 0 8px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 16px; margin: 20px 0 8px;
 }
 .insight-card {
   padding: 22px 22px 20px;
   border: 1px solid var(--line);
-  border-radius: 16px;
-  background: var(--card);
-  position: relative;
-  overflow: hidden;
+  border-radius: 14px; background: var(--card);
+  position: relative; overflow: hidden;
   transition: box-shadow 200ms ease;
 }
-.insight-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+.insight-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.05); }
 .insight-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
+  content: ''; position: absolute; top: 0; left: 0;
   width: 3px; height: 100%;
 }
 .insight-card.ink::before { background: var(--ink); }
@@ -230,337 +198,190 @@ body {
 .insight-card.muted::before { background: var(--muted); }
 .insight-card.faint::before { background: var(--faint); }
 .insight-title {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--faint);
-  margin-bottom: 10px;
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
+  font-size: 11px; font-weight: 700; color: var(--faint);
+  margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1.2px;
 }
-.insight-body {
-  font-size: 14px;
-  line-height: 1.75;
-  color: var(--text);
-}
+.insight-body { font-size: 14px; line-height: 1.75; color: var(--text); }
 .insight-body strong { color: var(--ink); font-weight: 600; }
 
-/* ========== 封面卡片（参考链接 .cover-cards / .cover-card） ========== */
-.cover-group {
-  margin: 32px 0 10px;
-  scroll-margin-top: 28px;
-}
-.cover-group-title {
-  margin: 0 0 12px;
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--ink);
-}
-.cover-cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-}
+/* ========== 封面卡片 ========== */
+.cover-group { margin: 32px 0 10px; scroll-margin-top: 28px; }
+.cover-group-title { margin: 0 0 12px; font-size: 16px; font-weight: 600; color: var(--ink); }
+.cover-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
 .cover-card {
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  overflow: hidden;
-  background: var(--card);
-  display: flex;
-  flex-direction: column;
+  border: 1px solid var(--line); border-radius: 14px;
+  overflow: hidden; background: var(--card);
+  display: flex; flex-direction: column;
   transition: box-shadow 200ms ease, transform 200ms ease;
 }
-.cover-card:hover {
-  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-  transform: translateY(-2px);
-}
-.cover-img {
-  position: relative;
-  aspect-ratio: 3/4;
-  background: var(--bg-soft);
-}
-.cover-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
+.cover-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.06); transform: translateY(-2px); }
+.cover-img { position: relative; aspect-ratio: 3/4; background: var(--bg-soft); }
+.cover-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .cover-fallback {
-  width: 100%; height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--faint);
-  font-size: 13px;
+  width: 100%; height: 100%; display: flex;
+  align-items: center; justify-content: center;
+  color: var(--faint); font-size: 13px;
 }
 .cover-rank {
-  position: absolute;
-  top: 10px; left: 10px;
-  padding: 4px 11px;
-  border-radius: 999px;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.4px;
+  position: absolute; top: 10px; left: 10px;
+  padding: 4px 11px; border-radius: 999px;
+  color: #fff; font-size: 12px; font-weight: 700; letter-spacing: 0.4px;
 }
 .cover-rank.r1 { background: var(--rank1); }
 .cover-rank.r2 { background: var(--rank2); }
 .cover-rank.r3 { background: var(--rank3); }
 .cover-badge-new {
-  position: absolute;
-  top: 10px; right: 10px;
-  padding: 3px 9px;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 700;
-  background: var(--accent);
-  color: #fff;
-  letter-spacing: 0.5px;
+  position: absolute; top: 10px; right: 10px;
+  padding: 3px 9px; border-radius: 999px;
+  font-size: 11px; font-weight: 700;
+  background: var(--warm); color: #fff; letter-spacing: 0.5px;
 }
 .cover-info { padding: 12px 13px 14px; }
 .cover-title {
-  font-size: 13.5px;
-  line-height: 1.45;
-  color: var(--ink);
-  font-weight: 600;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  min-height: 39px;
+  font-size: 13.5px; line-height: 1.45; color: var(--ink);
+  font-weight: 600; display: -webkit-box;
+  -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden; min-height: 39px;
 }
 .cover-read {
-  margin-top: 8px;
-  font-size: 12.5px;
-  color: var(--muted);
-  display: flex;
-  justify-content: space-between;
+  margin-top: 8px; font-size: 12.5px; color: var(--muted);
+  display: flex; justify-content: space-between;
 }
 .cover-read b { color: var(--ink); font-weight: 600; }
 .cover-read .eff { color: var(--accent); font-weight: 600; }
 
-/* ========== 数据表格（参考链接 .doc-data-table） ========== */
+/* ========== 数据表格 ========== */
 .doc-data-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 16px 0;
-  font-size: 13.5px;
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  overflow: hidden;
+  width: 100%; border-collapse: collapse; margin: 16px 0;
+  font-size: 13.5px; background: var(--card);
+  border: 1px solid var(--line); border-radius: 10px; overflow: hidden;
 }
 .doc-data-table th {
-  background: var(--bg-soft);
-  color: var(--ink);
-  padding: 11px 14px;
-  text-align: left;
-  font-weight: 600;
-  font-size: 12.5px;
-  letter-spacing: 0.3px;
+  background: var(--bg-soft); color: var(--ink);
+  padding: 11px 14px; text-align: left;
+  font-weight: 600; font-size: 12.5px; letter-spacing: 0.3px;
   border-bottom: 1px solid var(--line);
 }
 .doc-data-table th.num { text-align: right; }
 .doc-data-table td {
-  padding: 10px 14px;
-  border-bottom: 1px solid var(--line-soft);
-  color: var(--text);
+  padding: 10px 14px; border-bottom: 1px solid var(--line-soft); color: var(--text);
 }
-.doc-data-table td.num {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-  color: var(--ink);
-  font-weight: 500;
-}
+.doc-data-table td.num { text-align: right; color: var(--ink); font-weight: 500; }
 .doc-data-table tr:last-child td { border-bottom: none; }
 .doc-data-table tr:hover td { background: var(--bg-soft); }
 .doc-data-table.compact { font-size: 12.5px; }
 .doc-data-table.compact th, .doc-data-table.compact td { padding: 8px 11px; }
 
-/* 状态徽章（参考链接 .status-badge） */
-.status-badge {
-  display: inline-block;
-  padding: 2px 10px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 600;
-}
+/* 状态徽章 */
+.status-badge { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
 .status-badge.ongoing { background: var(--ongoing-bg); color: var(--ongoing-fg); }
 .status-badge.completed { background: var(--completed-bg); color: var(--completed-fg); }
 
-/* NEW 徽章（参考链接 .new-badge） */
+/* NEW 徽章 - 琥珀金（替代红色） */
 .new-badge {
-  display: inline-block;
-  margin-left: 6px;
-  padding: 1px 8px;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 700;
-  background: var(--accent-soft);
-  color: var(--accent);
-  vertical-align: middle;
-  letter-spacing: 0.4px;
+  display: inline-block; margin-left: 6px;
+  padding: 1px 8px; border-radius: 999px;
+  font-size: 11px; font-weight: 700;
+  background: var(--warm-soft); color: var(--warm);
+  vertical-align: middle; letter-spacing: 0.4px;
 }
 
-/* 标签（参考链接 .tags） */
+/* 标签 */
 .tags { color: var(--muted); font-size: 13px; line-height: 1.6; }
 .tags .sep { color: var(--faint); margin: 0 5px; }
 
-/* 效率高亮（参考链接 .eff-hot） */
+/* 效率高亮 - 海军蓝（替代红色） */
 .eff-hot { color: var(--accent); font-weight: 700; }
 
-/* ========== 重点突出组件（苹果风加粗 + 形状图标） ========== */
-/* 关键判断卡片 - 浅灰背景 + 左侧深灰边 + 圆角 */
+/* ========== 重点突出组件 ========== */
+/* 关键判断卡片 - 浅暖灰背景 + 左侧海军蓝边 */
 .key-callout {
-  margin: 20px 0;
-  padding: 20px 24px;
+  margin: 20px 0; padding: 20px 24px;
   background: var(--highlight-bg);
-  border-radius: 14px;
-  border-left: 3px solid var(--highlight-border);
-  font-size: 14.5px;
-  line-height: 1.85;
-  color: var(--text);
+  border-radius: 12px; border-left: 3px solid var(--highlight-border);
+  font-size: 14.5px; line-height: 1.85; color: var(--text);
 }
 .key-callout strong { color: var(--ink); font-weight: 700; }
 
-/* 高亮数字 - 玫瑰红 + 700 字重（形状：无背景，纯字重色彩突出） */
-.highlight-num {
-  color: var(--highlight-num);
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-}
+/* 高亮数字 - 海军蓝 + 700 字重 */
+.highlight-num { color: var(--highlight-num); font-weight: 700; font-variant-numeric: tabular-nums; }
 
-/* 涨跌色 */
-.trend-up { color: var(--completed-fg); font-weight: 600; }
-.trend-down { color: var(--accent); font-weight: 600; }
+/* 涨跌色 - 海军蓝/琥珀金（替代绿/红） */
+.trend-up { color: var(--accent); font-weight: 600; }
+.trend-down { color: var(--warm); font-weight: 600; }
 
-/* 药丸标签（参考链接 .trend-chip） */
-.trend-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 12px 0 6px;
-}
+/* 药丸标签 */
+.trend-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 6px; }
 .trend-chip {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 6px;
-  padding: 6px 13px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--card);
-  font-size: 13px;
+  display: inline-flex; align-items: baseline; gap: 6px;
+  padding: 6px 13px; border: 1px solid var(--line);
+  border-radius: 999px; background: var(--card); font-size: 13px;
 }
 .trend-chip b { color: var(--ink); font-weight: 600; }
 .trend-chip i { color: var(--muted); font-style: normal; }
-.trend-chip.up { border-color: var(--completed-fg); background: var(--completed-bg); }
-.trend-chip.up b { color: var(--completed-fg); }
-.trend-chip.down { border-color: var(--accent); background: var(--accent-soft); }
-.trend-chip.down b { color: var(--accent); }
+.trend-chip.up { border-color: var(--accent); background: var(--accent-soft); }
+.trend-chip.up b { color: var(--accent); }
+.trend-chip.down { border-color: var(--warm); background: var(--warm-soft); }
+.trend-chip.down b { color: var(--warm); }
 
 /* 毕业预警药丸 */
 .grad-item {
-  display: inline-block;
-  margin: 4px 8px 4px 0;
-  padding: 4px 11px;
-  background: var(--card);
-  border-radius: 8px;
-  font-size: 12.5px;
-  border: 1px solid var(--line);
-  color: var(--text);
+  display: inline-block; margin: 4px 8px 4px 0;
+  padding: 4px 11px; background: var(--card);
+  border-radius: 8px; font-size: 12.5px;
+  border: 1px solid var(--line); color: var(--text);
 }
 .grad-item b { color: var(--ink); font-weight: 600; }
 
 /* 笔记/说明盒 */
 .note-box {
-  padding: 16px 20px;
-  background: var(--bg-soft);
-  border-radius: 12px;
-  font-size: 13.5px;
-  line-height: 1.85;
-  margin: 16px 0;
-  color: var(--text);
+  padding: 16px 20px; background: var(--bg-soft);
+  border-radius: 10px; font-size: 13.5px; line-height: 1.85;
+  margin: 16px 0; color: var(--text);
 }
 .note-box strong { color: var(--ink); font-weight: 600; }
 
-/* ========== 静态图表（参考链接 .static-chart） ========== */
+/* ========== 静态图表 ========== */
 .static-chart {
-  width: 100%;
-  height: auto;
-  display: block;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: var(--card);
+  width: 100%; height: auto; display: block;
+  border: 1px solid var(--line); border-radius: 14px; background: var(--card);
 }
-.chart-caption {
-  font-size: 12.5px;
-  color: var(--muted);
-  margin-top: 10px;
-  line-height: 1.6;
-}
+.chart-caption { font-size: 12.5px; color: var(--muted); margin-top: 10px; line-height: 1.6; }
 
-/* ========== 深度信号卡片（参考链接 .signal） ========== */
+/* ========== 深度信号卡片 ========== */
 .signal {
-  margin: 24px 0;
-  padding: 20px 22px;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: var(--card);
+  margin: 24px 0; padding: 20px 22px;
+  border: 1px solid var(--line); border-radius: 14px; background: var(--card);
 }
-.signal-head {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 8px;
-}
+.signal-head { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
 .signal-num {
-  flex: 0 0 auto;
-  width: 28px;
-  height: 28px;
-  border-radius: 999px;
-  background: var(--signal-num-bg);
-  color: #fff;
-  font-size: 14px;
-  font-weight: 700;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  flex: 0 0 auto; width: 28px; height: 28px;
+  border-radius: 999px; background: var(--signal-num-bg);
+  color: #fff; font-size: 14px; font-weight: 700;
+  display: inline-flex; align-items: center; justify-content: center;
 }
 .signal-title {
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--ink);
-  letter-spacing: -0.1px;
+  font-family: "Noto Serif SC", serif;
+  font-size: 17px; font-weight: 600; color: var(--ink); letter-spacing: -0.1px;
 }
-.signal-body {
-  margin: 8px 0 0;
-  color: var(--text);
-  font-size: 14.5px;
-  line-height: 1.85;
-}
+.signal-body { margin: 8px 0 0; color: var(--text); font-size: 14.5px; line-height: 1.85; }
 .signal-body strong { color: var(--ink); font-weight: 600; }
 
-/* ========== 数据来源 ========== */
+/* ========== 数据来源（移至末尾） ========== */
 .doc-sources {
-  margin: 48px 0 0;
-  padding: 22px 24px;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: var(--bg-soft);
+  margin: 48px 0 0; padding: 24px 26px;
+  border: 1px solid var(--line); border-radius: 14px; background: var(--bg-soft);
 }
 .doc-sources h2 {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--ink);
-  margin: 0 0 12px;
-  border: none;
-  padding: 0;
+  font-family: "Noto Serif SC", serif;
+  font-size: 18px; font-weight: 600; color: var(--ink);
+  margin: 0 0 14px; border: none; padding: 0;
 }
-.doc-sources p {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.8;
-  margin: 6px 0;
+.doc-sources .source-meta {
+  font-size: 13px; color: var(--muted); line-height: 1.9; margin: 4px 0;
 }
+.doc-sources .source-meta strong { color: var(--text); font-weight: 600; }
+.doc-sources p { font-size: 13px; color: var(--muted); line-height: 1.8; margin: 6px 0; }
 .doc-sources p strong { color: var(--text); font-weight: 600; }
 
 /* 隐藏 JSON */
@@ -593,17 +414,14 @@ body {
 <div class="cover-eyebrow">番茄科幻榜监控 · 日报</div>
 <h1>番茄科幻榜监控日报</h1>
 <div class="cover-date">2026-07-21</div>
-<div class="cover-meta">数据来源：番茄小说网API（fanqienovel.com）  |  rankVersion: 1784601000  |  抓取时间：2026-07-21 15:00</div>
-<div class="cover-meta">模式：日报（周二）  ·  四榜各 30 本 = 120 本  ·  历史对比：2026-07-20</div>
-<div class="cover-meta">效率 = 在读人数 ÷ (字数 ÷ 10000)  ·  社会心理连接专注<strong>中国本土因素</strong>（国内极端天气 / AI算力焦虑）</div>
 <div class="cover-lead">
 本日四榜共监控 <strong>120 本</strong>作品。科幻末世新书榜 Top1《宿舍求生》以 <strong>18.7万在读、效率7434</strong> 领跑爆发力榜单；极寒/囤货题材继续霸榜但增量放缓，<strong>推流方向正从单一囤货向"囤货+系统机制创新"分化</strong>；国内极端天气（广西汛情、北方热浪）与榜单"极寒"题材存在滞后，<strong>"高温末世+水源危机"是潜在机会窗口</strong>；暑假档短篇高效率区间表现突出。详情见下文四榜快照、标签人设趋势、今日变化与深度信号四部分。
 </div>
 <div class="cover-metrics">
-<div class="cover-metric"><span>监控范围</span><strong>4榜 × 30本</strong><small>共 120 本作品</small></div>
-<div class="cover-metric"><span>新上榜</span><strong>3 本</strong><small>集中于游戏体育新书榜尾段 + 阅读榜#30</small></div>
-<div class="cover-metric"><span>掉榜</span><strong>3 本</strong><small>游戏体育新书榜2本 + 阅读榜1本</small></div>
-<div class="cover-metric"><span>爆发力Top1效率</span><strong>7434</strong><small>宿舍求生：我刷广告开始变强，新书榜效率王者</small></div>
+<div class="cover-metric"><span>爆发力Top1效率</span><strong>7434</strong><small>宿舍求生：我刷广告开始变强，新书榜王者</small></div>
+<div class="cover-metric"><span>新上榜</span><strong>3 本</strong><small>集中于游戏体育新书榜尾段</small></div>
+<div class="cover-metric"><span>最火人设组合</span><strong>生存×隐藏</strong><small>生存型女主96% × 隐藏实力男主56%</small></div>
+<div class="cover-metric"><span>潜在机会窗口</span><strong>高温末世</strong><small>国内高温现实已发生，题材尚未爆发</small></div>
 </div>
 </header>
 <section class="doc-block" id="今日洞察">
@@ -620,7 +438,7 @@ body {
 </div>
 </section>
 <section class="doc-block" id="四榜数据快照">
-<h2>一、四榜数据快照（含新书榜 Top10 在读效率分析）</h2>
+<h2>一、四榜数据快照</h2>
 <p style="color:var(--muted);font-size:13.5px">四榜各30本，新书榜排在阅读榜前面。封面图展示每榜前三名，表格从第4名开始。</p>
 <div class="cover-group"><div class="cover-group-title">科幻末世新书榜（30本，新上榜0本）</div></div>
 <div class="cover-cards">
@@ -935,18 +753,6 @@ body {
 <tr><td>30</td><td>异编恋翻车成，球星前任求我别女</td><td class="num">2.2万</td><td>37.6万</td><td class="num">576</td><td><span class="status-badge completed">完结</span></td><td><span class="tags">-</span></td></tr>
 </tbody></table>
 <h3>新书榜 Top10 在读效率分析</h3>
-<table class="doc-data-table compact"><thead><tr><th>排名</th><th>书名</th><th class="num">在读</th><th>字数</th><th class="num">效率</th><th>在榜时间</th></tr></thead><tbody>
-<tr><td>#2</td><td>宿舍求生：我刷广告开始变强</td><td class="num">18.7万</td><td>25.1万</td><td class="num eff-hot">7434</td><td>3天</td></tr>
-<tr><td>#1</td><td>极寒末世，我跟着重生者买买买</td><td class="num">15.8万</td><td>27.5万</td><td class="num eff-hot">5731</td><td>3天</td></tr>
-<tr><td>#5</td><td>反派理性喜欢的妻子</td><td class="num">5.6万</td><td>10.9万</td><td class="num eff-hot">5071</td><td>3天</td></tr>
-<tr><td>#3</td><td>末日来临：囤货癖的她又又赢麻了</td><td class="num">9.4万</td><td>18.8万</td><td class="num">4975</td><td>3天</td></tr>
-<tr><td>#9</td><td>别惹小祖宗！末世大佬是宠妹狂魔</td><td class="num">6.2万</td><td>14.3万</td><td class="num">4372</td><td>2天</td></tr>
-<tr><td>#7</td><td>末日来临，小漂亮被前男友娇养了</td><td class="num">6.1万</td><td>14.8万</td><td class="num">4128</td><td>3天</td></tr>
-<tr><td>#4</td><td>末世？宅女舒适区</td><td class="num">7.5万</td><td>23.3万</td><td class="num">3223</td><td>3天</td></tr>
-<tr><td>#6</td><td>零能80度，我在游能室热奇冒汗</td><td class="num">6.5万</td><td>25.4万</td><td class="num">2561</td><td>2天</td></tr>
-<tr><td>#8</td><td>末世修仙养女儿，清冷佛子杀疯了</td><td class="num">5.6万</td><td>22.2万</td><td class="num">2531</td><td>3天</td></tr>
-<tr><td>#10</td><td>末世作精女配勾引疯批哥哥</td><td class="num">4.9万</td><td>21.4万</td><td class="num">2287</td><td>3天</td></tr>
-</tbody></table>
 <div class="key-callout">
 <strong>爆发力 Top3（效率 = 在读 ÷ (字数 ÷ 10000)）：</strong><br>
 <strong>① 宿舍求生：我刷广告开始变强</strong> — 效率<span class="highlight-num">7434</span>，25.1万字。恶毒女配+诡异求生+纯龙傲天男主，强反差+系统金手指，新书榜效率王者。<br>
@@ -966,13 +772,9 @@ body {
 <h2>二、标签 + 人设/CP 张力趋势速览</h2>
 <p style="color:var(--muted);font-size:13.5px">基于四榜 120 本的标签与人设字段频次统计，识别当前流量基本盘与上升信号。</p>
 <h3>a) Top5 标签 + 增长/衰退</h3>
-<table class="doc-data-table compact"><thead><tr><th>标签</th><th class="num">频次</th><th>分类</th></tr></thead><tbody>
-<tr><td><strong>CP</strong></td><td class="num">53</td><td>关系结构</td></tr>
-<tr><td><strong>末世</strong></td><td class="num">40</td><td>题材类型</td></tr>
-<tr><td><strong>求生</strong></td><td class="num">38</td><td>题材类型</td></tr>
-<tr><td><strong>囤货</strong></td><td class="num">32</td><td>核心梗</td></tr>
-<tr><td><strong>空间</strong></td><td class="num">29</td><td>核心梗</td></tr>
-</tbody></table>
+<div class="key-callout">
+<strong>Top5 标签频次：</strong>CP（53次，关系结构）&gt; 末世（40次，题材）&gt; 求生（38次，题材）&gt; 囤货（32次，核心梗）&gt; 空间（29次，核心梗）。CP + 末世 + 求生 + 囤货 四标签构成流量基本盘，<strong>空间 + 基建 + 萌宠/种田为当前上升信号</strong>。
+</div>
 <div class="trend-row">
 <span class="trend-chip up"><b>空间</b> <i>↑ 囤货+空间共现14次</i></span>
 <span class="trend-chip up"><b>基建</b> <i>↑ 求生+基建组合稳定</i></span>
@@ -982,7 +784,6 @@ body {
 <span class="trend-chip down"><b>纯游戏入侵</b> <i>↓ 退居其次</i></span>
 <span class="trend-chip down"><b>恶毒女配</b> <i>↓ 新书榜仅6本</i></span>
 </div>
-<div class="key-callout"><strong>一句话结论：</strong>CP + 末世 + 求生 + 囤货 四标签构成流量基本盘，<strong>空间 + 基建 + 萌宠/种田为当前上升信号</strong>。</div>
 <h3>b) 具体梗深挖（中国社会心理链接）</h3>
 <div class="note-box">
 <strong>天灾/汛情/暴雨（20本含天灾标签）：</strong>2026年7月中国极端天气集中爆发——广西台风"美莎克"引发严重汛情（55条河流超警、漓江流域水位暴涨7.46米）、"七下八上"防汛关键期609条河流超警（较常年偏多35%）、北方四轮热浪（新疆华北首轮高温核心，月末江南华南反扑）。<strong>国内真实灾害驱动末世求生/囤货焦虑</strong>→ 天灾+空间+囤货组合持续有效，但读者焦虑核心是"洪水/暴雨/高温"而非"极寒"。
@@ -1073,8 +874,10 @@ body {
 </section>
 <section class="doc-sources" id="数据说明">
 <h2>数据来源与说明</h2>
-<p><strong>数据来源：</strong>番茄小说网（fanqienovel.com）API + 页面初始数据。四榜各30条，共120条，按 bookId 去重。rankVersion=1784601000。</p>
-<p><strong>PUA字体加密：</strong>与上次报告共现书使用历史正确文本，新书保留API原文并标注。部分新书标题存在PUA加密字符（如"零能80度"应为"零下80度"），已尽量从上下文推断补全。</p>
+<div class="source-meta">数据来源：番茄小说网API（fanqienovel.com）  |  rankVersion: 1784601000  |  抓取时间：2026-07-21 15:00</div>
+<div class="source-meta">模式：日报（周二）  ·  四榜各 30 本 = 120 本  ·  历史对比：2026-07-20</div>
+<div class="source-meta">效率 = 在读人数 ÷ (字数 ÷ 10000)  ·  社会心理连接专注<strong>中国本土因素</strong>（国内极端天气 / AI算力焦虑）</div>
+<p><strong>PUA字体加密：</strong>与上次报告共现书使用历史正确文本，新书保留API原文并标注。部分新书标题存在PUA加密字符，已尽量从上下文推断补全。</p>
 <p><strong>效率定义：</strong>效率 = 在读人数 ÷ (字数 ÷ 10000) = 每万字的在读人数。效率越高，单位字数吸引的读者越多。</p>
 <p><strong>外部因素：</strong>Web 搜索 2026 年 7 月中国社会新闻（广西汛情、北方高温、WAIC 2026算力）。社会心理连接专注<strong>对中国读者有影响的本土因素</strong>。</p>
 <p><strong>历史对比：</strong>基于 2026-07-20 报告隐藏 JSON 块 + 可见表格对比。昨日可见表格为"万"单位精度，部分小幅波动无法精确捕捉。</p>
@@ -6182,10 +5985,8 @@ FANQIE_DATA_END -->
     var a = document.createElement('a');
     a.href = '#' + id;
     a.textContent = h.textContent.trim();
-    b.setAttribute('data-toc-label', h.textContent.trim());
     rail.appendChild(a);
   });
-  // 滚动高亮
   var links = rail.querySelectorAll('a');
   var observer = new IntersectionObserver(function(entries){
     entries.forEach(function(e){
