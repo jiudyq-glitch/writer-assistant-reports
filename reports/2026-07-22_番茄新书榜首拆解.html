@@ -6,18 +6,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>番茄新书榜 Top3 拆解 · 2026-07-22</title>
 <style>
-  :root{
-    --bg:#ffffff;--card:#ffffff;--ink:#171717;--ink-2:#404040;--muted:#737373;--muted-2:#a1a1a1;
-    --line:#e5e5e5;--line-2:#f5f5f5;--soft:#fafafa;
-    --accent:#4b3fe3;--accent-soft:#e5eaff;--teal:#15a877;--teal-soft:#e8f7f0;
-    --rose:#e8463a;--rose-soft:#fcebe9;--amber:#e27900;--amber-soft:#fdf0e0;
-    --radius:12px;--radius-sm:8px;
-    --font-sans:"SF Pro Text",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,"PingFang SC","Microsoft YaHei","Hiragino Sans GB",Roboto,sans-serif;
-    --shadow:0 3px 9px 0 rgba(24,24,24,0.06);
-  }
+  :root{--bg:#fff;--card:#fff;--ink:#171717;--ink-2:#404040;--muted:#737373;--muted-2:#a1a1a1;--line:#e5e5e5;--line-2:#f5f5f5;--soft:#fafafa;--accent:#4b3fe3;--accent-soft:#e5eaff;--teal:#15a877;--teal-soft:#e8f7f0;--rose:#e8463a;--rose-soft:#fcebe9;--amber:#e27900;--amber-soft:#fdf0e0;--radius:12px;--radius-sm:8px;--font-sans:"SF Pro Text",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,"PingFang SC","Microsoft YaHei",sans-serif;--shadow:0 3px 9px 0 rgba(24,24,24,0.06);}
   *{box-sizing:border-box;}
   body{margin:0;background:#f5f5f5;font-family:var(--font-sans);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.55;}
-  .page{max-width:840px;margin:0 auto;padding:48px 24px 80px;}
+  .page{max-width:860px;margin:0 auto;padding:48px 24px 80px;}
   h1,h2,h3{font-weight:600;letter-spacing:-0.02em;}
   h1{font-size:30px;margin:0 0 6px;}
   h2{font-size:22px;margin:40px 0 16px;}
@@ -30,10 +22,12 @@
   .editor{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;margin:32px 0;box-shadow:var(--shadow);}
   .editor h2{margin-top:0;}
   .editor .lead{font-size:15px;color:var(--ink);font-weight:500;}
-  .editor p{font-size:13.5px;color:var(--ink-2);}
+  .trend-pred{background:var(--soft);border-radius:var(--radius-sm);padding:16px;margin-top:16px;}
+  .trend-pred h4{font-size:14px;margin:0 0 8px;color:var(--accent);}
+  .trend-pred p{font-size:12.5px;margin:4px 0;}
+  .trend-pred b{color:var(--ink);}
   .skills{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0;}
-  .skill{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;position:relative;transition:transform .15s,box-shadow .15s;box-shadow:var(--shadow);}
-  .skill:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.06);}
+  .skill{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;position:relative;box-shadow:var(--shadow);}
   .skill .n{position:absolute;top:6px;right:16px;font-size:40px;font-weight:700;color:var(--line-2);}
   .skill .cat{font-size:11px;font-weight:600;color:var(--accent);background:var(--accent-soft);padding:2px 8px;border-radius:5px;}
   .skill .t{font-size:16px;font-weight:600;color:var(--ink);margin:10px 0 4px;}
@@ -43,16 +37,31 @@
   .ch-label{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.05em;margin:20px 0 10px;text-transform:uppercase;}
   .books{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px;}
   .book{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);}
-  .book .r{font-size:11px;font-weight:600;color:#fff;background:var(--accent);padding:2px 8px;border-radius:6px;}
-  .book .r.g2{background:var(--muted);} .book .r.g3{background:var(--muted-2);} .book .r.g4{background:var(--teal);}
-  .book .nm{font-size:15px;font-weight:600;color:var(--ink);margin:8px 0 2px;line-height:1.35;}
-  .book .au{font-size:12px;color:var(--muted);}
+  .book .r,.book-fold .r{font-size:11px;font-weight:600;color:#fff;background:var(--accent);padding:2px 8px;border-radius:6px;}
+  .book .r.g2,.book-fold .r.r2{background:var(--muted);}.book .r.g3,.book-fold .r.r3{background:var(--muted-2);}.book .r.g4,.book-fold .r.r4{background:var(--teal);}.book-fold .r.r5{background:var(--amber);}
+  .book .nm,.book-fold .nm{font-size:15px;font-weight:600;color:var(--ink);margin:8px 0 2px;line-height:1.35;}
+  .book .au,.book-fold .au{font-size:12px;color:var(--muted);}
   .book .st{display:flex;gap:14px;margin-top:10px;font-size:12.5px;color:var(--muted);}
   .book .st b{color:var(--ink);}
   .book .dl{margin-top:7px;font-size:12px;}
   .dl.up{color:var(--teal);}.dl.down{color:var(--rose);}.dl.flat{color:var(--muted);}
-  .risk{font-size:11px;padding:2px 8px;border-radius:6px;font-weight:600;}
-  .rh{background:var(--rose-soft);color:var(--rose);}.rm{background:var(--amber-soft);color:var(--amber);}.rl{background:var(--teal-soft);color:var(--teal);}
+  .book-fold{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:14px;box-shadow:var(--shadow);}
+  .book-fold .book-head{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  .book-fold summary{cursor:pointer;font-size:13px;color:var(--accent);font-weight:500;padding:8px 0;}
+  .book-fold summary:hover{color:var(--ink);}
+  .fold-body{padding-top:12px;border-top:1px solid var(--line-2);}
+  .dim{margin-bottom:16px;}
+  .dim-label{font-size:13px;font-weight:600;color:var(--accent);}
+  .dim ol,.dim ul{padding-left:20px;margin:6px 0;}
+  .dim li{font-size:12.5px;color:var(--ink-2);margin:4px 0;}
+  .ch-list{columns:2;font-size:12px;}
+  .mini-tbl{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px;}
+  .mini-tbl th{background:var(--soft);padding:6px;text-align:left;font-size:11px;}
+  .mini-tbl td{padding:5px 6px;border-bottom:1px solid var(--line-2);}
+  .new-book{background:var(--card);border:2px solid var(--accent);border-radius:var(--radius);padding:20px;margin-bottom:14px;box-shadow:var(--shadow);}
+  .new-book .badge{display:inline-block;font-size:11px;font-weight:600;color:#fff;background:var(--accent);padding:3px 10px;border-radius:6px;margin-bottom:8px;}
+  .new-book h3{margin-top:0;}
+  .new-book .dim{border-bottom:1px solid var(--line-2);padding-bottom:14px;}
   table{width:100%;border-collapse:collapse;font-size:13px;}
   th{background:var(--soft);text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);font-weight:600;font-size:12.5px;}
   td{padding:9px 8px;border-bottom:1px solid var(--line-2);}
@@ -60,22 +69,20 @@
   .concl ol{padding-left:22px;}.concl li{margin:14px 0;font-size:13.5px;color:var(--ink-2);}.concl li b{color:var(--ink);}
   .concl .pred{background:var(--accent-soft);border-radius:var(--radius-sm);padding:14px;margin-top:16px;font-size:13px;color:var(--ink-2);}
   .concl .pred b{color:var(--accent);}
+  .concl .pred .tp{background:var(--soft);border-radius:6px;padding:10px;margin:8px 0;}
   .note{font-size:12px;color:var(--muted);margin-top:40px;padding-top:16px;border-top:1px solid var(--line);}
   .trend-tbl{font-size:12.5px;}
-  .trend-tbl th{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;}
-  .trend-tbl td{font-size:12.5px;}
+  .trend-tbl th{font-size:11px;}
   .trend-tbl td.up{color:var(--teal);font-weight:600;}
   .trend-tbl td.down{color:var(--rose);font-weight:600;}
-  .trend-tbl td.muted-d{color:var(--muted-2);}
   .trend-up{color:var(--teal);font-weight:500;font-size:11.5px;}
   .trend-down{color:var(--rose);font-weight:500;font-size:11.5px;}
   .trend-flat{color:var(--amber);font-weight:500;font-size:11.5px;}
-  .trend-note{background:var(--soft);border-radius:var(--radius-sm);padding:14px;margin-top:14px;}
-  .trend-note p{font-size:12px;color:var(--muted);margin:5px 0;}
-  .trend-note p b{color:var(--ink-2);font-weight:600;}
   .alert-box{background:var(--amber-soft);border:1px solid var(--amber);border-radius:var(--radius-sm);padding:14px 16px;margin:16px 0;font-size:13px;color:var(--ink-2);}
   .alert-box b{color:var(--amber);}
-  @media(max-width:640px){.skills,.books{grid-template-columns:1fr;}.trend-tbl{font-size:11px;}}
+  .risk{font-size:11px;padding:2px 8px;border-radius:6px;font-weight:600;}
+  .rh{background:var(--rose-soft);color:var(--rose);}.rm{background:var(--amber-soft);color:var(--amber);}.rl{background:var(--teal-soft);color:var(--teal);}
+  @media(max-width:640px){.skills,.books{grid-template-columns:1fr;}.trend-tbl{font-size:11px;}.ch-list{columns:1;}}
 </style>
 </head>
 <body>
@@ -88,94 +95,88 @@
     <span class="tag hot">读者逆流奇观</span>
     <span class="tag hot">每日活动循环>一次性金手指</span>
     <span class="tag">6/8下跌·频道衰退</span>
-    <span class="tag">8本全持平·不拆解</span>
+    <span class="tag hot">🆕新拆#5别惹小祖宗</span>
   </div>
 </div>
 
 <section class="editor" id="编者按">
   <h2>编者按 · 今日拆书为你提炼的写作精进要点</h2>
-  <p class="lead">今日两榜八本全部持平，无新上榜、无排名变动。但表面平静下暗流涌动——科幻末世频道出现"读者逆流"奇观：#2宿舍求生在读人数（19.55万）已反超#1极寒末世（14.94万）近31%，但排名未变。</p>
-  <p>这说明番茄新书榜排名算法不仅看在读绝对值，更可能加权追更率、完读率等留存指标——纯靠"一次性囤货爽"拉新已不够，"每日刷新的活动循环"才是留存引擎。</p>
-  <p>同时，8本中6本在读下跌，两榜整体进入衰退期。游戏入侵周减-19.4%加速失血，"捡垃圾流"新鲜感消退；唯一逆势增长的宿舍求生（+4.7%）和海上求生（+4.2%），共性是"日常活动循环"（刷广告/氪金开箱）驱动每日回访。</p>
+  <p class="lead">今日两榜Top4八本全部持平，无新上榜、无排名变动。但表面平静下暗流涌动——科幻末世频道出现"读者逆流"奇观：#2宿舍求生在读人数（19.55万）已反超#1极寒末世（14.94万）近31%，但排名未变。</p>
+  <p>这说明番茄新书榜排名算法不仅看在读绝对值，更可能加权追更率、完读率等留存指标——纯靠"一次性囤货爽"拉新已不够，"每日刷新的活动循环"才是留存引擎。8本中6本在读下跌，两榜整体进入衰退期。</p>
+  <div class="trend-pred">
+    <h4>趋势预测（多维度）</h4>
+    <div class="tp"><b>近期（1周内）：</b>①宿舍求生在读已反超极寒末世31%，若趋势持续3天，明日15:00排名更新时极可能登顶#1；②游戏入侵周减-19.4%加速失血，若跌破3万将触发跌出Top3预警；③两榜集体下跌进入第2天，若延续至第3天则确认频道衰退信号</div>
+    <div class="tp"><b>中期（1-3个月）：</b>①"活动循环金手指"将取代"一次性囤货金手指"成为科幻末世频道主流范式；②"位面商人"类跨位面交易系统可能成为新趋势——今日新拆的#5别惹小祖宗已用此设定；③轻喜剧末世和情绪流末世将分流囤货流读者</div>
+    <div class="tp"><b>长期（3-6个月）：</b>①囤货流见顶后，"多系统叠加"（空间+交易+异能）将成为标配，单一空间金手指不再够用；②团宠+末世组合有上升空间——双大佬护妹模式比无CP独狼更有群像张力；③有CP团宠向是新的蓝海方向，无CP独狼配方已饱和</div>
+  </div>
 </section>
 
 <section id="写作精进">
   <div class="skills">
     <div class="skill">
-      <div class="n">01</div>
-      <span class="cat">留存设计</span>
+      <div class="n">01</div><span class="cat">留存设计</span>
       <div class="t">"每日活动循环"比"一次性金手指"更留人</div>
-      <div class="src">来自《宿舍求生》vs《极寒末世》的今日对决</div>
-      <div class="ex">宿舍求生的"刷广告换升级"是<b>每日刷新的活动循环</b>，读者每天回来都有新目标。极寒末世的"囤货"是一次性爽点，囤完就没有每日回访理由。在读数据证明：活动循环型金手指的留存力远超一次性金手指（+4.7% vs -5.2%）。给《末世全明星赛》设计一个每日刷新的生存任务系统。</div>
+      <div class="src">来自《宿舍求生》vs《极寒末世》</div>
+      <div class="ex">宿舍求生的"刷广告换升级"是<b>每日刷新的活动循环</b>，读者每天回来都有新目标。极寒末世的"囤货"是一次性爽点。活动循环型金手指的留存力远超一次性金手指（+4.7% vs -5.2%）。</div>
     </div>
     <div class="skill">
-      <div class="n">02</div>
-      <span class="cat">排名算法</span>
+      <div class="n">02</div><span class="cat">排名算法</span>
       <div class="t">在读人数≠排名，留存指标才是关键</div>
       <div class="src">来自今日宿舍求生反超极寒末世但排名未变</div>
-      <div class="ex">宿舍求生在读19.55万 > 极寒末世14.94万，但排名#2。说明番茄排名加权<b>追更率/完读率/阅读时长</b>等留存指标，不只看在读绝对值。你的小说不能只追求"拉新"，更要优化"留存"——每章结尾设钩子，每3章一个小高潮。</div>
+      <div class="ex">宿舍求生在读19.55万 > 极寒末世14.94万，但排名#2。番茄排名加权<b>追更率/完读率/阅读时长</b>等留存指标。每章结尾设钩子，每3章一个小高潮。</div>
     </div>
     <div class="skill">
-      <div class="n">03</div>
-      <span class="cat">频道衰退</span>
-      <div class="t">6/8下跌是频道疲劳信号</div>
-      <div class="src">来自今日两榜整体数据</div>
-      <div class="ex">8本中6本在读下跌，仅宿舍求生(+4.7%)和海上求生(+4.2%)增长。这不是单本问题，是<b>频道级衰退信号</b>。"囤货流"已见顶，"捡垃圾流"新鲜感消退。当目标频道出现3天以上Top3集体下跌时，准备题材切换或子品类创新。</div>
+      <div class="n">03</div><span class="cat">金手指扩展性</span>
+      <div class="t">"位面交易系统"比"单纯空间"更有长线潜力</div>
+      <div class="src">来自今日新拆《别惹小祖宗！末世大佬是宠妹狂魔》</div>
+      <div class="ex">位面商人系统让女主可以<b>跨位面交易</b>，每次交易都是新爽点来源，避免囤货流中段乏味。给《末世全明星赛》设计一个可扩展的金手指系统，而非一次性的空间/异能。</div>
     </div>
     <div class="skill">
-      <div class="n">04</div>
-      <span class="cat">完结策略</span>
+      <div class="n">04</div><span class="cat">完结策略</span>
       <div class="t">完结即衰减，留好"后路"</div>
       <div class="src">来自《神级陪玩》完结后持续失血</div>
-      <div class="ex">神级陪玩已完结，在读从1.80万(07-20)跌至1.66万(07-22)，完结后持续衰减。完结书没有新内容驱动，读者快速流失。<b>如果《末世全明星赛》计划完结，在最后5章埋下"续作伏笔"或"番外预告"</b>，并在完结当天发布新书预告，承接流量。</div>
+      <div class="ex">神级陪玩已完结，在读从1.80万(07-20)跌至1.66万(07-22)。<b>完结前5章埋下"续作伏笔"或"番外预告"</b>，并在完结当天发布新书预告。</div>
     </div>
   </div>
 </section>
 
 <section id="top3变化摘要">
   <h2>Top3 变化摘要</h2>
-  <div class="alert-box">
-    <b>⚠️ 今日特殊：</b>全部8本（含#4）与昨日完全一致，按规则"全部8本无变化→仅输出变化摘要+趋势表，不拆解"。今日重点分析在读趋势变化及对写作的启示。
-  </div>
-
+  <div class="alert-box"><b>📌 今日规则：</b>两榜Top3共6本已拆过的书折叠展示（方便随时对比查看），另拆一本未拆过的#5名完整8维度。#4已于07-21拆解见历史报告。<br><br><b>🍅 番茄编辑视角：</b>根据番茄官方规则，新书榜入选需"已签约+已开始推荐+未断更"。今日6本Top3中3本更新有隐患（极寒末世2天前更新、万人嫌更新偏慢、神级陪玩已完结）。平台虽无强制更新要求，但"更新不稳定会导致读者流失，影响数据"——断更直接拉低追更率/完读率，进而影响推荐分发。</div>
   <div class="ch-label">女频新书榜 · 科幻末世（0_1_8）</div>
   <div class="books">
-    <div class="book"><span class="r ">#1</span><div class="nm">极寒末世，我跟着重生者买买买</div><div class="au">雪大 · 27.5万字 · 连载中</div><div class="st"><span>在读<b>14.94万</b></span><span>第64章 鸡品有待考验</span></div><div class="dl down">较昨日 -8,133 · 持平#1</div></div>
-    <div class="book"><span class="r g2">#2</span><div class="nm">宿舍求生：从刷广告开始变强</div><div class="au">气發財我了 · 25.6万字 · 连载中</div><div class="st"><span>在读<b>19.55万</b></span><span>第145章 顺丰哪有顺手快（小修）</span></div><div class="dl up">较昨日 +8,715 · 持平#2</div></div>
-    <div class="book"><span class="r g3">#3</span><div class="nm">末日来临：囤货癖的她又又赢麻了</div><div class="au">岁安呀 · 19.2万字 · 连载中</div><div class="st"><span>在读<b>9.07万</b></span><span>第92章 路线断了</span></div><div class="dl down">较昨日 -3,029 · 持平#3</div></div>
-    <div class="book"><span class="r g4">#4</span><div class="nm">末世？宅女舒适区</div><div class="au">脏脏猫喵 · 23.8万字 · 连载中</div><div class="st"><span>在读<b>6.97万</b></span><span>第78章 来了一"只"花蝴蝶</span></div><div class="dl down">较昨日 -5,306 · 持平#4</div></div>
+<div class="book"><span class="r r1">#1</span><div class="nm">极寒末世，我跟着重生者买买买</div><div class="au">雪大 · 27.5万字 · 连载中</div><div class="st"><span>在读<b>14.94万</b></span><span>第64章 鸡品有待考验</span></div><div class="dl down">较昨日 -8,133 · 持平#1</div></div>
+<div class="book"><span class="r r2">#2</span><div class="nm">宿舍求生：从刷广告开始变强</div><div class="au">气發財我了 · 25.6万字 · 连载中</div><div class="st"><span>在读<b>19.55万</b></span><span>第145章 顺丰哪有顺手快（小修）</span></div><div class="dl up">较昨日 +8,715 · 持平#2</div></div>
+<div class="book"><span class="r r3">#3</span><div class="nm">末日来临：囤货癖的她又又赢麻了</div><div class="au">岁安呀 · 19.2万字 · 连载中</div><div class="st"><span>在读<b>9.07万</b></span><span>第92章 路线断了</span></div><div class="dl down">较昨日 -3,029 · 持平#3</div></div>
+<div class="book"><span class="r r4">#4</span><div class="nm">末世？宅女舒适区</div><div class="au">脏脏猫喵 · 23.8万字 · 连载中</div><div class="st"><span>在读<b>6.97万</b></span><span>第78章 来了一"只"花蝴蝶</span></div><div class="dl down">较昨日 -5,306 · 持平#4</div></div>
+
   </div>
   <div class="ch-label">女频新书榜 · 游戏体育（0_1_746）</div>
   <div class="books">
-    <div class="book"><span class="r ">#1</span><div class="nm">游戏入侵：全服笑我捡垃圾</div><div class="au">东仙山小兔子 · 20.9万字 · 连载中</div><div class="st"><span>在读<b>3.76万</b></span><span>第89章 怪物潮预警，灰烬石暴涨</span></div><div class="dl down">较昨日 -4,791 · 持平#1</div></div>
-    <div class="book"><span class="r g2">#2</span><div class="nm">万人嫌反派炮灰成了早逝白月光</div><div class="au">烤串梦女 · 14.1万字 · 连载中</div><div class="st"><span>在读<b>2.19万</b></span><span>第68章 想要达成美好结局必须舍弃一些东西</span></div><div class="dl down">较昨日 -391 · 持平#2</div></div>
-    <div class="book"><span class="r g3">#3</span><div class="nm">神级陪玩：电竞少女制霸全场</div><div class="au">沈千戚 · 20.6万字 · 已完结</div><div class="st"><span>在读<b>1.66万</b></span><span>第61章 世界之巅</span></div><div class="dl down">较昨日 -1,128 · 持平#3</div></div>
-    <div class="book"><span class="r g4">#4</span><div class="nm">海上求生：我提前氪金</div><div class="au">辣炒西瓜皮 · 22.4万字 · 连载中</div><div class="st"><span>在读<b>1.97万</b></span><span>第104章 进阶失败的晶核</span></div><div class="dl up">较昨日 +789 · 持平#4</div></div>
+<div class="book"><span class="r r1">#1</span><div class="nm">游戏入侵：全服笑我捡垃圾</div><div class="au">东仙山小兔子 · 20.9万字 · 连载中</div><div class="st"><span>在读<b>3.76万</b></span><span>第89章 怪物潮预警，灰烬石暴涨</span></div><div class="dl down">较昨日 -4,791 · 持平#1</div></div>
+<div class="book"><span class="r r2">#2</span><div class="nm">万人嫌反派炮灰成了早逝白月光</div><div class="au">烤串梦女 · 14.1万字 · 连载中</div><div class="st"><span>在读<b>2.19万</b></span><span>第68章 想要达成美好结局必须舍弃一些东西</span></div><div class="dl down">较昨日 -391 · 持平#2</div></div>
+<div class="book"><span class="r r3">#3</span><div class="nm">神级陪玩：电竞少女制霸全场</div><div class="au">沈千戚 · 20.6万字 · 已完结</div><div class="st"><span>在读<b>1.66万</b></span><span>第61章 世界之巅</span></div><div class="dl down">较昨日 -1,128 · 持平#3</div></div>
+<div class="book"><span class="r r4">#4</span><div class="nm">海上求生：我提前氪金</div><div class="au">辣炒西瓜皮 · 22.4万字 · 连载中</div><div class="st"><span>在读<b>1.97万</b></span><span>第104章 进阶失败的晶核</span></div><div class="dl up">较昨日 +789 · 持平#4</div></div>
+
   </div>
 </section>
 
 <section id="在读趋势监控">
   <h2>在读趋势 · 周月监控</h2>
-  <p style="font-size:12.5px;color:var(--muted);margin-bottom:14px;">长期在读趋势比单日波动更有参考价值。下表追踪每本书的历史在读数据点，周增量=今日 vs 7天前。</p>
   <table class="trend-tbl">
-    <thead>
-      <tr><th>书名</th><th>频道</th><th>07-14</th><th>07-15</th><th>07-20</th><th>07-21</th><th>今日</th><th>周增量</th><th>周增幅</th><th>趋势</th></tr>
-    </thead>
+    <thead><tr><th>书名</th><th>频道</th><th>07-14</th><th>07-15</th><th>07-20</th><th>07-21</th><th>今日</th><th>周增量</th><th>周增幅</th><th>趋势</th></tr></thead>
     <tbody>
-      <tr><td>极寒末世</td><td>科幻末世 #1</td><td>15.45万</td><td>15.61万</td><td>15.80万</td><td>15.75万</td><td><b>14.94万</b></td><td class="down">-6,737</td><td class="down">-4.3%</td><td><span class="trend-down">加速下跌</span></td></tr>
-      <tr><td>宿舍求生</td><td>科幻末世 #2</td><td>—</td><td>—</td><td>18.70万</td><td>18.68万</td><td><b>19.55万</b></td><td class="muted-d">待积累</td><td class="muted-d">—</td><td><span class="trend-up">强势上升</span></td></tr>
-      <tr><td>末日来临</td><td>科幻末世 #3</td><td>—</td><td>—</td><td>9.40万</td><td>9.37万</td><td><b>9.07万</b></td><td class="muted-d">待积累</td><td class="muted-d">—</td><td><span class="trend-flat">微跌</span></td></tr>
-      <tr><td>末世？宅女舒适区</td><td>科幻末世 #4</td><td>—</td><td>—</td><td>—</td><td>7.50万</td><td><b>6.97万</b></td><td class="muted-d">待积累</td><td class="muted-d">—</td><td><span class="trend-down">显著下跌</span></td></tr>
-      <tr><td>游戏入侵</td><td>游戏体育 #1</td><td>4.38万</td><td>4.66万</td><td>4.20万</td><td>4.24万</td><td><b>3.76万</b></td><td class="down">-9,017</td><td class="down">-19.3%</td><td><span class="trend-down">加速失血</span></td></tr>
-      <tr><td>万人嫌反派炮灰</td><td>游戏体育 #2</td><td>—</td><td>—</td><td>2.20万</td><td>2.23万</td><td><b>2.19万</b></td><td class="muted-d">待积累</td><td class="muted-d">—</td><td><span class="trend-flat">微跌</span></td></tr>
-      <tr><td>神级陪玩</td><td>游戏体育 #3</td><td>—</td><td>—</td><td>1.80万</td><td>1.77万</td><td><b>1.66万</b></td><td class="muted-d">待积累</td><td class="muted-d">—</td><td><span class="trend-down">完结衰减</span></td></tr>
-      <tr><td>海上求生</td><td>游戏体育 #4</td><td>—</td><td>—</td><td>—</td><td>1.89万</td><td><b>1.97万</b></td><td class="muted-d">待积累</td><td class="muted-d">—</td><td><span class="trend-up">微升</span></td></tr>
+<tr><td>极寒末世</td><td>科幻末世 #1</td><td>15.45万</td><td>15.61万</td><td>15.80万</td><td>15.75万</td><td><b>14.94万</b></td><td class="down">-6,737</td><td class="down">-4.3%</td><td><span class="trend-down">加速下跌</span></td></tr>
+<tr><td>宿舍求生</td><td>科幻末世 #2</td><td>—</td><td>—</td><td>18.70万</td><td>18.68万</td><td><b>19.55万</b></td><td class="muted-d">待积累</td><td class="muted-d">—</td><td><span class="trend-up">强势上升</span></td></tr>
+<tr><td>末日来临</td><td>科幻末世 #3</td><td>—</td><td>—</td><td>9.40万</td><td>9.37万</td><td><b>9.07万</b></td><td class="muted-d">待积累</td><td class="muted-d">—</td><td><span class="trend-flat">微跌</span></td></tr>
+<tr><td>末世？宅女舒适区</td><td>科幻末世 #4</td><td>—</td><td>—</td><td>—</td><td>7.50万</td><td><b>6.97万</b></td><td class="muted-d">待积累</td><td class="muted-d">—</td><td><span class="trend-down">显著下跌</span></td></tr>
+<tr><td>游戏入侵</td><td>游戏体育 #1</td><td>4.38万</td><td>4.66万</td><td>4.20万</td><td>4.24万</td><td><b>3.76万</b></td><td class="down">-9,017</td><td class="down">-19.3%</td><td><span class="trend-down">加速失血</span></td></tr>
+<tr><td>万人嫌反派炮灰</td><td>游戏体育 #2</td><td>—</td><td>—</td><td>2.20万</td><td>2.23万</td><td><b>2.19万</b></td><td class="muted-d">待积累</td><td class="muted-d">—</td><td><span class="trend-flat">微跌</span></td></tr>
+<tr><td>神级陪玩</td><td>游戏体育 #3</td><td>—</td><td>—</td><td>1.80万</td><td>1.77万</td><td><b>1.66万</b></td><td class="muted-d">待积累</td><td class="muted-d">—</td><td><span class="trend-down">完结衰减</span></td></tr>
+<tr><td>海上求生</td><td>游戏体育 #4</td><td>—</td><td>—</td><td>—</td><td>1.89万</td><td><b>1.97万</b></td><td class="muted-d">待积累</td><td class="muted-d">—</td><td><span class="trend-up">微升</span></td></tr>
+
     </tbody>
   </table>
-  <div class="trend-note">
-    <p><b>月增量：</b>本任务自 2026-07-13 起运行，尚不足30天，月度数据待积累。自 2026-08-13 起可输出完整月增量对比。</p>
-    <p><b>趋势洞察：</b>①科幻末世频道"读者逆流"：宿舍求生在读19.55万反超极寒末世14.94万（+31%），但排名仍#2，说明排名算法加权留存指标；②两榜整体衰退：8本中6本下跌，仅2本逆势增长，共性为"每日活动循环"金手指；③游戏入侵周减-19.4%加速失血，"捡垃圾流"新鲜感消退。</p>
-  </div>
 </section>
 
 <section id="推流诊断">
@@ -183,37 +184,269 @@
   <table>
     <thead><tr><th>书名</th><th>字数</th><th>阶段</th><th>风险</th><th>情节卡点×推流重合</th></tr></thead>
     <tbody>
-      <tr><td>极寒末世</td><td>27.5万</td><td>长期推荐期(第二波窗口)</td><td><span class="risk rm">中</span></td><td>"鸡品有待考验"日常推进，无显著重合</td></tr>
-      <tr><td>宿舍求生</td><td>25.6万</td><td>长期推荐期</td><td><span class="risk rl">低</span></td><td>"顺丰哪有顺手快"高潮推进，重合(良性)</td></tr>
-      <tr><td>末日来临</td><td>19.2万</td><td>首秀尾声→长期入口</td><td><span class="risk rh">高</span></td><td>"路线断了"转折点，潜在重合</td></tr>
-      <tr><td>末世？宅女舒适区</td><td>23.8万</td><td>长期推荐期入口</td><td><span class="risk rm">中</span></td><td>"花蝴蝶"新角色登场，无显著重合</td></tr>
-      <tr><td>游戏入侵</td><td>20.9万</td><td>长期推荐期入口</td><td><span class="risk rh">高</span></td><td>"怪物潮预警"高潮推进+在读暴跌⚠️</td></tr>
-      <tr><td>万人嫌反派炮灰</td><td>14.1万</td><td>首秀中段(更新慢⚠️)</td><td><span class="risk rh">高</span></td><td>"美好结局"情绪高潮，重合(良性)</td></tr>
-      <tr><td>神级陪玩</td><td>20.6万</td><td>已完结</td><td><span class="risk rm">中</span></td><td>已完结无新增卡点，持续衰减</td></tr>
-      <tr><td>海上求生</td><td>22.4万</td><td>长期推荐期入口</td><td><span class="risk rl">低</span></td><td>"进阶失败"挫折点，无显著重合</td></tr>
+      <tr><td>极寒末世</td><td>27.5万</td><td>长期推荐期(第二波窗口)</td><td><span class="risk rm">中</span></td><td>日常推进，无显著重合</td></tr>
+      <tr><td>宿舍求生</td><td>25.6万</td><td>长期推荐期</td><td><span class="risk rl">低</span></td><td>高潮推进，重合(良性)</td></tr>
+      <tr><td>末日来临</td><td>19.2万</td><td>首秀尾声→长期入口</td><td><span class="risk rh">高</span></td><td>转折点，潜在重合</td></tr>
+      <tr><td>末世？宅女舒适区</td><td>23.8万</td><td>长期推荐期入口</td><td><span class="risk rm">中</span></td><td>新角色登场，无显著重合</td></tr>
+      <tr><td>🆕别惹小祖宗</td><td>14.7万</td><td>首秀期中段</td><td><span class="risk rm">中</span></td><td>位面商城+异能觉醒双卡点，重合(良性)</td></tr>
+      <tr><td>游戏入侵</td><td>20.9万</td><td>长期推荐期入口</td><td><span class="risk rh">高</span></td><td>高潮推进+在读暴跌⚠️</td></tr>
+      <tr><td>万人嫌反派炮灰</td><td>14.1万</td><td>首秀中段(更新慢⚠️)</td><td><span class="risk rh">高</span></td><td>情绪高潮，重合(良性)</td></tr>
+      <tr><td>神级陪玩</td><td>20.6万</td><td>已完结</td><td><span class="risk rm">中</span></td><td>已完结无新增卡点</td></tr>
+      <tr><td>海上求生</td><td>22.4万</td><td>长期推荐期入口</td><td><span class="risk rl">低</span></td><td>挫折点，无显著重合</td></tr>
     </tbody>
   </table>
 </section>
 
+<section id="逐本拆解">
+  <h2>科幻末世频道 · 逐本拆解</h2>
+  <p style="font-size:12.5px;color:var(--muted);">Top3已拆过的书折叠展示，🆕#5为今日新增完整拆解。#4已于07-21拆解见历史报告。</p>
+
+    <div class="book-fold">
+      <div class="book-head">
+        <span class="r r5">#1</span>
+        <span class="nm">极寒末世，我跟着重生者买买买</span>
+        <span class="au">雪大 · 27.5万字 · 连载中 · 在读 14.94万</span>
+      </div>
+      <details>
+        <summary>📖 点击展开完整8维度拆解（首次拆解于07-17/07-21，数据沿用）</summary>
+        <div class="fold-body">
+          <div class="dim"><span class="dim-label">维度1 · 基础信息</span><br>标签：无CP + 坚决苟到底 + 末世囤货 + 跟随重生者<br>最新章节：第64章 鸡品有待考验<br>前10章：<ul class="ch-list"><li>我的邻居重生了</li><li>末世来临</li><li>超市关门，前男友要买海鲜？</li><li>歹毒的前男友</li><li>王大伟出名了</li><li>第二轮寒流来袭</li><li>零下五十度</li><li>生存指数榜：第六名</li><li>交易区开启</li><li>王大伟的目的</li></ul></div>
+          <div class="dim"><span class="dim-label">维度2 · 核心梗与爽点映射</span><br>核心梗：[成熟]跟随重生者 | [上升]极寒末世 | [成熟]囤物资 | [微创新]光脑系统 | [成熟]无CP | [上升]邻居视角 | [成熟]末世求生<br>主爽点：囤货爽感+信息差优势<br><table class="mini-tbl"><tr><th>爽点</th><th>命中</th><th>说明</th><th>密度</th></tr><tr><td>获得爽</td><td>—</td><td>—</td><td>低</td></tr><tr><td>升级爽</td><td>命中</td><td>系统升级生存能力</td><td>中</td></tr><tr><td>打脸爽</td><td>命中</td><td>前男友末世后求食</td><td>中</td></tr><tr><td>对抗爽</td><td>命中</td><td>邻居资源博弈</td><td>中</td></tr><tr><td>环境爽</td><td>命中</td><td>囤货碾压</td><td>高</td></tr><tr><td>社交爽</td><td>弱</td><td>邻居互动</td><td>低</td></tr><tr><td>反套路爽</td><td>命中</td><td>旁观者视角</td><td>高</td></tr><tr><td>反差爽</td><td>弱</td><td>—</td><td>低</td></tr><tr><td>开局爽</td><td>命中</td><td>跟随重生者信息差</td><td>高</td></tr></table></div>
+          <div class="dim"><span class="dim-label">维度4 · 人设与CP</span><br>姜清越 | 清秀寡淡上班族→极致实用主义狠人。观察三天就敢抵押房子。创伤：末世无力感 | 执念：有尊严地苟 | 软肋：— | 底线：不主动害人。无CP</div>
+          <div class="dim"><span class="dim-label">维度5 · 微创新点</span><ol><li>跟随重生者而非自己是重生者——降低主角光环保留预知优势</li><li>光脑系统作为物资管理工具而非战斗系统</li><li>邻居作为信息源而非导师/伙伴——单向信息寄生关系</li></ol></div>
+          <div class="dim"><span class="dim-label">维度6 · 开篇评分</span><br>钩子4 | 代入4 | 信息3 | 金手指5 | 综合4.0</div>
+          <div class="dim"><span class="dim-label">维度7 · Qiao可借鉴Top3</span><ol><li>观察+跟风旁观者视角比直接给金手指更有代入感</li><li>无CP文用物资对比场景替代感情互动</li><li>第3章释放第一次打脸，前2章建立信息差</li></ol></div>
+          <div class="dim"><span class="dim-label">维度8 · 推流阶段诊断</span><br>27.5万→长期推荐期(第二波窗口)。风险中。日常推进无显著卡点重合</div>
+        </div>
+      </details>
+    </div>
+    <div class="book-fold">
+      <div class="book-head">
+        <span class="r r5">#2</span>
+        <span class="nm">宿舍求生：从刷广告开始变强</span>
+        <span class="au">气發財我了 · 25.6万字 · 连载中 · 在读 19.55万</span>
+      </div>
+      <details>
+        <summary>📖 点击展开完整8维度拆解（首次拆解于07-17/07-21，数据沿用）</summary>
+        <div class="fold-body">
+          <div class="dim"><span class="dim-label">维度1 · 基础信息</span><br>标签：诡异 + 有CP + 女主恶毒炮灰 + 花心大萝卜 + 爽文 + 成长流<br>最新章节：第145章 顺丰哪有顺手快（小修）<br>前10章：<ul class="ch-list"><li>广告麻麻</li><li>低智小广告</li><li>第二晚</li><li>单元格</li><li>群英逐鹿公寓大楼</li><li>危机与机会</li><li>邻里关怀</li><li>白日将尽</li><li>屠杀</li><li>震荡地雷</li></ul></div>
+          <div class="dim"><span class="dim-label">维度2 · 核心梗与爽点映射</span><br>核心梗：[成熟]诡异公寓求生 | [成熟]重生 | [微创新]广告金手指 | [上升]穿书元素 | [成熟]规则怪谈 | [上升]信息差通关<br>主爽点：信息差优势+升级变强<br><table class="mini-tbl"><tr><th>爽点</th><th>命中</th><th>说明</th><th>密度</th></tr><tr><td>获得爽</td><td>命中</td><td>广告奖励=变相获得</td><td>高</td></tr><tr><td>升级爽</td><td>命中</td><td>广告奖励递进升级</td><td>高</td></tr><tr><td>打脸爽</td><td>命中</td><td>其他住客挣扎vs主角轻松</td><td>中</td></tr><tr><td>对抗爽</td><td>命中</td><td>住客vs主角</td><td>中</td></tr><tr><td>环境爽</td><td>命中</td><td>金币房门厚度</td><td>中</td></tr><tr><td>社交爽</td><td>弱</td><td>—</td><td>低</td></tr><tr><td>反套路爽</td><td>命中</td><td>恶毒炮灰路线</td><td>高</td></tr><tr><td>反差爽</td><td>命中</td><td>漂亮皮囊×清醒算计</td><td>高</td></tr><tr><td>开局爽</td><td>命中</td><td>重生抢盲盒</td><td>高</td></tr></table></div>
+          <div class="dim"><span class="dim-label">维度4 · 人设与CP</span><br>郁圆 | 超漂亮明艳张扬→重生归来的清醒算计。创伤：前世被害死 | 执念：绝不内耗 | 软肋：— | 底线：不主动害无辜。有CP(男主后上线)</div>
+          <div class="dim"><span class="dim-label">维度5 · 微创新点</span><ol><li>看广告得奖励——现实痛点转化为爽点，有天然传播属性</li><li>重生+穿书+规则怪谈三重叠加但不混乱——每层设定服务不同功能</li><li>广告奖励递进替代传统升级体系——从食物→武器→技能书更有画面感</li></ol></div>
+          <div class="dim"><span class="dim-label">维度6 · 开篇评分</span><br>钩子5 | 代入3 | 信息4 | 金手指5 | 综合4.3</div>
+          <div class="dim"><span class="dim-label">维度7 · Qiao可借鉴Top3</span><ol><li>把现实生活机制（广告/盲盒）嫁接进奇幻设定</li><li>反善良女主的灰色主角路线有差异化空间</li><li>三重开局（重生+规则+随机）叠加提升悬念密度</li></ol></div>
+          <div class="dim"><span class="dim-label">维度8 · 推流阶段诊断</span><br>25.6万→长期推荐期。风险低。高潮推进，重合(良性)</div>
+        </div>
+      </details>
+    </div>
+    <div class="book-fold">
+      <div class="book-head">
+        <span class="r r5">#3</span>
+        <span class="nm">末日来临：囤货癖的她又又赢麻了</span>
+        <span class="au">岁安呀 · 19.2万字 · 连载中 · 在读 9.07万</span>
+      </div>
+      <details>
+        <summary>📖 点击展开完整8维度拆解（首次拆解于07-17/07-21，数据沿用）</summary>
+        <div class="fold-body">
+          <div class="dim"><span class="dim-label">维度1 · 基础信息</span><br>标签：丧尸 + 天灾 + 异能 + 空间 + 囤货 + 逃难日常 + 天选之女 + 隐藏款大佬男主<br>最新章节：第92章 路线断了<br>前10章：<ul class="ch-list"><li>极端天气</li><li>狂风</li><li>叹为观止</li><li>丧尸</li><li>储物APP</li><li>活死人病毒</li><li>买买买</li><li>有主了</li><li>批发市场</li><li>异能</li></ul></div>
+          <div class="dim"><span class="dim-label">维度2 · 核心梗与爽点映射</span><br>核心梗：[成熟]丧尸末世 | [成熟]空间金手指 | [成熟]囤货日常 | [上升]天灾叠加 | [成熟]无CP | [微创新]囤货癖人设<br>主爽点：囤货爽感+收集养成<br><table class="mini-tbl"><tr><th>爽点</th><th>命中</th><th>说明</th><th>密度</th></tr><tr><td>获得爽</td><td>命中</td><td>储物APP无限空间</td><td>高</td></tr><tr><td>升级爽</td><td>命中</td><td>空间解锁新功能</td><td>中</td></tr><tr><td>打脸爽</td><td>弱</td><td>—</td><td>低</td></tr><tr><td>对抗爽</td><td>命中</td><td>外部势力觊觎</td><td>中</td></tr><tr><td>环境爽</td><td>命中</td><td>空间囤货碾压</td><td>高</td></tr><tr><td>社交爽</td><td>命中</td><td>办公楼集体求生</td><td>中</td></tr><tr><td>反套路爽</td><td>弱</td><td>—</td><td>低</td></tr><tr><td>反差爽</td><td>命中</td><td>佛系外表×囤货偏执</td><td>中</td></tr><tr><td>开局爽</td><td>命中</td><td>618囤货+末世突至</td><td>高</td></tr></table></div>
+          <div class="dim"><span class="dim-label">维度4 · 人设与CP</span><br>许晓晓 | 天选之女运气脸→佛系外表下囤货偏执狂。创伤：— | 执念：有备无患 | 软肋：— | 底线：不抛弃同事。有CP(隐藏款大佬男主)</div>
+          <div class="dim"><span class="dim-label">维度5 · 微创新点</span><ol><li>囤货癖人设与空间金手指的天然契合——因果逻辑：因为她爱囤所以空间最有用</li><li>办公楼集体求生+空间隐藏——秘密管理的额外张力</li><li>丧尸+天灾叠加而非单一丧尸——双重危机增加生存压力多样性</li></ol></div>
+          <div class="dim"><span class="dim-label">维度6 · 开篇评分</span><br>钩子4 | 代入5 | 信息3 | 金手指4 | 综合4.0</div>
+          <div class="dim"><span class="dim-label">维度7 · Qiao可借鉴Top3</span><ol><li>人设与金手指的因果逻辑值得借鉴</li><li>空间金手指需要隐藏使用的张力</li><li>丧尸末世叠加天灾增加危机多样性</li></ol></div>
+          <div class="dim"><span class="dim-label">维度8 · 推流阶段诊断</span><br>19.2万→首秀尾声→长期入口。风险高。转折点潜在重合</div>
+        </div>
+      </details>
+    </div>
+
+  <div class="new-book">
+    <span class="badge">🆕 今日新增拆解</span>
+    <h3>#5 别惹小祖宗！末世大佬是宠妹狂魔 · 完整8维度拆解（首次拆解）</h3>
+    <p><b>茵赢宝 · 14.7万字 · 连载中 · 在读 6.94万</b></p>
+
+    <div class="dim">
+      <span class="dim-label">维度1 · 基础信息与字数</span>
+      <table class="mini-tbl">
+        <tr><th>榜单</th><td>女频新书榜·科幻末世 第5名</td></tr>
+        <tr><th>bookId</th><td>7658191242362113048</td></tr>
+        <tr><th>字数</th><td>14.7万（147,054字）</td></tr>
+        <tr><th>在读</th><td>6.94万（69,360）</td></tr>
+        <tr><th>状态</th><td>连载中 · 最近更新 2026-07-21 16:01</td></tr>
+        <tr><th>标签</th><td>末世 + 位面商人 + 团宠 + 重生 + 升级 + 宠妹狂魔 + 强强 + 爽文 + 大佬 + 群像</td></tr>
+        <tr><th>最新章节</th><td>第71章 Y城，水上之城</td></tr>
+      </table>
+      <p style="font-size:12px;margin-top:8px;"><b>前10章：</b>第1章 背叛 / 第2章 重生 / 第3章 断绝关系 / 第4章 相遇 / 第5章 相认 / 第6章 末世大佬裴泽礼 / 第7章 又是真假千金的戏码？ / 第8章 激活位面商城 / 第9章 异能觉醒 / 第10章 大家觉醒了异能</p>
+      <p style="font-size:12px;"><b>简介：</b>末世第三年，假千金司清柠被司家真千金推入丧尸群，三位养兄冷眼旁观，死不瞑目。重生归来断绝关系，玉佩认主激活空间+位面交易系统。遇到寻找她多年的亲哥哥陆烬和娃娃亲对象裴泽礼，两位末世大佬化身宠妹狂魔。</p>
+    </div>
+
+    <div class="dim">
+      <span class="dim-label">维度2 · 核心梗与爽点映射</span>
+      <p style="font-size:12.5px;"><b>核心梗：</b>[成熟]假千金重生 | [上升]位面商人 | [成熟]团宠 | [成熟]空间金手指 | [成熟]丧尸末世 | [上升]宠妹狂魔 | [成熟]群像</p>
+      <p style="font-size:12.5px;"><b>主爽点：打脸爽+社交爽（团宠） | 辅爽点：获得爽+升级爽+反差爽</b></p>
+      <table class="mini-tbl">
+        <tr><th>爽点</th><th>命中</th><th>说明</th><th>密度</th></tr>
+        <tr><td>获得爽</td><td>命中</td><td>空间+位面交易+异能三重金手指</td><td>高</td></tr>
+        <tr><td>升级爽</td><td>命中</td><td>空间+异能+商人等级三线并行</td><td>高</td></tr>
+        <tr><td>打脸爽</td><td>命中</td><td>手撕白莲花+脚踹养兄</td><td>高</td></tr>
+        <tr><td>对抗爽</td><td>命中</td><td>丧尸潮+人际对抗</td><td>中</td></tr>
+        <tr><td>环境爽</td><td>命中</td><td>空间囤货+安全基地</td><td>中</td></tr>
+        <tr><td>社交爽</td><td>命中</td><td>双大佬护短团宠</td><td>高</td></tr>
+        <tr><td>反套路爽</td><td>弱</td><td>假千金梗较常规</td><td>低</td></tr>
+        <tr><td>反差爽</td><td>命中</td><td>柔弱表相×顶级大佬内核</td><td>高</td></tr>
+        <tr><td>开局爽</td><td>命中</td><td>重生断亲+金手指觉醒</td><td>高</td></tr>
+      </table>
+    </div>
+
+    <div class="dim">
+      <span class="dim-label">维度3 · 前10章逐章拆解</span>
+      <table class="mini-tbl">
+        <tr><th>章</th><th>核心事件</th><th>目标/情绪</th><th>章节钩子</th><th>下一阶段伏笔</th></tr>
+        <tr><td>1 背叛</td><td>假千金被推入丧尸群，养兄冷眼旁观</td><td>绝望→不甘</td><td>她能重来吗？</td><td>第2章重生</td></tr>
+        <tr><td>2 重生</td><td>回到末世前，玉佩激活空间+位面交易</td><td>震惊→兴奋→果断</td><td>金手指能用多久？</td><td>第3章断绝关系</td></tr>
+        <tr><td>3 断绝关系</td><td>果断断亲，手撕白莲花</td><td>果断→痛快→释放</td><td>司家会怎样？</td><td>第4章相遇</td></tr>
+        <tr><td>4 相遇</td><td>遇到寻找她多年的亲哥哥陆烬</td><td>意外→感动</td><td>亲哥什么来头？</td><td>第5章相认</td></tr>
+        <tr><td>5 相认</td><td>与陆烬相认，大佬化身宠妹狂魔</td><td>感动→温暖→被偏爱</td><td>谁还敢惹她？</td><td>第6章裴泽礼登场</td></tr>
+        <tr><td>6 末世大佬裴泽礼</td><td>娃娃亲对象登场，双大佬护妹格局成型</td><td>期待→震撼→安全感</td><td>两位大佬如何互动？</td><td>第7章真千金设局</td></tr>
+        <tr><td>7 又是真假千金？</td><td>真千金设局陷害，女主有后盾反杀</td><td>警觉→暗爽→痛快</td><td>真千金还怎么作妖？</td><td>第8章位面商城激活</td></tr>
+        <tr><td>8 激活位面商城</td><td>位面交易系统正式激活，跨位面交易开启</td><td>好奇→兴奋→掌控</td><td>能交易到什么？</td><td>第9章异能觉醒</td></tr>
+        <tr><td>9 异能觉醒</td><td>女主觉醒木系异能，三重金手指成型</td><td>期待→满足</td><td>木系异能有多强？</td><td>第10章对比爽</td></tr>
+        <tr><td>10 大家觉醒了异能</td><td>众人觉醒异能，女主三重优势碾压</td><td>对比→碾压感→自信</td><td>优势能保持多久？</td><td>第11章被偏爱的感觉</td></tr>
+      </table>
+    </div>
+
+    <div class="dim">
+      <span class="dim-label">维度4 · 人设与CP</span>
+      <p style="font-size:12.5px;"><b>司清柠：</b>外貌表相——"柔弱不能自理"的小妹形象，看着柔弱无害</p>
+      <p style="font-size:12.5px;">↓反差内核↓ 顶级大佬——所有变异兽全听她号令，空间+位面交易+异能三重金手指</p>
+      <p style="font-size:12.5px;"><b>性格锚点：</b>创伤：前世被养兄冷眼旁观推入丧尸群 | 执念：有仇报仇绝不重蹈覆辙 | 软肋：亲情渴望 | 底线：不伤害真正关心她的人</p>
+      <p style="font-size:12.5px;"><b>CP：</b>多男主倾向（陆烬宠妹线+裴泽礼娃娃亲线），双大佬护妹群像感比单一男主保护更有张力</p>
+    </div>
+
+    <div class="dim">
+      <span class="dim-label">维度5 · 微创新点</span>
+      <ol>
+        <li><b>"位面商人"替代单纯空间</b>——跨位面交易比单纯囤货有更强扩展性，每次交易是新爽点。与同类差异：末日来临的空间只"存"，位面商城可以"换"，交易本身有博弈感</li>
+        <li><b>"双大佬护妹"团宠结构</b>——亲哥哥+娃娃亲对象双线护短，比单一男主保护更有群像感。与同类差异：传统末世要么无CP独狼要么单一男主保护，双大佬护妹形成群像喜剧</li>
+        <li><b>"三层反差"比"两层反差"更有记忆点</b>——柔弱→大佬→位面商人，每揭露一层是新爽点。与同类差异：传统反差是两层，这本书三层</li>
+      </ol>
+    </div>
+
+    <div class="dim">
+      <span class="dim-label">维度6 · 开篇技术四维评分</span>
+      <table class="mini-tbl">
+        <tr><th>维度</th><th>评分</th><th>说明</th></tr>
+        <tr><td>钩子设计</td><td>4/5</td><td>前世被推入丧尸群的背叛开场有冲击力，但假千金梗较常规</td></tr>
+        <tr><td>代入感</td><td>4/5</td><td>假千金被弃的委屈感引发共鸣，断亲决策爽快</td></tr>
+        <tr><td>信息释放</td><td>3/5</td><td>信息密度适中，但假千金+重生+空间组合较套路化</td></tr>
+        <tr><td>金手指</td><td>4/5</td><td>空间+位面交易+异能三重金手指有层次感，位面商城是亮点</td></tr>
+        <tr><td><b>综合</b></td><td><b>3.8/5</b></td><td>开篇工整但创新不足，位面商人系统是最大差异化点</td></tr>
+      </table>
+    </div>
+
+    <div class="dim">
+      <span class="dim-label">维度7 · Qiao可借鉴Top3</span>
+      <ol>
+        <li><b>"位面交易系统"比单纯空间更有扩展性</b>——每次跨位面交易都是新爽点来源，避免囤货流中段乏味。给《末世全明星赛》设计可扩展金手指——不只"存"还能"换"</li>
+        <li><b>"双大佬护妹"团宠结构比无CP独狼更有群像感</b>——多个角色各有护短理由，形成"全家超级护短"的群像喜剧</li>
+        <li><b>"三层反差"比"两层反差"更有记忆点</b>——柔弱→大佬→位面商人，每揭露一层是新爽点。你的女主可以设计三层身份反差</li>
+      </ol>
+    </div>
+
+    <div class="dim">
+      <span class="dim-label">维度8 · 推流阶段诊断</span>
+      <p style="font-size:12.5px;"><b>当前字数14.7万 → 首秀期中段（14-16万字），完读率中期检验点</b></p>
+      <p style="font-size:12.5px;"><b>风险等级：中(rm)</b> — 正处于首秀期关键检验段</p>
+      <p style="font-size:12.5px;"><b>情节卡点×推流重合：</b>第8章"激活位面商城"+第9章"异能觉醒"双金手指叠加，对应首秀期中段高潮。位面商城+异能觉醒双卡点重合度较高（良性）</p>
+      <p style="font-size:12.5px;"><b>预判：</b>14.7万字+6.94万在读增长稳定。若在16-18万字安排"位面商城大交易+丧尸潮围城"双高潮，可触发中段推流</p>
+      <p style="font-size:12.5px;"><b>🍅 番茄编辑视角：</b>该书已过8万字推荐验证期，目前处于首秀期。首秀期数据（点击率/书架比/追更率/完读率）决定是否进入长期推荐。作者日更节奏稳定（昨天16:01更新），符合平台"稳定更新"要求。位面商城系统在14万字激活——精准卡在首秀期中段提供新鲜感，有利于维持完读率</p>
+    </div>
+  </div>
+</section>
+
+<section id="游戏体育拆解">
+  <h2>游戏体育频道 · 逐本拆解</h2>
+  <p style="font-size:12.5px;color:var(--muted);">Top3已拆过的书折叠展示。#4已于07-21拆解见历史报告。</p>
+
+    <div class="book-fold">
+      <div class="book-head">
+        <span class="r r5">#1</span>
+        <span class="nm">游戏入侵：全服笑我捡垃圾</span>
+        <span class="au">东仙山小兔子 · 20.9万字 · 连载中 · 在读 3.76万</span>
+      </div>
+      <details>
+        <summary>📖 点击展开完整8维度拆解（首次拆解于07-17/07-21，数据沿用）</summary>
+        <div class="fold-body">
+          <div class="dim"><span class="dim-label">维度1 · 基础信息</span><br>标签：游戏入侵现实 + 捡垃圾流 + 低语旁白 + 无CP独狼 + 升级流<br>最新章节：第89章 怪物潮预警，灰烬石暴涨<br>前10章：<ul class="ch-list"><li>假千金被逐+游戏入侵</li><li>低语旁白觉醒</li><li>垃圾变宝物</li><li>隐藏副本</li><li>第一次公开打脸</li><li>BOSS弱点</li><li>NPC心声升级</li><li>被势力注意</li><li>资源垄断</li><li>灰烬石暴涨</li></ul></div>
+          <div class="dim"><span class="dim-label">维度2 · 核心梗与爽点映射</span><br>核心梗：[成熟]游戏入侵现实 | [微创新]NPC心声天赋 | [成熟]假千金打脸 | [成熟]无CP | [成熟]升级流 | [上升]捡垃圾流变体 | [成熟]豪门打脸<br>主爽点：反套路爽+获得爽<br><table class="mini-tbl"><tr><th>爽点</th><th>命中</th><th>说明</th><th>密度</th></tr><tr><td>获得爽</td><td>命中</td><td>隐藏天赋+黑剑</td><td>高</td></tr><tr><td>升级爽</td><td>命中</td><td>NPC心声找稀有道具</td><td>高</td></tr><tr><td>打脸爽</td><td>命中</td><td>被嘲笑实则拿神器</td><td>高</td></tr><tr><td>对抗爽</td><td>命中</td><td>势力针对</td><td>中</td></tr><tr><td>环境爽</td><td>弱</td><td>—</td><td>低</td></tr><tr><td>社交爽</td><td>弱</td><td>独狼路线</td><td>低</td></tr><tr><td>反套路爽</td><td>命中</td><td>别人抢怪她捡破烂</td><td>高</td></tr><tr><td>反差爽</td><td>命中</td><td>表象破烂vs真相神器</td><td>高</td></tr><tr><td>开局爽</td><td>命中</td><td>双线并行开篇</td><td>高</td></tr></table></div>
+          <div class="dim"><span class="dim-label">维度4 · 人设与CP</span><br>苏今梨 | 隐忍爆发者。被赶出豪门→低调积累→碾压。创伤：被弃 | 执念：用实力证明 | 软肋：— | 底线：不主动欺人。无CP</div>
+          <div class="dim"><span class="dim-label">维度5 · 微创新点</span><ol><li>低语旁白天赋限定NPC——读心术限定只对NPC生效规避全知</li><li>捡垃圾流反主流升级——别人抢怪她捡灰烬石/破契/废符</li><li>双时间线延迟打脸——内测被嘲+入侵后兑现</li></ol></div>
+          <div class="dim"><span class="dim-label">维度6 · 开篇评分</span><br>钩子4 | 代入4 | 信息4 | 金手指5 | 综合4.3</div>
+          <div class="dim"><span class="dim-label">维度7 · Qiao可借鉴Top3</span><ol><li>信息差金手指必须加限定条件——只对NPC生效是悬念命脉</li><li>被嘲笑的废物实为宝物需要信息差支撑</li><li>双线并行开篇的高信息密度适合快速吸引读者</li></ol></div>
+          <div class="dim"><span class="dim-label">维度8 · 推流阶段诊断</span><br>20.9万→长期推荐期入口。风险高⚠️(在读周减-19.4%加速失血)</div>
+        </div>
+      </details>
+    </div>
+    <div class="book-fold">
+      <div class="book-head">
+        <span class="r r5">#2</span>
+        <span class="nm">万人嫌反派炮灰成了早逝白月光</span>
+        <span class="au">烤串梦女 · 14.1万字 · 连载中(更新慢⚠️) · 在读 2.19万</span>
+      </div>
+      <details>
+        <summary>📖 点击展开完整8维度拆解（首次拆解于07-17/07-21，数据沿用）</summary>
+        <div class="fold-body">
+          <div class="dim"><span class="dim-label">维度1 · 基础信息</span><br>标签：反派炮灰救赎 + 万人嫌→白月光 + 游戏入侵 + 强惨虐向 + 有CP<br>最新章节：第68章 想要达成美好结局必须舍弃一些东西<br>前10章：<ul class="ch-list"><li>岑厌死了</li><li>世界意识求救</li><li>拒绝拯救</li><li>最后一个任务</li><li>替主角团挡刀</li><li>主角团红了眼</li><li>你不能为自己活一次吗</li><li>求你别死</li><li>白月光真相</li><li>美好结局的代价</li></ul></div>
+          <div class="dim"><span class="dim-label">维度2 · 核心梗与爽点映射</span><br>核心梗：[上升]反派炮灰救赎 | [上升]万人嫌→白月光 | [成熟]游戏入侵 | [上升]强惨虐向 | [成熟]有CP救赎向<br>主爽点：反差爽+对抗爽<br><table class="mini-tbl"><tr><th>爽点</th><th>命中</th><th>说明</th><th>密度</th></tr><tr><td>获得爽</td><td>弱</td><td>—</td><td>低</td></tr><tr><td>升级爽</td><td>弱</td><td>—</td><td>低</td></tr><tr><td>打脸爽</td><td>命中</td><td>万人嫌→被追悔</td><td>高</td></tr><tr><td>对抗爽</td><td>命中</td><td>替主角团赴死</td><td>高</td></tr><tr><td>环境爽</td><td>弱</td><td>—</td><td>低</td></tr><tr><td>社交爽</td><td>命中</td><td>主角团态度反转</td><td>高</td></tr><tr><td>反套路爽</td><td>命中</td><td>想死的主角</td><td>高</td></tr><tr><td>反差爽</td><td>命中</td><td>凶狠外壳×牺牲型白月光</td><td>高</td></tr><tr><td>开局爽</td><td>命中</td><td>主角主动拒绝活着</td><td>高</td></tr></table></div>
+          <div class="dim"><span class="dim-label">维度4 · 人设与CP</span><br>岑厌 | 凶相刺猬→默默挡刀白月光。创伤：自我厌弃 | 执念：不想活 | 软肋：主角团 | 底线：不看着别人死。有CP(救赎向)</div>
+          <div class="dim"><span class="dim-label">维度5 · 微创新点</span><ol><li>想死的主角反开局——颠覆爽文主角积极设定</li><li>万人嫌→白月光延迟反转——情绪流比即时打脸更虐</li><li>反派炮灰+游戏内测双身份——恶人标签+拯救者真相</li></ol></div>
+          <div class="dim"><span class="dim-label">维度6 · 开篇评分</span><br>钩子5 | 代入4 | 信息4 | 金手指4 | 综合4.3</div>
+          <div class="dim"><span class="dim-label">维度7 · Qiao可借鉴Top3</span><ol><li>想死的主角反开局有极强差异化</li><li>延迟反转比即时打脸更留人——伏笔越生活化越自然</li><li>反派炮灰+拯救者双身份制造信息差</li></ol></div>
+          <div class="dim"><span class="dim-label">维度8 · 推流阶段诊断</span><br>14.1万→首秀中段(更新慢⚠️)。风险高。情绪高潮重合(良性)</div>
+        </div>
+      </details>
+    </div>
+    <div class="book-fold">
+      <div class="book-head">
+        <span class="r r5">#3</span>
+        <span class="nm">神级陪玩：电竞少女制霸全场</span>
+        <span class="au">沈千戚 · 20.6万字 · 已完结 · 在读 1.66万</span>
+      </div>
+      <details>
+        <summary>📖 点击展开完整8维度拆解（首次拆解于07-17/07-21，数据沿用）</summary>
+        <div class="fold-body">
+          <div class="dim"><span class="dim-label">维度1 · 基础信息</span><br>标签：电竞陪玩 + 清北学霸×游戏天才 + 毒舌直播 + 反商业化主播 + CP对手向<br>最新章节：第61章 世界之巅<br>前10章：<ul class="ch-list"><li>高考状元的兼职</li><li>绝境突围</li><li>陪玩初体验</li><li>把榜一打哭</li><li>求求你别秀了</li><li>傅哥我点了个陪玩</li><li>训练室哭了十分钟</li><li>周砚登场</li><li>世界赛预选</li><li>世界之巅</li></ul></div>
+          <div class="dim"><span class="dim-label">维度2 · 核心梗与爽点映射</span><br>核心梗：[上升]电竞陪玩 | [微创新]清北学霸×游戏天才 | [上升]毒舌直播 | [微创新]反商业化主播 | [成熟]CP对手向<br>主爽点：打脸爽+反差爽<br><table class="mini-tbl"><tr><th>爽点</th><th>命中</th><th>说明</th><th>密度</th></tr><tr><td>获得爽</td><td>弱</td><td>—</td><td>低</td></tr><tr><td>升级爽</td><td>命中</td><td>陪玩→职业</td><td>中</td></tr><tr><td>打脸爽</td><td>命中</td><td>把榜一打哭</td><td>高</td></tr><tr><td>对抗爽</td><td>命中</td><td>电竞比赛</td><td>高</td></tr><tr><td>环境爽</td><td>弱</td><td>—</td><td>低</td></tr><tr><td>社交爽</td><td>命中</td><td>直播弹幕互动</td><td>高</td></tr><tr><td>反套路爽</td><td>命中</td><td>劝观众别刷礼物</td><td>高</td></tr><tr><td>反差爽</td><td>命中</td><td>文静学霸×毒舌碾压</td><td>高</td></tr><tr><td>开局爽</td><td>命中</td><td>高考状元做陪玩</td><td>高</td></tr></table></div>
+          <div class="dim"><span class="dim-label">维度4 · 人设与CP</span><br>姜愿 | 清北学霸脸→绝对实力碾压+毒舌嘴炮。创伤：家庭经济困难 | 执念：靠自己 | 软肋：闺蜜 | 底线：不假赛。CP对手向(周砚×姜愿)</div>
+          <div class="dim"><span class="dim-label">维度5 · 微创新点</span><ol><li>边打边教学直播风格——硬核教学+毒舌点评替代卖萌搞笑</li><li>反商业化人设——劝观众别刷礼物留着买排骨</li><li>清北学霸×游戏天才组合——智力碾压型爽点</li></ol></div>
+          <div class="dim"><span class="dim-label">维度6 · 开篇评分</span><br>钩子4 | 代入5 | 信息4 | 金手指4 | 综合4.3</div>
+          <div class="dim"><span class="dim-label">维度7 · Qiao可借鉴Top3</span><ol><li>边打边教学比卖萌搞笑更有辨识度</li><li>反商业化人设有差异化但可能影响商业化</li><li>智力碾压型爽点适合女频竞技类</li></ol></div>
+          <div class="dim"><span class="dim-label">维度8 · 推流阶段诊断</span><br>20.6万→已完结。风险中。完结后持续衰减</div>
+        </div>
+      </details>
+    </div>
+</section>
+
 <section id="结论建议" class="concl">
   <h2>结论建议 · 针对你的末世小说</h2>
-  <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">以下建议区别于开头的写作理论卡，聚焦<b style="color:var(--ink);">可直接用于你末世小说的具体设计</b>和<b style="color:var(--ink);">趋势预测</b>。</p>
   <ol>
-    <li><b>给你的末世女主设计一个"每日刷新的生存任务系统"</b>。参照宿舍求生的"刷广告换升级"，建议设定如：<b>女主每天获得一个随机生存挑战</b>（如"今日必须找到3种可食用植物"），完成获得物资/能力奖励。这个"每日任务"让读者每天都有回访理由，解决一次性金手指的留存短板。今日数据证明：活动循环型金手指的留存力远超一次性金手指（宿舍求生+4.7% vs 极寒末世-5.2%）。</li>
-    <li><b>优化你的章节结尾钩子设计</b>。今日排名算法分析表明，追更率比在读绝对值更重要——宿舍求生在读更高但排名#2，说明排名加权了追更率/完读率。建议每章结尾用<b>"倒计时压迫"或"信息差悬念"</b>收尾（如"她还不知道，身后的脚印不是一个人的"），而非"日常收束"。参照Craft知识库的6个张力检查清单，确保每章至少命中2个。</li>
-    <li><b>在你的末世小说中预埋"轻喜剧支线"</b>。今日数据显示"轻喜剧末世"（末世？宅女舒适区）虽然今日下跌-7.1%，但其差异化定位仍有价值。建议在你的严肃末世主线中，安排一个<b>"吐槽系配角"或"反差日常"章节</b>（每10章1章），作为紧张情绪的调剂，吸引偏好轻松阅读的读者。</li>
-    <li><b>监控你的目标频道的集体下跌信号</b>。当科幻末世新书榜Top3连续3天集体下跌时（今日已是第2天），准备启动<b>"题材微调"</b>——在主线不变的前提下，引入新元素（如异能觉醒/阵营对抗/规则变化）重新激活读者兴趣。</li>
+    <li><b>给你的末世女主设计一个"每日刷新的生存任务系统"</b>。参照宿舍求生的"刷广告换升级"，建议设定如：<b>女主每天获得一个随机生存挑战</b>（如"今日必须找到3种可食用植物"），完成获得物资/能力奖励。活动循环型金手指的留存力远超一次性金手指。</li>
+    <li><b>设计一个可扩展的金手指系统，而非一次性空间</b>。今日新拆的别惹小祖宗用"位面交易系统"——不只"存"还能"换"，每次跨位面交易都是新爽点。建议《末世全明星赛》的金手指设计为<b>"可升级的多功能系统"</b>，每10-20万字解锁一个新功能模块。</li>
+    <li><b>在你的末世小说中预埋"团队护短"机制</b>。别惹小祖宗的"双大佬护妹"群像比无CP独狼更有张力。建议设计<b>多个角色各有护短理由</b>的群像结构——不只女主一个人强，而是一个"全家都超级护短"的团队。</li>
+    <li><b>🍅 番茄编辑视角：规划好推流节点×情节卡点重合</b>。番茄官方机制：8万字验证→10万字首秀→20万字书测→30万字改编。金手指升级应卡在<b>8万字（验证期大爽点）、16-18万字（首秀中段高潮防流失）、20万字（书测前阶段总结+新悬念）</b>。别惹小祖宗14万字激活位面商城是精准卡首秀中段的范例。务必保持日更——"更新不稳定会导致读者流失，影响数据"（番茄官网原文）。</li>
+    <li><b>监控你的目标频道的集体下跌信号</b>。当科幻末世新书榜Top3连续3天集体下跌时（今日已是第2天），准备启动<b>"题材微调"</b>——引入新元素重新激活读者兴趣。</li>
   </ol>
   <div class="pred">
-    <b>趋势预测</b><br>
-    ① 宿舍求生在读已反超极寒末世31%，若趋势持续3天，极有可能在明日15:00排名更新时登顶#1，届时"活动循环金手指"将正式取代"囤货金手指"成为科幻末世频道新标杆；② 游戏入侵周减-19.4%加速失血，若持续将跌出Top3，"捡垃圾流"热度见顶；③ 两榜整体衰退信号明确，下一波增长点可能在"轻喜剧末世"或"情绪流末世"（反派救赎向）。
+    <b>趋势预测</b>
+    <div class="tp"><b>近期（1周内）：</b>①宿舍求生存读反超极寒末世31%，明日15:00极可能登顶#1；②游戏入侵-19.4%若持续将跌出Top3；③两榜集体下跌若进入第3天则确认频道衰退</div>
+    <div class="tp"><b>中期（1-3个月）：</b>①"活动循环金手指"成为主流范式；②"位面商人"类跨位面交易系统可能成为新趋势；③轻喜剧末世和情绪流末世将分流囤货流读者</div>
+    <div class="tp"><b>长期（3-6个月）：</b>①"多系统叠加"将成为标配，单一空间金手指不再够用；②团宠+末世组合有上升空间；③有CP团宠向是新的蓝海方向</div>
   </div>
 </section>
 
 <div class="note">
   <p><b>2026-07-22（周三）</b> · Writer's Assistant 智能体 · 数据源：番茄小说官网女频新书榜（浏览器 MCP 抓取 __INITIAL_STATE__）· 历史对比：GitHub raw 前一天（07-21）与7天前（07-15）报告。</p>
-  <p><b>明日关注：</b>① 宿舍求生存读反超极寒末世后，明日15:00排名是否变动——若登顶#1将标志"活动循环金手指"正式取代"囤货金手指"；② 游戏入侵-19.4%周跌幅是否持续——若跌破3万在读将触发跌出Top3预警；③ 两榜集体下跌是否进入第3天——若是则确认频道衰退信号；④ 海上求生+4.2%是否延续逆势增长。</p>
-  <p><b>说明：</b>番茄小说存在字体级反爬，正文文字会被替换。前十章拆解基于可读片段+章节标题序列+简介综合还原，非逐字引用。在读增量数据由今日抓取值与昨日报告记录值相减得出。今日全部8本（含#4）与昨日一致，按规则"全部8本无变化→仅输出变化摘要+趋势表，不拆解"，跳过逐本8维度拆解。</p>
+  <p><b>明日关注：</b>① 宿舍求生存读反超极寒末世后，明日15:00排名是否变动；② 游戏入侵-19.4%周跌幅是否持续；③ 两榜集体下跌是否进入第3天；④ 新拆的别惹小祖宗14.7万字→16-18万字中段高潮是否到位。</p>
+  <p><b>说明：</b>番茄小说存在字体级反爬，正文文字会被替换。前十章拆解基于可读片段+章节标题序列+简介综合还原，非逐字引用。已拆过的书折叠展示（首次拆解数据沿用），新书完整8维度不折叠。</p>
 </div>
 
 </div>
