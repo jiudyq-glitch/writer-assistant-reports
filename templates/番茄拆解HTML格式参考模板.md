@@ -45,14 +45,40 @@
 
 ## 组件结构规范
 
-### 1. 编者按 (.editor)
+### 1. 编者按 (.editor) — 横排卡片 + 灰色折叠
+**结构：3张横排卡片（grid 3列），每张含标签+标题+bullet points+折叠more**
 ```html
-<section class="editor">
-  <h2>编者按 · 标题</h2>
-  <p class="lead">核心发现（15px，ink色）</p>
-  <p>解释文字（13.5px，ink-2色）</p>
+<section class="editor" id="编者按">
+  <h2>编者按 · 今日拆书要点</h2>
+  <div class="editor-cards">
+    <div class="ec-card">
+      <span class="ec-tag">频道名</span>
+      <div class="ec-title">核心发现标题</div>
+      <ul>
+        <li>要点1（12px，ink-2色）</li>
+        <li>要点2</li>
+        <li>要点3</li>
+      </ul>
+      <button class="ec-toggle" onclick="toggleEcMore('ec-more-1')">more</button>
+      <div class="ec-more" id="ec-more-1">
+        <ul>
+          <li>灰色补充信息（11.5px，muted色）</li>
+          <li><b>加粗关键字</b></li>
+        </ul>
+      </div>
+    </div>
+    <!-- 重复2-3张卡片 -->
+  </div>
+  <div class="pred">趋势预测...</div>
 </section>
 ```
+**CSS（已内嵌在模板CSS中）：**
+- `.editor-cards`：grid 3列，gap 12px
+- `.ec-card`：soft背景，line边框，radius-sm圆角
+- `.ec-tag`：10px，accent色，accent-soft背景
+- `.ec-title`：13px，ink色，font-weight 600
+- `.ec-more`：默认隐藏，`.open`时显示，11.5px灰色文字
+- 移动端：单列堆叠
 
 ### 2. 写作精进卡 (.skills)
 ```html
@@ -182,5 +208,7 @@
 - [ ] .chara 用 .surf + .core + .ar 结构
 - [ ] .sc-row 综合分有 accent-soft 背景
 - [ ] .skill 有 .n 水印数字 + .cat 徽章 + .t + .src + .ex
+- [ ] 编者按用横排卡片（.editor-cards > .ec-card），bullet points + 灰色折叠more
 - [ ] 折叠按钮和折叠区结构正确
+- [ ] 已拆书内容不简略，只折叠不删减
 - [ ] 隐藏JSON在文件末尾
